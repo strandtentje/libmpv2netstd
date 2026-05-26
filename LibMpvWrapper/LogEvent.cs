@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 namespace LibMpvWrapper
 {
     public delegate void LogEventHandler(object sender, LogEventArgs e);
-    public class LogEventArgs
+    public class LogEventArgs : EventArgs
     {
         public readonly mpv_log_level Level;
         public readonly string Prefix, Text;

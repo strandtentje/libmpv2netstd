@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 namespace LibMpvWrapper
 {
     public delegate void StartFileEventHandler(object sender, StartFileEventArgs e);
-    public class StartFileEventArgs
+    public class StartFileEventArgs : EventArgs
     {
         public readonly long PlaylistIndex;
         public StartFileEventArgs(long playlistIndex)

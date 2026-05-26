@@ -16,7 +16,7 @@ namespace LibMpvWrapper
             this.EventID = id;
             this.ErrorCode = errorCode;
         }
-        public static bool TryFail(this mpv_event evt, out ErrorEventArgs e)
+        public static bool TryFail(mpv_event evt, out ErrorEventArgs e)
         {
             if (evt.error >= 0) 
             {
@@ -30,7 +30,7 @@ namespace LibMpvWrapper
             }
             else
             {
-                e = new ErrorEventArgs(evt.event_id, evt.error);
+                e = new ErrorEventArgs(evt.event_id, (mpv_error)evt.error);
                 return true;
             }
         }

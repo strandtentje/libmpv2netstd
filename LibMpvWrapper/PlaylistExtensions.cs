@@ -50,7 +50,7 @@ namespace LibMpvWrapper
         {
             player.SendCommand("loadlist", file);
         }
-        public static void AppendPlaylist(this MpvPlayer player, string file)
+        public static void AppendAnoterhPlaylist(this MpvPlayer player, string file)
         {
             player.SendCommand("loadlist", file, "append", 
                 player.IdleAppendBehaviour);

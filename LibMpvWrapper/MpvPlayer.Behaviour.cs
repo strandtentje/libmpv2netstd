@@ -105,11 +105,17 @@ namespace LibMpvWrapper
 
         #region IDisposable Members
 
+        private readonly object DisposeLock = new object();
+
         public void Dispose()
         {
-            this.IsDisposed = true;
-            mpv_events.mpv_wakeup();
-            mpv_initial.mpv_terminate_destroy(this.Handle);
+            lock (DisposeLock)
+            {
+                if (this.IsDisposed) return;
+                this.IsDisposed = true;
+            }
+            mpv_events.mpv_wakeup(this);
+            mpv_initial.mpv_terminate_destroy(this);
         }
 
         #endregion

@@ -13,7 +13,7 @@ namespace libmpv2net
     [StructLayout(LayoutKind.Sequential)]
     public struct mpv_node_unknown
     {
-        public IntPtr AnyData;
+        public mpv_node_pointer AnyData;
         public mpv_format Format;
     }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Runtime.InteropServices;
 
-namespace libmpv2net.Complex
+namespace libmpv2net
 {
     /// <summary>
     /// Works like mpv_node_list and is natively implemented 

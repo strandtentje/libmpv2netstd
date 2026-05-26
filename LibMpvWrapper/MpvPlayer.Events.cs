@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using libmpv2net;
+using libmpv2net.Functions;
 
 namespace LibMpvWrapper
 {
@@ -38,15 +39,6 @@ namespace LibMpvWrapper
                 case mpv_event_id.LogMessage:
                     IngestLogEvent(evt);
                     break;
-                case mpv_event_id.GetPropertyReply:
-                    // no async
-                    break;
-                case mpv_event_id.SetPropertyReply:
-                    // no async
-                    break;
-                case mpv_event_id.CommandReply:
-                    // no async
-                    break;
                 case mpv_event_id.StartFile:
                     IngestStartFile(evt);
                     break;
@@ -58,18 +50,9 @@ namespace LibMpvWrapper
                     break;
                 case mpv_event_id.Idle:
                     IngestIdle(evt);
-                    break;
-                case mpv_event_id.Tick:
-                    // no tick
-                    break;
-                case mpv_event_id.ClientMessage:
-                    IngestClientMessage(evt);
-                    break;
+                    break;                
                 case mpv_event_id.VideoReconfig:
                     IngestVideoReconfig(evt);
-                    break;
-                case mpv_event_id.AudioReconfig:
-                    IngestAudioReconfig(evt);
                     break;
                 case mpv_event_id.Seek:
                     IngestSeek(evt);
@@ -81,10 +64,19 @@ namespace LibMpvWrapper
                     IngestPropertyChange(evt);
                     break;
                 case mpv_event_id.QueueOverflow:
-                    // whatever
+                    Console.Error.WriteLine("MPV Queue Overflow!");
+                    break;
+                case mpv_event_id.AudioReconfig:
+                    // this shouldn't really happen
+                    Console.Error.WriteLine("Audio Reconfig for some reason.");
                     break;
                 case mpv_event_id.Hook:
-                    // we don't hook
+                case mpv_event_id.Tick:
+                case mpv_event_id.GetPropertyReply:
+                case mpv_event_id.SetPropertyReply:
+                case mpv_event_id.CommandReply:
+                case mpv_event_id.ClientMessage:
+                    // unused features
                     break;
                 default:
                     break;
@@ -110,63 +102,134 @@ namespace LibMpvWrapper
             }
         }
 
+        public event PropertyChangeEventHandler PropertyChanged;
         private void IngestPropertyChange(mpv_event evt)
         {
-            throw new NotImplementedException();
+            if (PropertyChanged == null)
+                return;
+
+            var e = PropertyChangeEventArgs.From(evt);
+
+            ThreadPool.QueueUserWorkItem(_ =>
+            {
+                PropertyChanged.Invoke(this, e);
+            });
         }
 
+        public event EventHandler PlaybackRestart;
         private void IngestPlaybackRestart(mpv_event evt)
         {
-            throw new NotImplementedException();
+            if (PlaybackRestart == null)
+                return;
+            ThreadPool.QueueUserWorkItem(_ =>
+            {
+                PlaybackRestart.Invoke(this, EventArgs.Empty);
+            });
         }
 
+        public event EventHandler Seek;
         private void IngestSeek(mpv_event evt)
         {
-            throw new NotImplementedException();
+            if (Seek == null)
+                return;
+            ThreadPool.QueueUserWorkItem(_ =>
+            {
+                Seek.Invoke(this, EventArgs.Empty);
+            });
         }
 
-        private void IngestAudioReconfig(mpv_event evt)
-        {
-            throw new NotImplementedException();
-        }
-
+        public event EventHandler VideoReconfig;
         private void IngestVideoReconfig(mpv_event evt)
         {
-            throw new NotImplementedException();
+            if (VideoReconfig == null)
+                return;
+            ThreadPool.QueueUserWorkItem(_ =>
+            {
+                VideoReconfig.Invoke(this, EventArgs.Empty);
+            });
         }
 
-        private void IngestClientMessage(mpv_event evt)
-        {
-            throw new NotImplementedException();
-        }
-
+        public event EventHandler Idle;
         private void IngestIdle(mpv_event evt)
         {
-            throw new NotImplementedException();
+            if (Idle == null)
+                return;
+            ThreadPool.QueueUserWorkItem(_ =>
+            {
+                Idle.Invoke(this, EventArgs.Empty);
+            });
         }
 
+        public event EventHandler FileLoaded;
         private void IngestFileLoaded(mpv_event evt)
         {
-            throw new NotImplementedException();
+            if (FileLoaded == null)
+                return;
+            ThreadPool.QueueUserWorkItem(_ =>
+            {
+                FileLoaded.Invoke(this, EventArgs.Empty);
+            });
         }
 
+        public event EndFileEventHandler EndOfFile, Stopped, Quit, FileError, Redirect;
         private void IngestEndFile(mpv_event evt)
         {
-            throw new NotImplementedException();
+            mpv_end_file_reason reason;
+            var e = EndFileEventArgs.From(evt, out reason);
+            ThreadPool.QueueUserWorkItem(_ =>
+            {
+                switch (reason)
+                {
+                    case mpv_end_file_reason.Eof:
+                        if (EndOfFile != null)
+                            EndOfFile.Invoke(this, e);
+                        break;
+                    case mpv_end_file_reason.Stop:
+                        if (Stopped != null)
+                            Stopped.Invoke(this, e);
+                        break;
+                    case mpv_end_file_reason.Quit:
+                        if (Quit != null)
+                            Quit.Invoke(this, e);
+                        Dispose();
+                        break;
+                    case mpv_end_file_reason.Error:
+                        if (FileError != null)
+                            FileError.Invoke(this, e);
+                        break;
+                    case mpv_end_file_reason.Redirect:
+                        if (Redirect != null)
+                            Redirect.Invoke(this, e);
+                        break;
+                    default:
+                        break;
+                }
+            });            
         }
 
         public event StartFileEventHandler StartFile;
         private void IngestStartFile(mpv_event evt)
         {
-            if (StartFile != null)
-                StartFile.Invoke(this, StartFileEventArgs.From(evt));            
+            if (StartFile == null)
+                return;
+
+            var e = StartFileEventArgs.From(evt);
+            ThreadPool.QueueUserWorkItem(_ =>
+            {
+                StartFile.Invoke(this, e);
+            });
         }
 
         public event LogEventHandler Log;
         private void IngestLogEvent(mpv_event evt)
         {
-            if (Log != null)
-                Log.Invoke(this, LogEventArgs.From(evt));
+            if (Log == null)
+                return;
+            var e = LogEventArgs.From(evt);
+            ThreadPool.QueueUserWorkItem(_ =>
+            {
+                Log.Invoke(this, e);
+            });
         }
 
     }

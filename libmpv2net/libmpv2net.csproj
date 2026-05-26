@@ -81,6 +81,7 @@
     <Compile Include="Data\mpv_node_string.cs" />
     <Compile Include="Data\mpv_node_unknown.cs" />
     <Compile Include="Results\mpv_command_results.cs" />
+    <Compile Include="Results\mpv_data_extensions.cs" />
     <Compile Include="Results\mpv_event_results.cs" />
     <Compile Include="Results\mpv_initial_results.cs" />
     <Compile Include="Results\mpv_option_results.cs" />
