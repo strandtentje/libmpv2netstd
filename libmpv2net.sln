@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual C# Express 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "libmpv2net", "libmpv2net\libmpv2net.csproj", "{C0DEA6D8-C05D-40B9-8F48-CF1F63C1734A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibMpvWrapper", "LibMpvWrapper\LibMpvWrapper.csproj", "{530F126B-8E31-47D8-AA8A-C4A76764ED83}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C0DEA6D8-C05D-40B9-8F48-CF1F63C1734A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0DEA6D8-C05D-40B9-8F48-CF1F63C1734A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0DEA6D8-C05D-40B9-8F48-CF1F63C1734A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0DEA6D8-C05D-40B9-8F48-CF1F63C1734A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{530F126B-8E31-47D8-AA8A-C4A76764ED83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{530F126B-8E31-47D8-AA8A-C4A76764ED83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{530F126B-8E31-47D8-AA8A-C4A76764ED83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{530F126B-8E31-47D8-AA8A-C4A76764ED83}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
