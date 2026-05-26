@@ -63,7 +63,7 @@ namespace libmpv2net
         /// <returns></returns>
         [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.LPStruct)]
-        public static extern mpv_wait_event_result mpv_wait_event(
+        public static extern mpv_event mpv_wait_event(
             mpv_handle ctx, double timeout);
         
         /// <summary>

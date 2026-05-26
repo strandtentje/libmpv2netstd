@@ -8,21 +8,18 @@ namespace LibMpvWrapper
     public static class LifecycleExtensions
     {
         public static string AsKeepOpenArg(
-            this Lifecycle cycle)
+            this PlaylistLifecycle cycle)
         {
             switch (cycle)
             {
-                case Lifecycle.CloseAfterEnd:
+                case PlaylistLifecycle.CloseAfterEnd:
                     return "no";
-                    break;
-                case Lifecycle.DontAutoplay:
+                case PlaylistLifecycle.DontAutoplay:
                     return "always";
-                    break;
-                case Lifecycle.PauseAfterEnd:
-                    return "yes";
-                    break;
+                case PlaylistLifecycle.PauseAfterEnd:
+                    return "yes";                    
                 default:
-                    break;
+                    throw new ArgumentException("unknown lifecycle param", "cycle");
             }
         }
     }

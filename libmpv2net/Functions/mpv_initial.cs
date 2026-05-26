@@ -23,7 +23,7 @@ namespace libmpv2net.Functions
         /// </summary>
         /// <returns></returns>
         [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
-        public static extern mpv_create_result mpv_create();
+        public static extern mpv_handle mpv_create();
 
         /// <summary>
         /// This must also be called, after mpv_create, to actually start up

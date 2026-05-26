@@ -30,7 +30,7 @@ namespace libmpv2net.Functions
         /// <returns></returns>
         [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern mpv_set_option_result mpv_set_option(
-            mpv_handle ctx, [MarshalAs(UnmanagedType.LPStr)] string name,
+            mpv_handle ctx, mpv_option_name name,
             mpv_format format, mpv_node_pointer data);
 
         /// <summary>
@@ -44,13 +44,7 @@ namespace libmpv2net.Functions
         /// <returns></returns>
         [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern mpv_set_option_result mpv_set_option(
-            mpv_handle ctx, [MarshalAs(UnmanagedType.LPStr)] string name,
-            mpv_format format, long data);
-
-        [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
-        public static extern mpv_set_option_result mpv_set_option(
-            mpv_handle ctx, mpv_option_name name,
-            mpv_format format, long data);
+            mpv_handle ctx, mpv_option_name name, mpv_format format, long data);
 
         /// <summary>
         /// Set option you'd otherwise set via the config file, 
@@ -63,7 +57,7 @@ namespace libmpv2net.Functions
         /// <returns></returns>
         [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern mpv_set_option_result mpv_set_option(
-            mpv_handle ctx, [MarshalAs(UnmanagedType.LPStr)] string name,
+            mpv_handle ctx, mpv_option_name name,
             mpv_format format, [MarshalAs(UnmanagedType.LPStr)] string data);
 
         /// <summary>
@@ -76,7 +70,7 @@ namespace libmpv2net.Functions
         /// <returns></returns>
         [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern mpv_set_option_string_result mpv_set_option_string(
-            mpv_handle ctx, [MarshalAs(UnmanagedType.LPStr)] string name,
+            mpv_handle ctx, mpv_option_name name,
             [MarshalAs(UnmanagedType.LPStr)] string data);
     }
 }

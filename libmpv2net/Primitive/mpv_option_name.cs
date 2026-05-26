@@ -19,6 +19,7 @@ namespace libmpv2net
 
         public static mpv_option_name 
             ParentWindowID = new mpv_option_name("wid"),
-            KeepOpen = new mpv_option_name("keep-open");
+            KeepOpen = new mpv_option_name("keep-open"),
+            Idle = new mpv_option_name("idle");
     }
 }

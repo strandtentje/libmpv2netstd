@@ -8,7 +8,7 @@ namespace LibMpvWrapper
     /// <summary>
     /// When to advance and terminate the mpv session
     /// </summary>
-    public enum Lifecycle
+    public enum PlaylistLifecycle
     {
         /// <summary>
         /// When the playlist has run out and playback has stopped,

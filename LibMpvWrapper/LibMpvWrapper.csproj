@@ -45,9 +45,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="ErrorEvent.cs" />
+    <Compile Include="GeneralExtensions.cs" />
+    <Compile Include="LogEvent.cs" />
+    <Compile Include="MpvPlayer.Events.cs" />
+    <Compile Include="MpvPlayerFactory.cs" />
     <Compile Include="Lifecycle.cs" />
     <Compile Include="LifeCycleExtensions.cs" />
+    <Compile Include="MpvPlayer.Behaviour.cs" />
+    <Compile Include="MpvPlayerFactorySpentException.cs" />
+    <Compile Include="StartFileEvent.cs" />
+    <Compile Include="TransportExtensions.cs" />
+    <Compile Include="PlaylistExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
