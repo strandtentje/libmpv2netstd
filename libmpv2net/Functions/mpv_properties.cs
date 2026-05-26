@@ -14,6 +14,21 @@ namespace libmpv2net.Functions
             mpv_node_pointer data);
 
         [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern mpv_set_property_result mpv_set_property(mpv_handle ctx,
+            [MarshalAs(UnmanagedType.LPStr)] string name, mpv_format format,
+            double data);
+
+        [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern mpv_set_property_result mpv_set_property(mpv_handle ctx,
+            [MarshalAs(UnmanagedType.LPStr)] string name, mpv_format format,
+            long data);
+
+        [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern mpv_set_property_result mpv_set_property(mpv_handle ctx,
+            [MarshalAs(UnmanagedType.LPStr)] string name, mpv_format format,
+            [MarshalAs(UnmanagedType.Bool)] bool data);
+
+        [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern mpv_set_property_string_result 
             mpv_set_property_string(mpv_handle ctx,
             [MarshalAs(UnmanagedType.LPStr)] string name,
@@ -31,8 +46,26 @@ namespace libmpv2net.Functions
 
         [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern mpv_get_property_result mpv_get_property(
-            mpv_handle ctx, [MarshalAs(UnmanagedType.LPStr)] string name, 
+            mpv_handle ctx, [MarshalAs(UnmanagedType.LPStr)] string name,
             mpv_format format, mpv_node_pointer data);
+
+        [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern mpv_get_property_result mpv_get_property(
+            mpv_handle ctx, [MarshalAs(UnmanagedType.LPStr)] string name,
+            mpv_format format,
+            ref double dbl);
+
+        [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern mpv_get_property_result mpv_get_property(
+            mpv_handle ctx, [MarshalAs(UnmanagedType.LPStr)] string name,
+            mpv_format format,
+            ref long int64);
+
+        [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern mpv_get_property_result mpv_get_property(
+            mpv_handle ctx, [MarshalAs(UnmanagedType.LPStr)] string name,
+            mpv_format format,
+            [MarshalAs(UnmanagedType.Bool)] ref bool dbl);
 
         [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.LPStr)]
