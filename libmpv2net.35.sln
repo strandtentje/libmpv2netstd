@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual C# Express 2008
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "libmpv2net", "libmpv2net\libmpv2net.csproj", "{C0DEA6D8-C05D-40B9-8F48-CF1F63C1734A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "libmpv2net", "libmpv2net\libmpv2net.35.csproj", "{C0DEA6D8-C05D-40B9-8F48-CF1F63C1734A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibMpvWrapper", "LibMpvWrapper\LibMpvWrapper.csproj", "{530F126B-8E31-47D8-AA8A-C4A76764ED83}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibMpvWrapper", "LibMpvWrapper\LibMpvWrapper.35.csproj", "{530F126B-8E31-47D8-AA8A-C4A76764ED83}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
