@@ -36,5 +36,11 @@ namespace mpvtest
         {
 
         }
+
+        public new void Dispose()
+        {
+            base.Dispose();
+            this.Player.Dispose();
+        }
     }
 }
