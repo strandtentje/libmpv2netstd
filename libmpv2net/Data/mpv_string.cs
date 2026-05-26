@@ -13,7 +13,7 @@ namespace libmpv2net
     /// </summary>
     public struct mpv_string
     {
-        [MarshalAs(UnmanagedType.LPStr)]
+        [MarshalAs(UnmanagedType.LPUTF8Str)]
         public string value;
 
         public static mpv_string[] Create(params object[] args)

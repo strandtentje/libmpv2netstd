@@ -26,7 +26,7 @@ namespace LibMpvWrapper
                 WatchedProperties[name] = watchNumber;
 
                 mpv_properties.
-                    mpv_observe_property(this, watchNumber, name, fmt).
+                    mpv_observe_property(this, watchNumber, ref name, fmt).
                     Assert(watchNumber, name, fmt);
             }
         }

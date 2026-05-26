@@ -14,8 +14,9 @@ namespace LibMpvWrapper
         {
             get
             {
+                string s = "filename";
                 return mpv_properties.mpv_get_property_string(
-                    this, "filename");
+                    this, ref s);
             }
         }
 
@@ -23,8 +24,9 @@ namespace LibMpvWrapper
         {
             get
             {
+                string s = "path";
                 return mpv_properties.mpv_get_property_string(
-                    this, "path");
+                    this, ref s);
             }
         }
 
@@ -32,8 +34,9 @@ namespace LibMpvWrapper
         {
             get
             {
+                string s = "media-title";
                 return mpv_properties.mpv_get_property_string(
-                    this, "media-title");
+                    this, ref s);
             }
         }
 
@@ -42,9 +45,9 @@ namespace LibMpvWrapper
             get
             {
                 double val = 0;
-
+                string s = "duration";
                 mpv_properties.mpv_get_property(
-                    this, "duration", 
+                    this, ref s, 
                     libmpv2net.mpv_format.Double, 
                     ref val).Assert();
 
@@ -57,17 +60,17 @@ namespace LibMpvWrapper
             get
             {
                 double val = 0;
-
+                string s = "percent-pos";
                 mpv_properties.mpv_get_property(
-                    this, "percent-pos", mpv_format.Double,
+                    this, ref s, mpv_format.Double,
                     ref val).Assert();
-
                 return val;
             }
             set
             {
+                string s = "percent-pos";
                 mpv_properties.mpv_set_property(
-                    this, "percent-pos", mpv_format.Double,
+                    this, ref s, mpv_format.Double,
                     value).Assert();                    
             }
         }
@@ -77,17 +80,18 @@ namespace LibMpvWrapper
             get
             {
                 double val = 0;
-
+                string s = "time-pos";
                 mpv_properties.mpv_get_property(
-                    this, "time-pos", mpv_format.Double,
+                    this, ref s, mpv_format.Double,
                     ref val).Assert();
 
                 return val;
             }
             set
             {
+                string s = "time-pos";
                 mpv_properties.mpv_set_property(
-                    this, "time-pos", mpv_format.Double,
+                    this, ref s, mpv_format.Double,
                     value).Assert();
             }
         }
@@ -96,9 +100,10 @@ namespace LibMpvWrapper
         {
             get
             {
+                string s = "idle-active";
                 bool isIdle = false;
                 mpv_properties.mpv_get_property(
-                    this, "idle-active", mpv_format.BoolFlag,
+                    this, ref s, mpv_format.BoolFlag,
                     ref isIdle).Assert();
                 return isIdle;
             }
@@ -108,9 +113,10 @@ namespace LibMpvWrapper
         {
             get
             {
+                string s = "eof-reached";
                 bool isEof = false;
                 mpv_properties.mpv_get_property(
-                    this, "eof-reached", mpv_format.BoolFlag,
+                    this, ref s, mpv_format.BoolFlag,
                     ref isEof).Assert();
                 return isEof;
             }
@@ -121,14 +127,16 @@ namespace LibMpvWrapper
             get
             {
                 long pos = 0;
+                string s = "playlist-pos";
                 mpv_properties.mpv_get_property(
-                    this, "playlist-pos", mpv_format.Long, ref pos).Assert();
+                    this, ref s, mpv_format.Long, ref pos).Assert();
                 return pos;
             }
             set
             {
+                string s = "playlist-pos";
                 mpv_properties.mpv_set_property(
-                    this, "playlist-pos", mpv_format.Long, value).Assert();
+                    this, ref s, mpv_format.Long, value).Assert();
             }
         }
 
@@ -137,8 +145,9 @@ namespace LibMpvWrapper
             get
             {
                 long pos = 0;
+                string s = "playlist-playing-pos";
                 mpv_properties.mpv_get_property(
-                    this, "playlist-playing-pos", mpv_format.Long, ref pos).Assert();
+                    this, ref s, mpv_format.Long, ref pos).Assert();
                 return pos;
             }
         }
@@ -148,8 +157,9 @@ namespace LibMpvWrapper
             get
             {
                 long pos = 0;
+                string s = "playlist-count";
                 mpv_properties.mpv_get_property(
-                    this, "playlist-count", mpv_format.Long, ref pos).Assert();
+                    this, ref s, mpv_format.Long, ref pos).Assert();
                 return pos;
             }
         }
@@ -161,8 +171,9 @@ namespace LibMpvWrapper
                 string[] files = new string[PlaylistCount];
                 for (int i = 0; i < files.Length; i++)
                 {
+                    string s = string.Format("playlist/{0}/filename", i);
                     files[i] = mpv_properties.mpv_get_property_string(
-                        this, string.Format("playlist/{0}/filename", i));
+                        this, ref s);
                 }
                 return files;
             }
@@ -173,14 +184,16 @@ namespace LibMpvWrapper
             get
             {
                 bool isRepeat = false;
+                string s = "loop-file";
                 mpv_properties.mpv_get_property(
-                    this, "loop-file", mpv_format.BoolFlag, ref isRepeat).Assert();
+                    this, ref s, mpv_format.BoolFlag, ref isRepeat).Assert();
                 return isRepeat;
             }
             set
             {
+                string s = "loop-file";
                 mpv_properties.mpv_set_property(
-                    this, "loop-file", mpv_format.BoolFlag, value).Assert();
+                    this, ref s, mpv_format.BoolFlag, value).Assert();
             }
         }
 
@@ -189,15 +202,17 @@ namespace LibMpvWrapper
             get
             {
                 bool isRepeat = false;
+                var s = "loop-playlist";
                 mpv_properties.mpv_get_property(
-                    this, "loop-playlist", mpv_format.BoolFlag, 
+                    this, ref s, mpv_format.BoolFlag, 
                     ref isRepeat).Assert();
                 return isRepeat;
             }
             set
             {
+                var s = "loop-playlist";
                 mpv_properties.mpv_set_property(
-                    this, "loop-playlist", mpv_format.BoolFlag, 
+                    this, ref s, mpv_format.BoolFlag, 
                     value).Assert();
             }
         }

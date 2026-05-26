@@ -15,7 +15,7 @@ namespace libmpv2net
         /// <param name="event_id">Event ID</param>
         /// <returns></returns>
         [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
+        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
         public static extern string mpv_event_name(mpv_event_id event_id);
         
         /// <summary>
@@ -52,7 +52,7 @@ namespace libmpv2net
         [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern mpv_request_log_messages_result 
             mpv_request_log_messages(mpv_handle ctx, 
-            [MarshalAs(UnmanagedType.LPStr)] string min_level);
+            [MarshalAs(UnmanagedType.LPUTF8Str)] ref string min_level);
 
         /// <summary>
         /// Wait or poll for the next incoming event synchronously.
@@ -61,9 +61,8 @@ namespace libmpv2net
         /// <param name="timeout">0 to just pop an event, or higher
         /// to block a bit until the event comes in.</param>
         /// <returns></returns>
-        [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStruct)]
-        public static extern mpv_event mpv_wait_event(
+        [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]        
+        public static extern IntPtr mpv_wait_event(
             mpv_handle ctx, double timeout);
         
         /// <summary>

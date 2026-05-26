@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using libmpv2net;
@@ -19,7 +20,10 @@ namespace LibMpvWrapper
         {
             while (!this.IsDisposed)
             {
-                var evt = mpv_events.mpv_wait_event(this, 0.3);
+                var evtPtr = mpv_events.mpv_wait_event(this, 0.3);
+                          
+                var evt = Marshal.PtrToStructure<mpv_event>(evtPtr);
+
                 DiscriminateEvent(evt);
             }
         }

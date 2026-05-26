@@ -60,7 +60,7 @@ namespace libmpv2net.Functions
         /// <returns></returns>
         [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern mpv_command_string_result mpv_command_string(
-            mpv_handle ctx, [MarshalAs(UnmanagedType.LPStr)] string args);
+            mpv_handle ctx, [MarshalAs(UnmanagedType.LPUTF8Str)] ref string args);
 
         /// <summary>
         /// Works like mpv_command, but doesn't block, instead posting

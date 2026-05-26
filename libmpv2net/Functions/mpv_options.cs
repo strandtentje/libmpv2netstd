@@ -17,7 +17,7 @@ namespace libmpv2net.Functions
         [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern mpv_load_config_file_result
             mpv_load_config_file(mpv_handle handle,
-            [MarshalAs(UnmanagedType.LPStr)] string filename);
+            [MarshalAs(UnmanagedType.LPUTF8Str)] ref string filename);
 
         /// <summary>
         /// Set option you'd otherwise set via the config file, 
@@ -44,7 +44,7 @@ namespace libmpv2net.Functions
         /// <returns></returns>
         [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern mpv_set_option_result mpv_set_option(
-            mpv_handle ctx, mpv_option_name name, mpv_format format, long data);
+            mpv_handle ctx, mpv_option_name name, mpv_format format, ref long data);
 
         /// <summary>
         /// Set option you'd otherwise set via the config file, 
@@ -58,7 +58,7 @@ namespace libmpv2net.Functions
         [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern mpv_set_option_result mpv_set_option(
             mpv_handle ctx, mpv_option_name name,
-            mpv_format format, [MarshalAs(UnmanagedType.LPStr)] string data);
+            mpv_format format, [MarshalAs(UnmanagedType.LPUTF8Str)] ref string data);
 
         /// <summary>
         /// Like mpv_set_option, but uses strings and automatic parsing.
@@ -71,6 +71,6 @@ namespace libmpv2net.Functions
         [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern mpv_set_option_string_result mpv_set_option_string(
             mpv_handle ctx, mpv_option_name name,
-            [MarshalAs(UnmanagedType.LPStr)] string data);
+            [MarshalAs(UnmanagedType.LPUTF8Str)] ref string data);
     }
 }

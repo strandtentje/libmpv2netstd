@@ -13,17 +13,17 @@ namespace libmpv2net
     [StructLayout(LayoutKind.Sequential)]
     public struct mpv_event_log_message
     {
-        [MarshalAs(UnmanagedType.LPStr)]
+        [MarshalAs(UnmanagedType.LPUTF8Str)]
         public string prefix;
         /// <summary>
         /// no, error, fatal, warn, info, v, debug, trace.
         /// </summary>
-        [MarshalAs(UnmanagedType.LPStr)]
+        [MarshalAs(UnmanagedType.LPUTF8Str)]
         public string level_str;
         /// <summary>
         /// Message text.
         /// </summary>
-        [MarshalAs(UnmanagedType.LPStr)]
+        [MarshalAs(UnmanagedType.LPUTF8Str)]
         public string text;
         /// <summary>
         /// Like level_str but using the enum.

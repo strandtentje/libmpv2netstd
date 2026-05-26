@@ -24,8 +24,9 @@ namespace LibMpvWrapper
             if (!configFile.Exists)
                 throw new FileNotFoundException();
             this.Handle = mpv_initial.mpv_create();
+            string s = configFile.FullName;
             mpv_options.
-                mpv_load_config_file(this.Handle, configFile.FullName).
+                mpv_load_config_file(this.Handle, ref s).
                 Assert(configFile);
         }
 
@@ -44,17 +45,18 @@ namespace LibMpvWrapper
 
             mpv_options.
                 mpv_set_option(this.Handle, mpv_option_name.KeepOpen,
-                mpv_format.String, keepOpen).Assert("keep-open", keepOpen);
+                mpv_format.String, ref keepOpen).Assert("keep-open", keepOpen);
 
+            string s = "yes";
             mpv_options.
                 mpv_set_option(this.Handle, mpv_option_name.Idle,
-                mpv_format.String, "yes").Assert("idle", "yes");
+                mpv_format.String, ref s).Assert("idle", "yes");
 
             var longParent = parent.ToInt64();
 
             mpv_options.
                 mpv_set_option(this.Handle, mpv_option_name.ParentWindowID,
-                mpv_format.Long, longParent).Assert("wid", longParent);
+                mpv_format.Long, ref longParent).Assert("wid", longParent);
 
             mpv_initial.mpv_initialize(this.Handle).Assert();
 

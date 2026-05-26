@@ -14,7 +14,7 @@ namespace libmpv2net
             this.name = name;
         }
 
-        [MarshalAs(UnmanagedType.LPStr)]
+        [MarshalAs(UnmanagedType.LPUTF8Str)]
         public string name;
 
         public static mpv_option_name 

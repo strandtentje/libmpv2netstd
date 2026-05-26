@@ -1,9 +1,13 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual C# Express 2008
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 18
+VisualStudioVersion = 18.6.11819.183 stable
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "libmpv2net", "libmpv2net\libmpv2net.csproj", "{C0DEA6D8-C05D-40B9-8F48-CF1F63C1734A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibMpvWrapper", "LibMpvWrapper\LibMpvWrapper.csproj", "{530F126B-8E31-47D8-AA8A-C4A76764ED83}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mpvtest", "mpvtest\mpvtest.csproj", "{4B95F1A0-028E-4C53-BA78-396D86812A04}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,8 +23,15 @@ Global
 		{530F126B-8E31-47D8-AA8A-C4A76764ED83}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{530F126B-8E31-47D8-AA8A-C4A76764ED83}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{530F126B-8E31-47D8-AA8A-C4A76764ED83}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B95F1A0-028E-4C53-BA78-396D86812A04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B95F1A0-028E-4C53-BA78-396D86812A04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B95F1A0-028E-4C53-BA78-396D86812A04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B95F1A0-028E-4C53-BA78-396D86812A04}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BF7B464F-E4FC-4F54-B596-532AB9EF64F9}
 	EndGlobalSection
 EndGlobal

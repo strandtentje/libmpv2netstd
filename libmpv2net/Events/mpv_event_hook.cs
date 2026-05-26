@@ -12,7 +12,7 @@ namespace libmpv2net
     [StructLayout(LayoutKind.Sequential)]
     public struct mpv_event_hook
     {
-        [MarshalAs(UnmanagedType.LPStr)]
+        [MarshalAs(UnmanagedType.LPUTF8Str)]
         public string name;
         ulong id;
     }

@@ -56,6 +56,6 @@ namespace libmpv2net.Functions
         /// <returns></returns>
         [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern mpv_handle mpv_create_client(mpv_handle handle, 
-            [MarshalAs(UnmanagedType.LPStr)] string name);
+            [MarshalAs(UnmanagedType.LPUTF8Str)] ref string name);
     }
 }

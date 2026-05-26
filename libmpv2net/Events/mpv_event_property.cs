@@ -15,7 +15,7 @@ namespace libmpv2net
         /// <summary>
         /// Name of the property we just received
         /// </summary>
-        [MarshalAs(UnmanagedType.LPStr)]
+        [MarshalAs(UnmanagedType.LPUTF8Str)]
         public string name;
         /// <summary>
         /// format; thought data is mpv_node_pointer for ease, 

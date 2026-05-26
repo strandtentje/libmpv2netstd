@@ -13,7 +13,7 @@ namespace libmpv2net
     [StructLayout(LayoutKind.Sequential)]
     public struct mpv_node_string
     {
-        [MarshalAs(UnmanagedType.LPStr)]
+        [MarshalAs(UnmanagedType.LPUTF8Str)]
         public string data;
         public mpv_format format;   
     }
