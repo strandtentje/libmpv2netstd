@@ -70,16 +70,20 @@
     <Compile Include="Events\StartFileEvent.cs" />
     <Compile Include="Extensions\TransportExtensions.cs" />
     <Compile Include="Extensions\PlaylistExtensions.cs" />
+    <Compile Include="PlaylistMember.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\libmpv2net\libmpv2net.csproj">
-      <Project>{C0DEA6D8-C05D-40B9-8F48-CF1F63C1734A}</Project>
-      <Name>libmpv2net</Name>
-    </ProjectReference>
+    <Compile Include="MpvPlayer.Properties.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MpvPlayer.Properties.cs" />
+    <Compile Include="MpvPlayer.PropertyEvents.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\libmpv2net\libmpv2net.csproj">
+      <Project>{c0dea6d8-c05d-40b9-8f48-cf1f63c1734a}</Project>
+      <Name>libmpv2net</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

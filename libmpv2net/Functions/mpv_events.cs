@@ -27,7 +27,8 @@ namespace libmpv2net
         /// <returns></returns>
         [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern mpv_event_to_node_result mpv_event_to_node(
-            mpv_node_pointer dst, [MarshalAs(UnmanagedType.LPStruct)] mpv_event src);
+            IntPtr ptr_to_result_node, 
+            IntPtr ptr_to_event_node);
 
         /// <summary>
         /// Explicitly enable or disable a particular event.
@@ -39,8 +40,7 @@ namespace libmpv2net
         /// <returns></returns>
         [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern mpv_request_event_result mpv_request_event(
-            mpv_handle ctx, mpv_event_id event_id, 
-            [MarshalAs(UnmanagedType.Bool)] bool enable);
+            mpv_handle ctx, mpv_event_id event_id, int enable);
         
         /// <summary>
         /// Enable, disable or configure mpv directly complaining into 
@@ -51,8 +51,9 @@ namespace libmpv2net
         /// <returns></returns>
         [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern mpv_request_log_messages_result 
-            mpv_request_log_messages(mpv_handle ctx, 
-            [MarshalAs(UnmanagedType.LPUTF8Str)] ref string min_level);
+            mpv_request_log_messages(
+            mpv_handle ctx, 
+            IntPtr min_log_lvl_str_ptr);
 
         /// <summary>
         /// Wait or poll for the next incoming event synchronously.

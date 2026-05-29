@@ -46,16 +46,52 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="CueControls.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="CueControls.Designer.cs">
+      <DependentUpon>CueControls.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PlaylistControls.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PlaylistControls.Designer.cs">
+      <DependentUpon>PlaylistControls.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StatusView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StatusView.Designer.cs">
+      <DependentUpon>StatusView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TransportControls.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TransportControls.Designer.cs">
+      <DependentUpon>TransportControls.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VideoWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VideoWindow.Designer.cs">
+      <DependentUpon>VideoWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="CueControls.resx">
+      <DependentUpon>CueControls.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PlaylistControls.resx">
+      <DependentUpon>PlaylistControls.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StatusView.resx">
+      <DependentUpon>StatusView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TransportControls.resx">
+      <DependentUpon>TransportControls.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VideoWindow.resx">
+      <DependentUpon>VideoWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

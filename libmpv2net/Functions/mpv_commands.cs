@@ -16,7 +16,31 @@ namespace libmpv2net.Functions
         /// <returns></returns>
         [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern mpv_command_result mpv_command(
-            mpv_handle ctx, [MarshalAs(UnmanagedType.LPArray)] mpv_string[] args);
+            mpv_handle ctx, IntPtr args_str_arr);
+
+        public static void mpv_command(mpv_handle ctx, params object[] argObjs)
+        {
+            var args = argObjs.OfType<string>().ToArray();
+            IntPtr stringArrayPtr = Marshal.AllocHGlobal(IntPtr.Size * (args.Length + 1));
+            IntPtr[] stringPtrArray = new IntPtr[args.Length];
+            for (int i = 0; i < args.Length; i++)
+            {
+                stringPtrArray[i] = args[i].ToMemory();
+                Marshal.WriteIntPtr(stringArrayPtr, IntPtr.Size * i, 
+                    stringPtrArray[i]);
+            }
+            Marshal.WriteIntPtr(stringArrayPtr, IntPtr.Size * args.Length, IntPtr.Zero);
+            try
+            {
+                mpv_command(ctx, stringArrayPtr).Assert(args);
+            }
+            finally
+            {
+                foreach (var item in stringPtrArray)
+                    Marshal.FreeHGlobal(item);
+                Marshal.FreeHGlobal(stringArrayPtr);
+            }
+        }
 
         /// <summary>
         /// Like mpv_command, but strongly and strictly typed using 
@@ -35,7 +59,7 @@ namespace libmpv2net.Functions
         /// <returns></returns>
         [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern mpv_command_node_result mpv_command_node(
-            mpv_handle ctx, mpv_node_pointer args, mpv_node_pointer result);
+            mpv_handle ctx, IntPtr args_str_arr, IntPtr ptr_to_result_node);
 
         /// <summary>
         /// Works like mpv_command, but useful if we're expecting a response
@@ -47,8 +71,7 @@ namespace libmpv2net.Functions
         /// <returns></returns>
         [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern mpv_command_ret_result mpv_command_ret(
-            mpv_handle ctx, [MarshalAs(UnmanagedType.LPArray)] mpv_string[] args,
-            mpv_node_pointer result);
+            mpv_handle ctx, IntPtr args_str_arr, IntPtr ptr_to_result_node);
 
         /// <summary>
         /// Works like mpv_command but takes a plain string, 
@@ -60,7 +83,7 @@ namespace libmpv2net.Functions
         /// <returns></returns>
         [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern mpv_command_string_result mpv_command_string(
-            mpv_handle ctx, [MarshalAs(UnmanagedType.LPUTF8Str)] ref string args);
+            mpv_handle ctx, IntPtr args_str_arr);
 
         /// <summary>
         /// Works like mpv_command, but doesn't block, instead posting
@@ -73,8 +96,7 @@ namespace libmpv2net.Functions
         /// <returns></returns>
         [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern mpv_command_async_result mpv_command_async(
-            mpv_handle ctx, long reply_userdata,
-            [MarshalAs(UnmanagedType.LPArray)] mpv_string[] args);
+            mpv_handle ctx, long reply_userdata, IntPtr args_str_arr);
 
         /// <summary>
         /// Works like mpv_command_async, but instead of a string array,
@@ -88,8 +110,7 @@ namespace libmpv2net.Functions
         /// <returns></returns>
         [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern mpv_result mpv_command_node_async(
-            mpv_handle ctx, long reply_userdata,
-            mpv_node_pointer args);
+            mpv_handle ctx, long reply_userdata, IntPtr ptr_to_result_node);
 
         /// <summary>
         /// Use this to cancel async commands that had their reply_userdata

@@ -8,52 +8,60 @@ namespace libmpv2net
 {
     public static class mpv_data_extensions
     {
-        public static object ToObject(this mpv_node_pointer ptr, mpv_format fmt)
+        public static object ToObject(this IntPtr ptr, mpv_format fmt)
         {
             switch (fmt)
             {
                 case mpv_format.None:
                     return null;
                 case mpv_format.String:
-                    return Marshal.PtrToStringUni(ptr.handle);
                 case mpv_format.OsdString:
-                    return Marshal.PtrToStringUni(ptr.handle);
+                    byte[] buf = new byte[512];
+                    for(var i = 0; ; i++)
+                    {
+                        if (i >= buf.Length)
+                            Array.Resize(ref buf, buf.Length + 512);
+                        buf[i] = Marshal.ReadByte(ptr, i);
+                        if (buf[i] == 0)
+                            break;
+                    }
+                    return Encoding.UTF8.GetString(buf);
                 case mpv_format.BoolFlag:
-                    return ptr.handle != IntPtr.Zero;
+                    return ptr != IntPtr.Zero;
                 case mpv_format.Long:
-                    return ptr.handle.ToInt64();
+                    return ptr.ToInt64();
                 case mpv_format.Double:
-                    var bytes = BitConverter.GetBytes(ptr.handle.ToInt64());
+                    var bytes = BitConverter.GetBytes(ptr.ToInt64());
                     var dbl = BitConverter.ToDouble(bytes, 0);
                     return dbl;
                 case mpv_format.Node:
                     var nodeAny = (mpv_node_unknown)Marshal.PtrToStructure(
-                        ptr.handle, typeof(mpv_node_unknown));
-                    return nodeAny.AnyData.ToObject(nodeAny.Format);
+                        ptr, typeof(mpv_node_unknown));
+                    return nodeAny.Data.ToObject(nodeAny.Format);
                 case mpv_format.NodeArray:
                     var nodeArr = (mpv_node_list)Marshal.PtrToStructure(
-                        ptr.handle, typeof(mpv_node_list));
+                        ptr, typeof(mpv_node_list));
                     object[] targetArray = new object[nodeArr.num];
                     for (int i = 0; i < nodeArr.num; i++)
                     {
                         var subnode = nodeArr.values[i];
-                        targetArray[i] = subnode.AnyData.ToObject(subnode.Format);
+                        targetArray[i] = subnode.Data.ToObject(subnode.Format);
                     }
                     return targetArray;
                 case mpv_format.NodeMap:
                     var nodeMap = (mpv_node_map)Marshal.PtrToStructure(
-                        ptr.handle, typeof(mpv_node_map));
+                        ptr, typeof(mpv_node_map));
                     var outMap = new Dictionary<string, object>();
                     for (int i = 0; i < nodeMap.num; i++)
                     {
                         var key = nodeMap.keys[i];
                         var subNode = nodeMap.values[i];
-                        outMap[key.value] = subNode.AnyData.ToObject(subNode.Format);
+                        outMap[key.value] = subNode.Data.ToObject(subNode.Format);
                     }
                     return outMap;
                 case mpv_format.ByteArray:
                     var srcArr = (mpv_byte_array_64)Marshal.PtrToStructure(
-                        ptr.handle, typeof(mpv_byte_array_64));
+                        ptr, typeof(mpv_byte_array_64));
                     var dstArr = new byte[srcArr.size];
                     Array.Copy(srcArr.data, dstArr, srcArr.size);
                     return dstArr;

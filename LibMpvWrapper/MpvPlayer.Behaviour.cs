@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using libmpv2net;
@@ -14,15 +15,36 @@ namespace LibMpvWrapper
         public string SeekBehaviour { get; private set; }
         public string FrameStepAudio { get; private set; }
         public string FrameStepPlay { get; private set; }
+        /// <summary>
+        /// Is under transport controls as radio btns
+        /// </summary>
         public string StopBehaviour { get; private set; }
+        /// <summary>
+        /// Is under playlist controls under auto play
+        /// </summary>
         public string IdleAppendBehaviour { get; private set; }
 
-        public MpvPlayer(mpv_handle handle)
+        public MpvPlayer(mpv_handle handle, bool watchProperties = true)
         {
+            var version = mpv_initial.mpv_client_api_version();
+            Debug.WriteLine(version);
+
+            var pl = mpv_properties.mpv_get_property(
+                handle, "property-list", mpv_format.String);
+
+            Debug.WriteLine(pl);
+
             this.Handle = handle;
             StartPollingEvents();
+            if (!watchProperties) return;
+            this.WatchPropertyNone(
+                "filename", "path", "media-title", "duration", "percent-pos", "time-pos", "playlist-playing-pos", 
+                "playlist-count", "playlist-pos", "idle-active", "eof-reached", "pause", "loop-file", "loop-playlist");            
         }
 
+        /// <summary>
+        /// Is seek to keyframes checkbox in transport controls.
+        /// </summary>
         public bool IsSeekToKeyframes
         {
             get
@@ -38,6 +60,9 @@ namespace LibMpvWrapper
             }
         }
 
+        /// <summary>
+        /// Is mute during framestep in transport controls
+        /// </summary>
         public bool IsFramestepMuted
         {
             get
@@ -53,6 +78,9 @@ namespace LibMpvWrapper
             }
         }
 
+        /// <summary>
+        /// Is play after frameskip checkbox in transport controls
+        /// </summary>
         public bool IsFramestepImmediate
         {
             get
@@ -68,6 +96,10 @@ namespace LibMpvWrapper
             }
         }
 
+
+        /// <summary>
+        /// Is under transport controls under checkbox stop-clear
+        /// </summary>
         public bool IsStopClear
         {
             get
@@ -83,6 +115,9 @@ namespace LibMpvWrapper
             }
         }
 
+        /// <summary>
+        /// Is under playlist controls as auto play button
+        /// </summary>
         public bool IsPlayAfterAppend
         {
             get

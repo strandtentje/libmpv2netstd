@@ -5,6 +5,7 @@ using System.Text;
 using libmpv2net.Functions;
 using libmpv2net;
 using System.IO;
+using System.Runtime.InteropServices;
 
 namespace LibMpvWrapper
 {
@@ -25,13 +26,14 @@ namespace LibMpvWrapper
                 throw new FileNotFoundException();
             this.Handle = mpv_initial.mpv_create();
             string s = configFile.FullName;
-            mpv_options.
-                mpv_load_config_file(this.Handle, ref s).
-                Assert(configFile);
+            using (var config_file_ptr = s.ToMemory())
+                mpv_options.
+                    mpv_load_config_file(this.Handle, config_file_ptr).
+                    Assert(configFile);
         }
 
         public MpvPlayer CreatePlayer(
-            IntPtr parent, 
+            IntPtr parent,
             PlaylistLifecycle lifeCycle)
         {
             lock (CreateLock)
@@ -43,20 +45,23 @@ namespace LibMpvWrapper
 
             var keepOpen = lifeCycle.AsKeepOpenArg();
 
-            mpv_options.
-                mpv_set_option(this.Handle, mpv_option_name.KeepOpen,
-                mpv_format.String, ref keepOpen).Assert("keep-open", keepOpen);
+            mpv_options.mpv_set_option_string(
+                this.Handle, "keep-open", keepOpen);
 
-            string s = "yes";
-            mpv_options.
-                mpv_set_option(this.Handle, mpv_option_name.Idle,
-                mpv_format.String, ref s).Assert("idle", "yes");
+            mpv_options.mpv_set_option_string(
+                this.Handle, "idle", "yes");
 
-            var longParent = parent.ToInt64();
+            IntPtr pointer_to_parent = Marshal.AllocHGlobal(IntPtr.Size);
+            Marshal.WriteIntPtr(pointer_to_parent, parent);
 
-            mpv_options.
-                mpv_set_option(this.Handle, mpv_option_name.ParentWindowID,
-                mpv_format.Long, ref longParent).Assert("wid", longParent);
+            try
+            {
+                mpv_options.mpv_set_option(this.Handle, "wid", pointer_to_parent);
+            }
+            finally
+            {
+                Marshal.FreeHGlobal(pointer_to_parent);
+            }
 
             mpv_initial.mpv_initialize(this.Handle).Assert();
 

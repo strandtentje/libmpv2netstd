@@ -9,11 +9,6 @@ namespace LibMpvWrapper
 {
     public static class GeneralExtensions
     {
-        public static void SendCommand(
-            this MpvPlayer player,
-            params object[] args)
-        {
-            mpv_commands.mpv_command(player, mpv_string.Create(args)).Assert(args);
-        }
+
     }
 }

@@ -8,25 +8,35 @@ namespace LibMpvWrapper
 {
     public static class PropertyWatchExtensions
     {
-        public static void WatchPropertyString(this MpvPlayer player, string name)
+        public static MpvPlayer WatchPropertyString(this MpvPlayer player, params string[] names)
         {
-            player.WatchProperty(name, mpv_format.String);
+            foreach (var name in names)
+                player.WatchProperty(name, mpv_format.String);
+            return player;
         }
-        public static void WatchPropertyDouble(this MpvPlayer player, string name)
+        public static MpvPlayer WatchPropertyDouble(this MpvPlayer player, params string[] names)
         {
-            player.WatchProperty(name, mpv_format.Double);
+            foreach (var name in names)
+                player.WatchProperty(name, mpv_format.Double);
+            return player;
         }
-        public static void WatchPropertyLong(this MpvPlayer player, string name)
+        public static MpvPlayer WatchPropertyLong(this MpvPlayer player, params string[] names)
         {
-            player.WatchProperty(name, mpv_format.Long);
+            foreach (var name in names)
+                player.WatchProperty(name, mpv_format.Long);
+            return player;
         }
-        public static void WatchPropertyBool(this MpvPlayer player, string name)
+        public static MpvPlayer WatchPropertyBool(this MpvPlayer player, params string[] names)
         {
-            player.WatchProperty(name, mpv_format.BoolFlag);
+            foreach (var name in names)
+                player.WatchProperty(name, mpv_format.BoolFlag);
+            return player;
         }
-        public static void WatchPropertyNoValue(this MpvPlayer player, string name)
+        public static MpvPlayer WatchPropertyNone(this MpvPlayer player, params string[] names)
         {
-            player.WatchProperty(name, mpv_format.None);
+            foreach (var name in names)
+                player.WatchProperty(name, mpv_format.None);
+            return player;
         }
     }
 }

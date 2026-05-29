@@ -21,7 +21,7 @@ namespace libmpv2net
         /// ulong that we assigned to track our event subscription.
         /// mpv only uses this to cancel async stuff if requested.
         /// </summary>
-        public ulong reply_userdata;
+        public long reply_userdata;
         /// <summary>
         /// May point to:
         ///  - mpv_event_property for:

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -109,14 +110,19 @@ namespace LibMpvWrapper
         public event PropertyChangeEventHandler PropertyChanged;
         private void IngestPropertyChange(mpv_event evt)
         {
-            if (PropertyChanged == null)
+            if (!WatchedPropertyIdNames.TryGetValue(evt.reply_userdata, out string name))
+            {
+                Debug.WriteLine("Received event for unwatched property");
                 return;
+            }
 
-            var e = PropertyChangeEventArgs.From(evt);
+            var e = new PropertyChangeEventArgs(name);
 
             ThreadPool.QueueUserWorkItem(_ =>
             {
-                PropertyChanged.Invoke(this, e);
+                if (PropertyChanged != null)
+                    PropertyChanged.Invoke(this, e);
+                HandlePropertyChange(e);
             });
         }
 

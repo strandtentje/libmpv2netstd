@@ -16,8 +16,9 @@ namespace libmpv2net.Functions
         /// <returns></returns>
         [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern mpv_load_config_file_result
-            mpv_load_config_file(mpv_handle handle,
-            [MarshalAs(UnmanagedType.LPUTF8Str)] ref string filename);
+            mpv_load_config_file(
+            mpv_handle handle,
+            IntPtr filename_str_ptr);
 
         /// <summary>
         /// Set option you'd otherwise set via the config file, 
@@ -30,35 +31,24 @@ namespace libmpv2net.Functions
         /// <returns></returns>
         [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern mpv_set_option_result mpv_set_option(
-            mpv_handle ctx, mpv_option_name name,
-            mpv_format format, mpv_node_pointer data);
+            mpv_handle ctx,
+            IntPtr name,
+            mpv_format format,
+            IntPtr data_ptr);
 
-        /// <summary>
-        /// Set option you'd otherwise set via the config file, 
-        /// before initialize. Overload that has long; mind the mpv_format.
-        /// </summary>
-        /// <param name="ctx">MPV Context handle</param>
-        /// <param name="name">Option name</param>
-        /// <param name="format">Option format</param>
-        /// <param name="data">Pointer to node or data</param>
-        /// <returns></returns>
-        [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
-        public static extern mpv_set_option_result mpv_set_option(
-            mpv_handle ctx, mpv_option_name name, mpv_format format, ref long data);
+        public static void mpv_set_option(
+            mpv_handle ctx, string name, IntPtr data)
+        {
+            using (var name_ptr = name.ToMemory())
+                mpv_set_option(ctx, name_ptr, mpv_format.Long, data);
+        }
 
-        /// <summary>
-        /// Set option you'd otherwise set via the config file, 
-        /// before initialize. Overload that has string; mind the mpv_format.
-        /// </summary>
-        /// <param name="ctx">MPV Context handle</param>
-        /// <param name="name">Option name</param>
-        /// <param name="format">Option format</param>
-        /// <param name="data">Pointer to node or data</param>
-        /// <returns></returns>
-        [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
-        public static extern mpv_set_option_result mpv_set_option(
-            mpv_handle ctx, mpv_option_name name,
-            mpv_format format, [MarshalAs(UnmanagedType.LPUTF8Str)] ref string data);
+        public static void mpv_set_option(
+            mpv_handle ctx, string name, long data)
+        {
+            using (var name_ptr = name.ToMemory())
+                mpv_set_option(ctx, name_ptr, mpv_format.Long, new IntPtr(data));
+        }
 
         /// <summary>
         /// Like mpv_set_option, but uses strings and automatic parsing.
@@ -70,7 +60,16 @@ namespace libmpv2net.Functions
         /// <returns></returns>
         [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern mpv_set_option_string_result mpv_set_option_string(
-            mpv_handle ctx, mpv_option_name name,
-            [MarshalAs(UnmanagedType.LPUTF8Str)] ref string data);
+            mpv_handle ctx, IntPtr name, IntPtr data_str_ptr);
+
+        public static void mpv_set_option_string(
+            mpv_handle ctx, string name, string value)
+        {
+            using (var name_ptr = name.ToMemory())
+            using (var val_ptr = value.ToMemory())
+                mpv_set_option_string(ctx, name_ptr, val_ptr).Assert(name, value);
+        }
+
+
     }
 }

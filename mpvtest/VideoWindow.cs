@@ -11,11 +11,16 @@ using System.Windows.Forms;
 
 namespace mpvtest
 {
-    public partial class Form1 : Form
+    public partial class VideoWindow : Form
     {
         private MpvPlayer Player;
 
-        public Form1()
+        private readonly CueControls _cueControls = new CueControls();
+        private readonly PlaylistControls _plsControls = new PlaylistControls();
+        private readonly StatusView _statusView = new StatusView();
+        private readonly TransportControls _transportControls = new TransportControls();
+
+        public VideoWindow()
         {
             InitializeComponent();
             this.Shown += Form1_Shown;
@@ -26,10 +31,15 @@ namespace mpvtest
             var factory = new MpvPlayerFactory();
             this.Player = factory.CreatePlayer(this.Handle, PlaylistLifecycle.PauseAfterEnd);
 
-            if (openFileDialog1.ShowDialog() == DialogResult.OK)
-            {
-                this.Player.PlayNow(openFileDialog1.FileName);
-            }
+            _cueControls.Show(this);
+            _plsControls.Show(this);
+            _statusView.Show(this);
+            _transportControls.Show(this);
+
+            _cueControls.UsePlayer(this.Player);
+            _plsControls.UsePlayer(this.Player);
+            _statusView.UsePlayer(this.Player);
+            _transportControls.UsePlayer(this.Player);
         }
 
         private void Form1_Load(object sender, EventArgs e)

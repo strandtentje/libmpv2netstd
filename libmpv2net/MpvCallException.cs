@@ -7,9 +7,9 @@ namespace libmpv2net
 {
     public class MpvCallException : Exception
     {
-        private readonly mpv_error Error;
-        private readonly int ResultCode;
-        private readonly string Caller, Args;
+        public readonly mpv_error Error;
+        public readonly int ResultCode;
+        public readonly string Caller, Args;
         public MpvCallException(mpv_error error, string caller, string args) :
             base(string.Format("MPV returned error {0} for {1} with args {2}",
             Enum.GetName(typeof(mpv_error), error), caller, args))

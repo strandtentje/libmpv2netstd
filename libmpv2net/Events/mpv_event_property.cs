@@ -14,14 +14,13 @@ namespace libmpv2net
     {
         /// <summary>
         /// Name of the property we just received
-        /// </summary>
-        [MarshalAs(UnmanagedType.LPUTF8Str)]
-        public string name;
+        /// </summary>        
+        public IntPtr name;
         /// <summary>
         /// format; thought data is mpv_node_pointer for ease, 
         /// always check this.
         /// </summary>
         public mpv_format format;
-        public mpv_node_pointer data;
+        public IntPtr data;
     }
 }
