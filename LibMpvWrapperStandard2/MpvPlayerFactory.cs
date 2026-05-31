@@ -16,9 +16,10 @@ namespace LibMpvWrapper
         private readonly object CreateLock = new object();
         public bool IsSpent { get; private set; }
 
-        public MpvPlayerFactory()
+        public MpvPlayerFactory(bool accomodatePlatform = true)
         {
-            mpv_platform.Accomodate();
+            if (accomodatePlatform)
+                mpv_platform.Accomodate();
             this.Handle = mpv_initial.mpv_create();
         }
 
@@ -48,8 +49,8 @@ namespace LibMpvWrapper
 
             var keepOpen = lifeCycle.AsKeepOpenArg();
 
-           // mpv_options.mpv_set_option_string(
-             //   this.Handle, "keep-open", keepOpen);
+            // mpv_options.mpv_set_option_string(
+            //   this.Handle, "keep-open", keepOpen);
 
             mpv_options.mpv_set_option_string(
                 this.Handle, "idle", "yes");
