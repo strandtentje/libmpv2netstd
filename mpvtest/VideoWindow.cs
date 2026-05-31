@@ -3,10 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows.Forms;
 
 namespace mpvtest
@@ -42,6 +43,12 @@ namespace mpvtest
             _plsControls.UsePlayer(this.Player);
             _statusView.UsePlayer(this.Player);
             _transportControls.UsePlayer(this.Player);
+
+            this.PersistPosition();
+            _cueControls.PersistPosition();
+            _plsControls.PersistPosition();
+            _statusView.PersistPosition();
+            _transportControls.PersistPosition();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -52,6 +59,11 @@ namespace mpvtest
         public new void Dispose()
         {
             base.Dispose();
+            this.Player.Dispose();
+        }
+
+        private void VideoWindow_FormClosing(object sender, FormClosingEventArgs e)
+        {
             this.Player.Dispose();
         }
     }

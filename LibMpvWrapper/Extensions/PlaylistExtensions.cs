@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using libmpv2net.Functions;
 using libmpv2net;
+using System.Diagnostics;
 
 namespace LibMpvWrapper
 {
@@ -11,7 +12,43 @@ namespace LibMpvWrapper
     {
         public static void SendCommand(this MpvPlayer player, params object[] command)
         {
-            mpv_commands.mpv_command(player, command);
+            try
+            {
+                mpv_commands.mpv_command(player, command);
+            }
+            catch (MpvCallException e)
+            {
+                switch (e.Error)
+                {
+                    case mpv_error.Success:
+                    case mpv_error.NoMemory:
+                    case mpv_error.Uninitialized:
+                    case mpv_error.PropertyUnavailable:
+                    case mpv_error.PropertyError:
+                    case mpv_error.CommandError:
+                    case mpv_error.LoadingFailed:
+                    case mpv_error.NothingToPlay:
+                    case mpv_error.UnknownFormat:
+                        Debug.WriteLine(e.ToString());
+                        Debug.WriteLine(e.Message);
+                        return;
+
+                    case mpv_error.EventQueueFull:
+                    case mpv_error.InvalidParameter:
+                    case mpv_error.OptionNotFound:
+                    case mpv_error.OptionFormat:
+                    case mpv_error.OptionError:
+                    case mpv_error.PropertyNotFound:
+                    case mpv_error.PropertyFormat:
+                    case mpv_error.AudioOutputFailed:
+                    case mpv_error.VideoOutputFailed:
+                    case mpv_error.Unsupported:
+                    case mpv_error.NotImplemented:
+                    case mpv_error.Generic:
+                    default:
+                        throw;
+                }
+            }
         }
 
         /// <summary>
@@ -29,7 +66,7 @@ namespace LibMpvWrapper
         /// <param name="player"></param>
         public static void Previous(this MpvPlayer player)
         {
-            player.SendCommand("playlist-previous");
+            player.SendCommand("playlist-prev");
         }
 
         /// <summary>
@@ -113,8 +150,14 @@ namespace LibMpvWrapper
         /// <param name="file"></param>
         public static void AppendPlaylist(this MpvPlayer player, string file)
         {
-            player.SendCommand("loadfile", file, "append", 
-                player.IdleAppendBehaviour);
+            if (player.IdleAppendBehaviour is string str && !string.IsNullOrWhiteSpace(str))
+            {
+                player.SendCommand("loadfile", file, string.Format("append+{0}", str));
+            }
+            else
+            {
+                player.SendCommand("loadfile", file, "append");
+            }
         }
 
         /// <summary>
@@ -134,7 +177,7 @@ namespace LibMpvWrapper
         /// <param name="file"></param>
         public static void AppendAnotherPlaylist(this MpvPlayer player, string file)
         {
-            player.SendCommand("loadlist", file, "append", 
+            player.SendCommand("loadlist", file, "append",
                 player.IdleAppendBehaviour);
         }
 

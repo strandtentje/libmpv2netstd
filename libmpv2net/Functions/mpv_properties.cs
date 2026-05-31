@@ -111,7 +111,7 @@ namespace libmpv2net.Functions
 
                 return result;
             }
-            catch(MpvCallException ex)
+            catch (MpvCallException ex)
             {
                 if (ex.Error == mpv_error.PropertyUnavailable)
                 {

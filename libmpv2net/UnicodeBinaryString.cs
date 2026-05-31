@@ -34,7 +34,7 @@ namespace libmpv2net
         }
         public override string ToString()
         {
-            return (string)HGlobal.ToObject(mpv_format.String);
+            return ((string)HGlobal.ToObject(mpv_format.String)).TrimEnd('\0').TrimEnd();
         }
     }
 

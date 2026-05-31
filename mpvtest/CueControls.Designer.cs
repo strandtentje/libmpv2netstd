@@ -166,7 +166,7 @@
             this.ChkRepeatFile.Size = new System.Drawing.Size(66, 35);
             this.ChkRepeatFile.TabIndex = 8;
             this.ChkRepeatFile.Text = "🔄️🎞️";
-            this.HoverHelp.SetToolTip(this.ChkRepeatFile, "Repeat Playlist");
+            this.HoverHelp.SetToolTip(this.ChkRepeatFile, "Repeat File");
             this.ChkRepeatFile.UseVisualStyleBackColor = true;
             this.ChkRepeatFile.CheckedChanged += new System.EventHandler(this.ChkRepeatFile_CheckedChanged);
             // 
@@ -221,7 +221,7 @@
             this.Controls.Add(this.ButNext);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "CueControls";
-            this.Text = "Cue Controls";            
+            this.Text = "Cue Controls";
             this.ResumeLayout(false);
             this.PerformLayout();
 

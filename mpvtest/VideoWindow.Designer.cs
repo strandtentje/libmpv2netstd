@@ -43,6 +43,7 @@
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Name = "VideoWindow";
             this.Text = "Video Window";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.VideoWindow_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
 

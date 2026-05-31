@@ -15,6 +15,8 @@ namespace mpvtest
     {
         private MpvPlayer Player;
 
+        private BindingSource TableSource = new BindingSource();
+
         public PlaylistControls()
         {
             InitializeComponent();
@@ -32,7 +34,8 @@ namespace mpvtest
             var items = Player.PlaylistMembers;
             this.BeginInvoke(new Action(() =>
             {
-                DatPlaylist.DataSource = items;
+                TableSource.DataSource = items;
+                DatPlaylist.DataSource = TableSource;
             }));
         }
 
@@ -40,7 +43,7 @@ namespace mpvtest
         {            
             foreach (var item in DatPlaylist.SelectedRows.OfType<DataGridViewRow>())
             {
-                if (item.Tag is PlaylistMember mem)
+                if (item.DataBoundItem is PlaylistMember mem)
                 {
                     Player.RemovePlaylistItem(mem.Ordinal);
                     return;
@@ -50,21 +53,17 @@ namespace mpvtest
 
         private void DatPlaylist_RowEnter(object sender, DataGridViewCellEventArgs e)
         {
-            ButRemove.Enabled = true;
-            ButPlayThis.Enabled = true;
         }
 
         private void DatPlaylist_RowLeave(object sender, DataGridViewCellEventArgs e)
         {
-            ButRemove.Enabled = false;
-            ButPlayThis.Enabled = false;
         }
 
         private void ButPlayThis_Click(object sender, EventArgs e)
         {
             foreach (var item in DatPlaylist.SelectedRows.OfType<DataGridViewRow>())
             {
-                if (item.Tag is PlaylistMember mem)
+                if (item.DataBoundItem is PlaylistMember mem)
                 {
                     Player.GoToPlaylistItem(mem.Ordinal);
                     return;
@@ -86,7 +85,7 @@ namespace mpvtest
         private void ButAppendFile_Click(object sender, EventArgs e)
         {
             if (OpenMediaFile.ShowDialog() != DialogResult.OK) return;
-            Player.PlayNow(OpenMediaFile.FileName);
+            Player.AppendPlaylist(OpenMediaFile.FileName);
         }
 
         private void ButReplacePlaylist_Click(object sender, EventArgs e)
@@ -98,7 +97,13 @@ namespace mpvtest
         private void ButAppendPlaylist_Click(object sender, EventArgs e)
         {
             if (OpenMediaFile.ShowDialog() != DialogResult.OK) return;
-            Player.AppendPlaylist(OpenMediaFile.FileName);
+            Player.AppendAnotherPlaylist(OpenMediaFile.FileName);
+        }
+
+        private void DatPlaylist_SelectionChanged(object sender, EventArgs e)
+        {
+            ButRemove.Enabled = DatPlaylist.SelectedRows.OfType<object>().Any();
+            ButPlayThis.Enabled = DatPlaylist.SelectedRows.OfType<object>().Any();
         }
     }
 }

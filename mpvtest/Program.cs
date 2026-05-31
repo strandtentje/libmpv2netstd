@@ -16,7 +16,10 @@ namespace mpvtest
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new VideoWindow());
+            using (var wnd = new VideoWindow())
+            {
+                Application.Run(wnd);
+            }
         }
     }
 }

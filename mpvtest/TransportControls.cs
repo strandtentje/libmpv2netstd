@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
@@ -68,6 +69,7 @@ namespace mpvtest
                 this.ChkPauseFile.CheckedChanged -= ChkPauseFile_CheckedChanged;
                 try
                 {
+                    Debug.WriteLine("event pause going from chk={0} to player={1}", ChkPauseFile.Checked, e);
                     this.ChkPauseFile.Checked = e;
                 }
                 finally
@@ -246,7 +248,8 @@ namespace mpvtest
         {
             this.Player.PauseChanged -= Player_PauseChanged;
             try
-            {
+            {                
+                Debug.WriteLine("user pause going from player={0} to chk={1}", this.Player.IsPause, ChkPauseFile.Checked);
                 this.Player.IsPause = ChkPauseFile.Checked;
             }
             finally

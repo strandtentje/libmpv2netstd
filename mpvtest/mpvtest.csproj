@@ -78,6 +78,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WindowPosExtensions.cs" />
     <EmbeddedResource Include="CueControls.resx">
       <DependentUpon>CueControls.cs</DependentUpon>
     </EmbeddedResource>

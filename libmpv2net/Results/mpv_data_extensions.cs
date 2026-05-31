@@ -27,7 +27,7 @@ namespace libmpv2net
                     }
                     return Encoding.UTF8.GetString(buf);
                 case mpv_format.BoolFlag:
-                    return ptr != IntPtr.Zero;
+                    return (ptr.ToInt64() & 0b1) > 0;
                 case mpv_format.Long:
                     return ptr.ToInt64();
                 case mpv_format.Double:

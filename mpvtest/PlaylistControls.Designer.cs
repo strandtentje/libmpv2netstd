@@ -73,6 +73,7 @@
             this.DatPlaylist.TabIndex = 0;
             this.DatPlaylist.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DatPlaylist_RowEnter);
             this.DatPlaylist.RowLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.DatPlaylist_RowLeave);
+            this.DatPlaylist.SelectionChanged += new System.EventHandler(this.DatPlaylist_SelectionChanged);
             // 
             // ColIndex
             // 
