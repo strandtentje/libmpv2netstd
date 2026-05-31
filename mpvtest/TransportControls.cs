@@ -268,7 +268,7 @@ namespace mpvtest
             this.Player.MuteChanged -= Player_MuteChanged;
             try
             {
-                this.Player.Mute = ChkMuted.Checked;
+                this.Player.IsMute = ChkMuted.Checked;
             }
             finally
             {

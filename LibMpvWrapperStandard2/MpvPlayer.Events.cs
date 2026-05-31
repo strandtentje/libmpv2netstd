@@ -172,14 +172,14 @@ namespace LibMpvWrapper
             });
         }
 
-        public event EventHandler Idle;
+        public event EventHandler SystemIdle;
         private void IngestIdle(mpv_event evt)
         {
-            if (Idle == null)
+            if (SystemIdle == null)
                 return;
             ThreadPool.QueueUserWorkItem(_ =>
             {
-                Idle.Invoke(this, EventArgs.Empty);
+                SystemIdle.Invoke(this, EventArgs.Empty);
             });
         }
 

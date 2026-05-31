@@ -195,7 +195,7 @@ namespace LibMpvWrapper
             }
         }
 
-        public bool Mute
+        public bool IsMute
         {
             get
             {

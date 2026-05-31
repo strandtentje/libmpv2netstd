@@ -13,7 +13,7 @@ namespace LibMpvWrapper
 		public event EventHandler<double> DurationChanged, PercentageChanged, TimeChanged;
 		public event EventHandler<bool> IdleChanged, EofChanged, PauseChanged, FileRepeatChanged, PlaylistRepeatChanged, MuteChanged;
 		public event EventHandler 
-			BecameIdle, ResumedWork, EofReached, InFile, Paused, Unpaused, 
+			IdleByProperty, ResumedFromIdleByProperty, EofReached, InFile, Paused, Unpaused, 
 			FileRepeatEnabled, PlaylistLoopEnabled, FileLoopDisabled, PlaylistLoopDisabled, 
 			Muted, Unmuted;
 		public event EventHandler<long> PlaylistIndexChanged, PlaybackIndexChanged, PlaylistCountChanged;
@@ -50,17 +50,17 @@ namespace LibMpvWrapper
 					if (this.IsIdle)
 					{
 						IdleChanged?.Invoke(this, true);
-						BecameIdle?.Invoke(this, EventArgs.Empty);
+						IdleByProperty?.Invoke(this, EventArgs.Empty);
 					}
 					else
 					{
                         IdleChanged?.Invoke(this, false);
-                        ResumedWork?.Invoke(this, EventArgs.Empty);
+                        ResumedFromIdleByProperty?.Invoke(this, EventArgs.Empty);
 					}
 					break;
 
 				case MUTE_RW:
-					if (this.Mute)
+					if (this.IsMute)
 					{
 						MuteChanged?.Invoke(this, true);
 						Muted?.Invoke(this, EventArgs.Empty);
