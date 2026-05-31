@@ -9,7 +9,7 @@ namespace libmpv2net.Functions
 {
     public static class mpv_properties
     {
-        [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("libmpv-2.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern mpv_set_property_result mpv_set_property(
             mpv_handle ctx,
             IntPtr name,
@@ -34,32 +34,32 @@ namespace libmpv2net.Functions
                 BitConverter.ToInt64(BitConverter.GetBytes(data), 0)));
         }
 
-        [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("libmpv-2.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern mpv_set_property_result mpv_set_property(
             mpv_handle ctx,
             IntPtr name,
             mpv_format format,
             double data);
 
-        [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("libmpv-2.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern mpv_set_property_result mpv_set_property(
             mpv_handle ctx,
             IntPtr name,
             mpv_format format,
             long data);
 
-        [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("libmpv-2.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern mpv_set_property_string_result mpv_set_property_string(
             mpv_handle ctx,
             IntPtr name,
             IntPtr value_str_ptr);
 
-        [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("libmpv-2.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern mpv_del_property_result mpv_del_property(
             mpv_handle ctx,
             IntPtr name);
 
-        [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("libmpv-2.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern mpv_set_property_async_result mpv_set_property_async(
             mpv_handle ctx,
             long reply_userdata,
@@ -67,7 +67,7 @@ namespace libmpv2net.Functions
             mpv_format format,
             IntPtr data);
 
-        [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("libmpv-2.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern mpv_get_property_result mpv_get_property(
             mpv_handle ctx,
             IntPtr name,
@@ -112,7 +112,7 @@ namespace libmpv2net.Functions
             }
         }
 
-        [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("libmpv-2.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr mpv_get_property_string(
             mpv_handle ctx,
             IntPtr name);
@@ -136,14 +136,14 @@ namespace libmpv2net.Functions
             }
         }
 
-        [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("libmpv-2.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern mpv_observe_property_result mpv_observe_property(
             mpv_handle ctx,
             long reply_userdata,
             IntPtr name,
             mpv_format format);
 
-        [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("libmpv-2.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern mpv_unobserve_property_result mpv_unobserve_property(
             mpv_handle ctx, long registered_reply_userdata);
     }

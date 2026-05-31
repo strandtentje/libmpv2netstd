@@ -13,7 +13,7 @@ namespace libmpv2net.Functions
         /// compiled with
         /// </summary>
         /// <returns>API Version</returns>
-        [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("libmpv-2.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern ulong 
             mpv_client_api_version();
 
@@ -22,7 +22,7 @@ namespace libmpv2net.Functions
         /// so as to operate mpv.
         /// </summary>
         /// <returns></returns>
-        [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("libmpv-2.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern mpv_handle mpv_create();
 
         /// <summary>
@@ -31,21 +31,21 @@ namespace libmpv2net.Functions
         /// </summary>
         /// <param name="handle"></param>
         /// <returns></returns>
-        [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("libmpv-2.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern mpv_initialize_result mpv_initialize(mpv_handle handle);
 
         /// <summary>
         /// To destroy a context or client context
         /// </summary>
         /// <param name="handle"></param>
-        [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("libmpv-2.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void mpv_destroy(mpv_handle handle);
 
         /// <summary>
         /// Terminate and destroy everything
         /// </summary>
         /// <param name="handle"></param>
-        [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("libmpv-2.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void mpv_terminate_destroy(mpv_handle handle);
     }
 }

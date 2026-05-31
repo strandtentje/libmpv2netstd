@@ -13,7 +13,7 @@ namespace libmpv2net.Functions
         /// value to be freed, use this.
         /// </summary>
         /// <param name="data">Pointer to MPV-allocated data.</param>
-        [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("libmpv-2.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void mpv_free(IntPtr data);
 
         public static void mpv_free(IntPtr data, mpv_format fmt)
@@ -47,7 +47,7 @@ namespace libmpv2net.Functions
         /// de-allocate whatever is in the node.
         /// </summary>
         /// <param name="node"></param>
-        [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("libmpv-2.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void mpv_free_node_contents(IntPtr node_ptr);
     }
 }

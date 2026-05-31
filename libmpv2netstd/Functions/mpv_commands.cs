@@ -6,11 +6,6 @@ using System.Runtime.InteropServices;
 
 namespace libmpv2net.Functions
 {
-    public class mpv_command_string
-    {
-        public readonly IntPtr memory; 
-    }
-
     public static class mpv_commands
     {
         /// <summary>
@@ -19,7 +14,7 @@ namespace libmpv2net.Functions
         /// <param name="ctx">Client context</param>
         /// <param name="args">String args (command first)</param>
         /// <returns></returns>
-        [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("libmpv-2.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern mpv_command_result mpv_command(
             mpv_handle ctx, IntPtr args_str_arr);
 
@@ -53,7 +48,7 @@ namespace libmpv2net.Functions
         /// but may be left to null if we're not expecting or desiring
         /// a reply. Use mpv_free_node_contents.</param>
         /// <returns></returns>
-        [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("libmpv-2.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern mpv_command_node_result mpv_command_node(
             mpv_handle ctx, IntPtr args_str_arr, IntPtr ptr_to_result_node);
 
@@ -65,7 +60,7 @@ namespace libmpv2net.Functions
         /// <param name="args">Args as string array</param>
         /// <param name="result">Use mpv_free_node_contents.</param>
         /// <returns></returns>
-        [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("libmpv-2.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern mpv_command_ret_result mpv_command_ret(
             mpv_handle ctx, IntPtr args_str_arr, IntPtr ptr_to_result_node);
 
@@ -77,7 +72,7 @@ namespace libmpv2net.Functions
         /// <param name="ctx">Client context</param>
         /// <param name="args">Single string with command and args</param>
         /// <returns></returns>
-        [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("libmpv-2.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern mpv_command_string_result mpv_command_string(
             mpv_handle ctx, IntPtr args_str_arr);
 
@@ -90,7 +85,7 @@ namespace libmpv2net.Functions
         /// also be used for cancellation</param>
         /// <param name="args">String array of arguments</param>
         /// <returns></returns>
-        [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("libmpv-2.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern mpv_command_async_result mpv_command_async(
             mpv_handle ctx, long reply_userdata, IntPtr args_str_arr);
 
@@ -104,7 +99,7 @@ namespace libmpv2net.Functions
         /// contents using mpv_free_node_contents after use. Leave
         /// null if output is not desired.</param>
         /// <returns></returns>
-        [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("libmpv-2.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern mpv_result mpv_command_node_async(
             mpv_handle ctx, long reply_userdata, IntPtr ptr_to_result_node);
 
@@ -115,7 +110,7 @@ namespace libmpv2net.Functions
         /// <param name="ctx">Client context</param>
         /// <param name="reply_userdata">The tracking number we used
         /// earlier.</param>
-        [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("libmpv-2.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void mpv_abort_async_command(
             mpv_handle ctx, long reply_userdata);
     }

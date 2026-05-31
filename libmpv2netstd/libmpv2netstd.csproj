@@ -5,12 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="libmpv-2.dll">
+    <None Update="libmpv-2.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
+    </None>
     <None Update="libmpv.dll.a">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

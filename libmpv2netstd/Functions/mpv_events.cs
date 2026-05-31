@@ -15,7 +15,7 @@ namespace libmpv2net
         /// <param name="dst">Destination mpv_node pointer</param>
         /// <param name="src">Source event</param>
         /// <returns></returns>
-        [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("libmpv-2.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern mpv_event_to_node_result mpv_event_to_node(
             IntPtr ptr_to_result_node, 
             IntPtr ptr_to_event_node);
@@ -28,7 +28,7 @@ namespace libmpv2net
         /// <param name="event_id">Event ID to configure</param>
         /// <param name="enable">On or off.</param>
         /// <returns></returns>
-        [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("libmpv-2.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern mpv_request_event_result mpv_request_event(
             mpv_handle ctx, mpv_event_id event_id, int enable);
         
@@ -39,7 +39,7 @@ namespace libmpv2net
         /// <param name="ctx">MPV Client Handle</param>
         /// <param name="min_level">no fatal error warn info v debug trace</param>
         /// <returns></returns>
-        [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("libmpv-2.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern mpv_request_log_messages_result 
             mpv_request_log_messages(
             mpv_handle ctx, 
@@ -52,7 +52,7 @@ namespace libmpv2net
         /// <param name="timeout">0 to just pop an event, or higher
         /// to block a bit until the event comes in.</param>
         /// <returns></returns>
-        [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]        
+        [DllImport("libmpv-2.so", CallingConvention = CallingConvention.Cdecl)]        
         public static extern IntPtr mpv_wait_event(
             mpv_handle ctx, double timeout);
         
@@ -61,14 +61,14 @@ namespace libmpv2net
         /// as though their timeout expired.
         /// </summary>
         /// <param name="ctx"></param>
-        [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("libmpv-2.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void mpv_wakeup(mpv_handle ctx);
         
         /// <summary>
         /// Blocks until all async calls have been fulfilled.
         /// </summary>
         /// <param name="ctx">MPV client handle</param>
-        [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("libmpv-2.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void mpv_wait_async_requests(mpv_handle ctx);
     }
 }

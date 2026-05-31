@@ -6,6 +6,7 @@ using libmpv2net.Functions;
 using libmpv2net;
 using System.IO;
 using System.Runtime.InteropServices;
+using libmpv2netstd;
 
 namespace LibMpvWrapper
 {
@@ -17,6 +18,7 @@ namespace LibMpvWrapper
 
         public MpvPlayerFactory()
         {
+            mpv_platform.Accomodate();
             this.Handle = mpv_initial.mpv_create();
         }
 
@@ -42,6 +44,7 @@ namespace LibMpvWrapper
                     throw new MpvPlayerFactorySpentException();
                 IsSpent = true;
             }
+
 
             var keepOpen = lifeCycle.AsKeepOpenArg();
 

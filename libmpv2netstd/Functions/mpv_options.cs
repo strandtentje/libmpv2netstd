@@ -14,7 +14,7 @@ namespace libmpv2net.Functions
         /// <param name="handle">MPV Context handle</param>
         /// <param name="filename">Full absolute path to config file</param>
         /// <returns></returns>
-        [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("libmpv-2.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern mpv_load_config_file_result
             mpv_load_config_file(
             mpv_handle handle,
@@ -29,7 +29,7 @@ namespace libmpv2net.Functions
         /// <param name="format">Option format</param>
         /// <param name="data">Pointer to node or data</param>
         /// <returns></returns>
-        [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("libmpv-2.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern mpv_set_option_result mpv_set_option(
             mpv_handle ctx,
             IntPtr name,
@@ -58,7 +58,7 @@ namespace libmpv2net.Functions
         /// <param name="name">Option name</param>
         /// <param name="data">Option data.</param>
         /// <returns></returns>
-        [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("libmpv-2.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern mpv_set_option_string_result mpv_set_option_string(
             mpv_handle ctx, IntPtr name, IntPtr data_str_ptr);
 
