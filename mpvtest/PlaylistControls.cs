@@ -6,6 +6,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -14,22 +15,26 @@ namespace mpvtest
     public partial class PlaylistControls : Form
     {
         private MpvPlayer Player;
-
+        private readonly System.Threading.Timer PlaylistUpdateTimer;
         private BindingSource TableSource = new BindingSource();
 
         public PlaylistControls()
         {
             InitializeComponent();
+            this.PlaylistUpdateTimer = new System.Threading.Timer(
+                new System.Threading.TimerCallback(UpdatePlaylistTick),
+                null, Timeout.Infinite, Timeout.Infinite);
         }
 
         internal void UsePlayer(MpvPlayer player)
         {
             this.Player = player;
+
             Player.PlaylistCountChanged += Player_PlaylistChanged;
             Player.PlaybackIndexChanged += Player_PlaylistChanged;            
         }
 
-        private void Player_PlaylistChanged(object sender, long e)
+        private void UpdatePlaylistTick(object state)
         {
             var items = Player.PlaylistMembers;
             this.BeginInvoke(new Action(() =>
@@ -37,6 +42,12 @@ namespace mpvtest
                 TableSource.DataSource = items;
                 DatPlaylist.DataSource = TableSource;
             }));
+        }
+
+        private void Player_PlaylistChanged(object sender, long e)
+        {
+            PlaylistUpdateTimer.Change(Timeout.Infinite, Timeout.Infinite);
+            PlaylistUpdateTimer.Change(200, Timeout.Infinite);
         }
 
         private void ButRemove_Click(object sender, EventArgs e)

@@ -28,7 +28,7 @@ namespace LibMpvWrapper
             string s = configFile.FullName;
             using (var config_file_ptr = s.ToMemory())
                 mpv_options.
-                    mpv_load_config_file(this.Handle, config_file_ptr).
+                    mpv_load_config_file(this.Handle, config_file_ptr.HGlobal).
                     Assert(configFile);
         }
 
@@ -45,8 +45,8 @@ namespace LibMpvWrapper
 
             var keepOpen = lifeCycle.AsKeepOpenArg();
 
-            mpv_options.mpv_set_option_string(
-                this.Handle, "keep-open", keepOpen);
+           // mpv_options.mpv_set_option_string(
+             //   this.Handle, "keep-open", keepOpen);
 
             mpv_options.mpv_set_option_string(
                 this.Handle, "idle", "yes");

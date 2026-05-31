@@ -201,6 +201,11 @@ namespace mpvtest
             Player.SeekRelativePercent(-10);
         }
 
+        private void ButGo0_Click(object sender, EventArgs e)
+        {
+            Player.SeekAbsolutePercent(0);
+        }
+
         private void ButGo50_Click(object sender, EventArgs e)
         {
             Player.SeekAbsolutePercent(50);
@@ -287,5 +292,6 @@ namespace mpvtest
             if (Player.IsFramestepMuted != ChkMuteDuringFrameSeek.Checked)
                 ChkMuteDuringFrameSeek.Checked = Player.IsFramestepMuted;
         }
+
     }
 }

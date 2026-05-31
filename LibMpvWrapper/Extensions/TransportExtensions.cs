@@ -9,6 +9,7 @@ namespace LibMpvWrapper
 {
     public static class TransportExtensions
     {
+
         /// <summary>
         /// On transport controls as time text box
         /// </summary>
@@ -16,7 +17,11 @@ namespace LibMpvWrapper
         /// <param name="seconds"></param>
         public static void SeekAbsoluteSeconds(this MpvPlayer player, int seconds)
         {
-            player.SendCommand("seek", seconds, "absolute", player.SeekBehaviour);
+            using (var secondsStr = UnicodeBinaryString.From(seconds.ToString()))
+                if (player.IsSeekToKeyframes)
+                    player.SendCommand(player.STR_SEEK, secondsStr, player.STR_ABSOLUTE, player.STR_KEYFRAMES);
+                else
+                    player.SendCommand(player.STR_SEEK, secondsStr, player.STR_ABSOLUTE);
         }
 
         /// <summary>
@@ -26,8 +31,11 @@ namespace LibMpvWrapper
         /// <param name="percent"></param>
         public static void SeekAbsolutePercent(this MpvPlayer player, int percent)
         {
-            player.SendCommand("seek", percent, "absolute-percent",
-                player.SeekBehaviour);
+            using (var percentStr = UnicodeBinaryString.From(percent.ToString()))
+                if (player.IsSeekToKeyframes)
+                    player.SendCommand(player.STR_SEEK, percentStr, player.STR_ABSOLUTE_PERCENT, player.STR_KEYFRAMES);
+                else
+                    player.SendCommand(player.STR_SEEK, percentStr, player.STR_ABSOLUTE_PERCENT);
         }
 
         /// <summary>
@@ -37,7 +45,11 @@ namespace LibMpvWrapper
         /// <param name="seconds"></param>
         public static void SeekRelativeSeconds(this MpvPlayer player, int seconds)
         {
-            player.SendCommand("seek", seconds, "relative", player.SeekBehaviour);
+            using (var secondsStr = UnicodeBinaryString.From(seconds.ToString()))
+                if (player.IsSeekToKeyframes)
+                    player.SendCommand(player.STR_SEEK, secondsStr, player.STR_RELATIVE, player.STR_KEYFRAMES);
+                else
+                    player.SendCommand(player.STR_SEEK, secondsStr, player.STR_RELATIVE);
         }
         /// <summary>
         /// Is go back/forwards in % on transport controls
@@ -46,8 +58,11 @@ namespace LibMpvWrapper
         /// <param name="percent"></param>
         public static void SeekRelativePercent(this MpvPlayer player, int percent)
         {
-            player.SendCommand("seek", percent, "relative-percent",
-                player.SeekBehaviour);
+            using (var percentStr = UnicodeBinaryString.From(percent.ToString()))
+                if (player.IsSeekToKeyframes)
+                    player.SendCommand(player.STR_SEEK, percentStr, player.STR_RELATIVE_PERCENT, player.STR_KEYFRAMES);
+                else
+                    player.SendCommand(player.STR_SEEK, percentStr, player.STR_RELATIVE_PERCENT);
         }
 
         /// <summary>
@@ -57,8 +72,15 @@ namespace LibMpvWrapper
         /// <param name="frames"></param>
         public static void FrameStep(this MpvPlayer player, int frames)
         {
-            player.SendCommand("frame-step", frames, player.FrameStepPlay, 
-                player.FrameStepAudio);
+            using (var frameStr = UnicodeBinaryString.From(frames.ToString()))
+                if (player.IsFramestepMuted && player.IsFramestepImmediate)
+                    player.SendCommand(player.STR_FRAME_STEP, frameStr, player.STR_MUTE, player.STR_PLAY);
+                else if (!player.IsFramestepMuted && player.IsFramestepImmediate)
+                    player.SendCommand(player.STR_FRAME_STEP, frameStr, player.STR_PLAY);
+                else if (player.IsFramestepMuted && !player.IsFramestepImmediate)
+                    player.SendCommand(player.STR_FRAME_STEP, frameStr, player.STR_MUTE);
+                else
+                    player.SendCommand(player.STR_FRAME_STEP, frameStr);
         }
 
         /// <summary>
@@ -67,7 +89,10 @@ namespace LibMpvWrapper
         /// <param name="player"></param>
         public static void FullStop(this MpvPlayer player)
         {
-            player.SendCommand("stop", player.StopBehaviour);
+            if (player.IsStopClear)
+                player.SendCommand(player.STR_STOP);
+            else
+                player.SendCommand(player.STR_STOP, player.STR_KEEP_PLAYLIST);
         }
     }
 }

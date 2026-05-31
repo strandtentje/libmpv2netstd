@@ -12,126 +12,47 @@ namespace LibMpvWrapper
     {
         public bool IsDisposed { get; private set; }
         public readonly mpv_handle Handle;
-        public string SeekBehaviour { get; private set; }
-        public string FrameStepAudio { get; private set; }
-        public string FrameStepPlay { get; private set; }
         /// <summary>
         /// Is under transport controls as radio btns
         /// </summary>
-        public string StopBehaviour { get; private set; }
-        /// <summary>
-        /// Is under playlist controls under auto play
-        /// </summary>
-        public string IdleAppendBehaviour { get; private set; }
 
         public MpvPlayer(mpv_handle handle, bool watchProperties = true)
         {
-            var version = mpv_initial.mpv_client_api_version();
-            Debug.WriteLine(version);
-
-            var pl = mpv_properties.mpv_get_property(
-                handle, "property-list", mpv_format.String);
-
-            Debug.WriteLine(pl);
-
             this.Handle = handle;
             StartPollingEvents();
             if (!watchProperties) return;
             this.WatchPropertyNone(
-                "filename", "path", "media-title", "duration", "percent-pos", "time-pos", "playlist-playing-pos", 
-                "playlist-count", "playlist-pos", "idle-active", "eof-reached", "pause", "loop-file", "loop-playlist", "mute");            
+                STR_FILENAME_PROPERTY_RO, STR_PATH_PROPERTY_RO, STR_MEDIA_TITLE_PROPERTY_RO, STR_DURATION_PROPERTY_RO,
+                STR_PERCENT_POS_PROPERTY_RW, STR_TIME_POS_PROPERTY_RW, STR_PLAYLIST_PLAYING_POS_PROPERTY_RO,
+                STR_PLAYLIST_COUNT_PROPERTY_RO, STR_PLAYLIST_POS_PROPERTY_RW, STR_IDLE_ACTIVE_PROPERTY_RO, STR_EOF_REACHED_PROPERTY_RO,
+                STR_PAUSE_PROPERTY_RW, STR_LOOP_FILE_PROPERTY_RW, STR_LOOP_PLAYLIST_PROPERTY_RW, STR_MUTE_RW);
         }
 
         /// <summary>
         /// Is seek to keyframes checkbox in transport controls.
         /// </summary>
-        public bool IsSeekToKeyframes
-        {
-            get
-            {
-                return SeekBehaviour == "keyframes";
-            }
-            set
-            {
-                if (value)
-                    SeekBehaviour = "keyframes";
-                else
-                    SeekBehaviour = null;
-            }
-        }
+        public bool IsSeekToKeyframes { get; set; }
 
         /// <summary>
         /// Is mute during framestep in transport controls
         /// </summary>
-        public bool IsFramestepMuted
-        {
-            get
-            {
-                return FrameStepAudio == "mute";
-            }
-            set
-            {
-                if (value)
-                    FrameStepAudio = "mute";
-                else
-                    FrameStepAudio = null;
-            }
-        }
+        public bool IsFramestepMuted { get; set; }
 
         /// <summary>
         /// Is play after frameskip checkbox in transport controls
         /// </summary>
-        public bool IsFramestepImmediate
-        {
-            get
-            {
-                return FrameStepPlay == "seek";
-            }
-            set
-            {
-                if (value)
-                    FrameStepPlay = "seek";
-                else
-                    FrameStepPlay = "play";
-            }
-        }
+        public bool IsFramestepImmediate { get; set; }
 
 
         /// <summary>
         /// Is under transport controls under checkbox stop-clear
         /// </summary>
-        public bool IsStopClear
-        {
-            get
-            {
-                return StopBehaviour == "keep-playlist";
-            }
-            set
-            {
-                if (value)
-                    StopBehaviour = "keep-playlist";
-                else
-                    StopBehaviour = null;
-            }
-        }
+        public bool IsStopClear { get; set; }
 
         /// <summary>
         /// Is under playlist controls as auto play button
         /// </summary>
-        public bool IsPlayAfterAppend
-        {
-            get
-            {
-                return IdleAppendBehaviour == "play";
-            }
-            set
-            {
-                if (value)
-                    IdleAppendBehaviour = "play";
-                else
-                    IdleAppendBehaviour = null;
-            }
-        }
+        public bool IsPlayAfterAppend { get; set; }
 
         public static implicit operator mpv_handle(MpvPlayer player)
         {
@@ -149,8 +70,16 @@ namespace LibMpvWrapper
                 if (this.IsDisposed) return;
                 this.IsDisposed = true;
             }
-            mpv_events.mpv_wakeup(this);
-            mpv_initial.mpv_terminate_destroy(this);
+            try
+            {
+                mpv_events.mpv_wakeup(this);
+                mpv_initial.mpv_terminate_destroy(this);
+            }
+            finally
+            {
+                DisposeCommandNames();
+                DisposePropertyNames();
+            }
         }
 
         #endregion

@@ -10,11 +10,12 @@ namespace LibMpvWrapper
 {
     public static class PlaylistExtensions
     {
-        public static void SendCommand(this MpvPlayer player, params object[] command)
+        public static void SendCommand(this MpvPlayer player, params UnicodeBinaryString[] command)
         {
             try
             {
-                mpv_commands.mpv_command(player, command);
+                var ptrs = command.Select(x => x.HGlobal).ToArray();
+                mpv_commands.mpv_command(player, ptrs).Assert(command);
             }
             catch (MpvCallException e)
             {
@@ -50,14 +51,14 @@ namespace LibMpvWrapper
                 }
             }
         }
-
+        
         /// <summary>
         /// Is next button under cue controls
         /// </summary>
         /// <param name="player"></param>
         public static void Next(this MpvPlayer player)
         {
-            player.SendCommand("playlist-next");
+            player.SendCommand(player.STR_PLAYLIST_NEXT);
         }
 
         /// <summary>
@@ -66,7 +67,7 @@ namespace LibMpvWrapper
         /// <param name="player"></param>
         public static void Previous(this MpvPlayer player)
         {
-            player.SendCommand("playlist-prev");
+            player.SendCommand(player.STR_PLAYLIST_PREV);
         }
 
         /// <summary>
@@ -75,7 +76,7 @@ namespace LibMpvWrapper
         /// <param name="player"></param>
         public static void NextPlaylist(this MpvPlayer player)
         {
-            player.SendCommand("playlist-next-playlist");
+            player.SendCommand(player.STR_PLAYLIST_NEXT_PLAYLIST);
         }
 
         /// <summary>
@@ -84,7 +85,7 @@ namespace LibMpvWrapper
         /// <param name="player"></param>
         public static void PreviousPlaylist(this MpvPlayer player)
         {
-            player.SendCommand("playlist-prev-playlist");
+            player.SendCommand(player.STR_PLAYLIST_PREV_PLAYLIST);
         }
 
         /// <summary>
@@ -93,7 +94,7 @@ namespace LibMpvWrapper
         /// <param name="player"></param>
         public static void ReplayCurrent(this MpvPlayer player)
         {
-            player.SendCommand("playlist-play-index", "current");
+            player.SendCommand(player.STR_PLAYLIST_PLAY_INDEX, player.STR_CURRENT);
         }
 
         /// <summary>
@@ -102,7 +103,7 @@ namespace LibMpvWrapper
         /// <param name="player"></param>
         public static void ClearPlaylist(this MpvPlayer player)
         {
-            player.SendCommand("playlist-clear");
+            player.SendCommand(player.STR_PLAYLIST_CLEAR);
         }
 
         /// <summary>
@@ -111,7 +112,7 @@ namespace LibMpvWrapper
         /// <param name="player"></param>
         public static void StopPlaylist(this MpvPlayer player)
         {
-            player.SendCommand("playlist-play-index", "none");
+            player.SendCommand(player.STR_PLAYLIST_PLAY_INDEX, player.STR_NONE);
         }
 
         /// <summary>
@@ -120,7 +121,7 @@ namespace LibMpvWrapper
         /// <param name="player"></param>
         public static void SkipAndRemoveCurrent(this MpvPlayer player)
         {
-            player.SendCommand("playlist-remove", "current");
+            player.SendCommand(player.STR_PLAYLIST_REMOVE, player.STR_CURRENT);
         }
 
         /// <summary>
@@ -130,7 +131,8 @@ namespace LibMpvWrapper
         /// <param name="index"></param>
         public static void GoToPlaylistItem(this MpvPlayer player, int index)
         {
-            player.SendCommand("playlist-play-index", index);
+            using (var numString = UnicodeBinaryString.From(index.ToString()))
+                player.SendCommand(player.STR_PLAYLIST_PLAY_INDEX, numString);
         }
 
         /// <summary>
@@ -140,7 +142,8 @@ namespace LibMpvWrapper
         /// <param name="file"></param>
         public static void PlayNow(this MpvPlayer player, string file)
         {
-            player.SendCommand("loadfile", file);
+            using (var fileString = UnicodeBinaryString.From(file))
+                player.SendCommand(player.STR_LOADFILE, fileString);
         }
 
         /// <summary>
@@ -150,13 +153,15 @@ namespace LibMpvWrapper
         /// <param name="file"></param>
         public static void AppendPlaylist(this MpvPlayer player, string file)
         {
-            if (player.IdleAppendBehaviour is string str && !string.IsNullOrWhiteSpace(str))
+            if (player.IsPlayAfterAppend)
             {
-                player.SendCommand("loadfile", file, string.Format("append+{0}", str));
+                using (var fileString = UnicodeBinaryString.From(file))
+                    player.SendCommand(player.STR_LOADFILE, fileString, player.STR_APPEND_PLAY);
             }
             else
             {
-                player.SendCommand("loadfile", file, "append");
+                using (var fileString = UnicodeBinaryString.From(file))
+                    player.SendCommand(player.STR_LOADFILE, fileString, player.STR_APPEND);
             }
         }
 
@@ -167,7 +172,8 @@ namespace LibMpvWrapper
         /// <param name="file"></param>
         public static void ReplacePlaylist(this MpvPlayer player, string file)
         {
-            player.SendCommand("loadlist", file);
+            using (var fileString = UnicodeBinaryString.From(file))
+                player.SendCommand(player.STR_LOADLIST, fileString);
         }
 
         /// <summary>
@@ -177,8 +183,16 @@ namespace LibMpvWrapper
         /// <param name="file"></param>
         public static void AppendAnotherPlaylist(this MpvPlayer player, string file)
         {
-            player.SendCommand("loadlist", file, "append",
-                player.IdleAppendBehaviour);
+            if (player.IsPlayAfterAppend)
+            {
+                using (var fileString = UnicodeBinaryString.From(file))
+                    player.SendCommand(player.STR_LOADLIST, fileString, player.STR_APPEND_PLAY);
+            }
+            else
+            {
+                using (var fileString = UnicodeBinaryString.From(file))
+                    player.SendCommand(player.STR_LOADLIST, fileString, player.STR_APPEND);
+            }
         }
 
         /// <summary>
@@ -188,7 +202,8 @@ namespace LibMpvWrapper
         /// <param name="item"></param>
         public static void RemovePlaylistItem(this MpvPlayer player, int item)
         {
-            player.SendCommand("playlist-remove", item);
+            using (var numString = UnicodeBinaryString.From(item.ToString()))
+                player.SendCommand(player.STR_PLAYLIST_REMOVE, numString);
         }
     }
 }

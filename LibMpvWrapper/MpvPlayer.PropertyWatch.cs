@@ -18,21 +18,20 @@ namespace LibMpvWrapper
             Dictionary<long, string> WatchedPropertyIdNames = new Dictionary<long, string>();
         private long PropertyWatchNumber = 1000L;
 
-        public void WatchProperty(string name, mpv_format fmt)
+        public void WatchProperty(UnicodeBinaryString name_ptr, mpv_format fmt)
         {
             long watchNumber;
             lock (PropertyWatchLock)
             {
-                if (WatchedPropertyNameIds.ContainsKey(name))
+                if (WatchedPropertyNameIds.ContainsKey(name_ptr.ToString()))
                     return;
                 watchNumber = Interlocked.Increment(ref PropertyWatchNumber);
-                WatchedPropertyNameIds[name] = watchNumber;
-                WatchedPropertyIdNames[watchNumber] = name;
+                WatchedPropertyNameIds[name_ptr.ToString()] = watchNumber;
+                WatchedPropertyIdNames[watchNumber] = name_ptr.ToString();
 
-                using (var name_ptr = name.ToMemory())
-                    mpv_properties.
-                        mpv_observe_property(this, watchNumber, name_ptr, fmt).
-                        Assert(watchNumber, name, fmt);
+                mpv_properties.
+                    mpv_observe_property(this, watchNumber, name_ptr.HGlobal, fmt).
+                    Assert(watchNumber, name_ptr, fmt);
             }
         }
 

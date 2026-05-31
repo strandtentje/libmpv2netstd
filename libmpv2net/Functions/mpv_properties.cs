@@ -17,21 +17,20 @@ namespace libmpv2net.Functions
             IntPtr data);
 
         public static void mpv_set_property(
-            mpv_handle ctx, string name, mpv_format format, IntPtr data)
+            mpv_handle ctx, UnicodeBinaryString name_ptr, mpv_format format, IntPtr data)
         {
-            using (var name_ptr = name.ToMemory())
-                mpv_set_property(ctx, name_ptr, format, data).Assert(name, data);
+            mpv_set_property(ctx, name_ptr.HGlobal, format, data).Assert(name_ptr, format, data);
         }
 
         public static void mpv_set_property(
-            mpv_handle ctx, string name, long data)
+            mpv_handle ctx, UnicodeBinaryString name_ptr, long data)
         {
-            mpv_set_property(ctx, name, mpv_format.Long, new IntPtr(data));
+            mpv_set_property(ctx, name_ptr, mpv_format.Long, new IntPtr(data));
         }
         public static void mpv_set_property(
-            mpv_handle ctx, string name, double data)
+            mpv_handle ctx, UnicodeBinaryString name_ptr, double data)
         {
-            mpv_set_property(ctx, name, mpv_format.Long, new IntPtr(
+            mpv_set_property(ctx, name_ptr, mpv_format.Long, new IntPtr(
                 BitConverter.ToInt64(BitConverter.GetBytes(data), 0)));
         }
 
@@ -55,14 +54,6 @@ namespace libmpv2net.Functions
             IntPtr name,
             IntPtr value_str_ptr);
 
-        public static void mpv_set_property_string(
-            mpv_handle ctx, string name, string value)
-        {
-            using (var name_ptr = name.ToMemory())
-            using (var value_ptr = value.ToMemory())
-                mpv_set_property_string(ctx, name_ptr, value_ptr).Assert(name, value);
-        }
-
         [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern mpv_del_property_result mpv_del_property(
             mpv_handle ctx,
@@ -84,39 +75,33 @@ namespace libmpv2net.Functions
             IntPtr data);
 
         public static object mpv_get_property(
-            mpv_handle ctx, string name, mpv_format format)
-        {
-            using (var name_ptr = name.ToMemory())
-                return mpv_get_property(ctx, name, name_ptr, format);
-        }
-
-        public static object mpv_get_property(
             mpv_handle ctx,
-            string name,
-            IntPtr name_ptr,
+            UnicodeBinaryString name_ptr,
             mpv_format format)
         {
             var data_ptr = Marshal.AllocHGlobal(IntPtr.Size);
 
             try
             {
-                mpv_get_property(ctx, name_ptr, format, data_ptr).
-                    Assert(name, format);
+                mpv_get_property(ctx, name_ptr.HGlobal, format, data_ptr).Assert(name_ptr, format);
 
                 var data = Marshal.PtrToStructure<IntPtr>(data_ptr);
-
-                var result = data.ToObject(format);
-
-                mpv_memory.mpv_free(data, format);
-
-                return result;
+                try
+                {
+                    var result = data.ToObject(format);
+                    return result;
+                }
+                finally
+                {
+                    mpv_memory.mpv_free(data, format);
+                }
             }
             catch (MpvCallException ex)
             {
                 if (ex.Error == mpv_error.PropertyUnavailable)
                 {
                     Debug.WriteLine(string.Format(
-                        "property {0} wasnt available yet", name));
+                        "property {0} wasnt available yet", name_ptr.ToString()));
                     return null;
                 }
                 throw;
@@ -133,19 +118,21 @@ namespace libmpv2net.Functions
             IntPtr name);
 
         public static string mpv_get_property_string(
-            mpv_handle ctx, string name)
+            mpv_handle ctx, UnicodeBinaryString name_ptr)
         {
-            using (var name_ptr = name.ToMemory())
-            {
-                IntPtr valuePtr = mpv_get_property_string(ctx, name_ptr);
-                if (valuePtr == IntPtr.Zero)
-                    return null;
+            IntPtr valuePtr = mpv_get_property_string(ctx, name_ptr.HGlobal);
+            if (valuePtr == IntPtr.Zero)
+                return null;
 
+            try
+            {
                 var str = new UnicodeBinaryString(valuePtr);
                 var valueString = str.ToString();
-
-                mpv_memory.mpv_free(valuePtr);
                 return valueString;
+            }
+            finally
+            {
+                mpv_memory.mpv_free(valuePtr);
             }
         }
 

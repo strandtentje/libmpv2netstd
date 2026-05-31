@@ -8,6 +8,15 @@ namespace libmpv2net
 {
     public static class mpv_data_extensions
     {
+        private static string StringFromNativeUtf8(IntPtr nativeUtf8)
+        {
+            int len = 0;
+            while (Marshal.ReadByte(nativeUtf8, len) != 0) ++len;
+            byte[] buffer = new byte[len];
+            Marshal.Copy(nativeUtf8, buffer, 0, buffer.Length);
+            return Encoding.UTF8.GetString(buffer);
+        }
+
         public static object ToObject(this IntPtr ptr, mpv_format fmt)
         {
             switch (fmt)
@@ -16,16 +25,7 @@ namespace libmpv2net
                     return null;
                 case mpv_format.String:
                 case mpv_format.OsdString:
-                    byte[] buf = new byte[512];
-                    for(var i = 0; ; i++)
-                    {
-                        if (i >= buf.Length)
-                            Array.Resize(ref buf, buf.Length + 512);
-                        buf[i] = Marshal.ReadByte(ptr, i);
-                        if (buf[i] == 0)
-                            break;
-                    }
-                    return Encoding.UTF8.GetString(buf);
+                    return StringFromNativeUtf8(ptr);
                 case mpv_format.BoolFlag:
                     return (ptr.ToInt64() & 0b1) > 0;
                 case mpv_format.Long:

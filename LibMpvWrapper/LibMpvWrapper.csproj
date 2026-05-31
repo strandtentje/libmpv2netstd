@@ -56,9 +56,9 @@
   <ItemGroup>
     <Compile Include="Events\EndFileEvent.cs" />
     <Compile Include="Events\ErrorEvent.cs" />
-    <Compile Include="Extensions\GeneralExtensions.cs" />
-    <Compile Include="Events\LogEvent.cs" />
+    <Compile Include="MpvPlayer.CommandNames.cs" />
     <Compile Include="MpvPlayer.Events.cs" />
+    <Compile Include="MpvPlayer.PropertyNames.cs" />
     <Compile Include="MpvPlayer.PropertyWatch.cs" />
     <Compile Include="MpvPlayerFactory.cs" />
     <Compile Include="PlaylistLifecycle.cs" />
@@ -80,9 +80,9 @@
     <Compile Include="MpvPlayer.PropertyEvents.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\libmpv2net\libmpv2net.csproj">
-      <Project>{c0dea6d8-c05d-40b9-8f48-cf1f63c1734a}</Project>
-      <Name>libmpv2net</Name>
+    <ProjectReference Include="..\libmpv2netstd\libmpv2netstd.csproj">
+      <Project>{3be67522-e8c4-4111-bf90-4491bb23e0cb}</Project>
+      <Name>libmpv2netstd</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

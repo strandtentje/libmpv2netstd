@@ -230,16 +230,9 @@ namespace LibMpvWrapper
             });
         }
 
-        public event LogEventHandler Log;
         private void IngestLogEvent(mpv_event evt)
         {
-            if (Log == null)
-                return;
-            var e = LogEventArgs.From(evt);
-            ThreadPool.QueueUserWorkItem(_ =>
-            {
-                Log.Invoke(this, e);
-            });
+
         }
 
     }

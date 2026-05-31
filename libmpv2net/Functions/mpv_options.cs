@@ -40,14 +40,14 @@ namespace libmpv2net.Functions
             mpv_handle ctx, string name, IntPtr data)
         {
             using (var name_ptr = name.ToMemory())
-                mpv_set_option(ctx, name_ptr, mpv_format.Long, data);
+                mpv_set_option(ctx, name_ptr.HGlobal, mpv_format.Long, data);
         }
 
         public static void mpv_set_option(
             mpv_handle ctx, string name, long data)
         {
             using (var name_ptr = name.ToMemory())
-                mpv_set_option(ctx, name_ptr, mpv_format.Long, new IntPtr(data));
+                mpv_set_option(ctx, name_ptr.HGlobal, mpv_format.Long, new IntPtr(data));
         }
 
         /// <summary>
@@ -67,7 +67,7 @@ namespace libmpv2net.Functions
         {
             using (var name_ptr = name.ToMemory())
             using (var val_ptr = value.ToMemory())
-                mpv_set_option_string(ctx, name_ptr, val_ptr).Assert(name, value);
+                mpv_set_option_string(ctx, name_ptr.HGlobal, val_ptr.HGlobal).Assert(name, value);
         }
 
 

@@ -215,6 +215,7 @@
             this.ButGo0.Text = "0%";
             this.HoverHelp.SetToolTip(this.ButGo0, "Go to beginning");
             this.ButGo0.UseVisualStyleBackColor = true;
+            this.ButGo0.Click += new System.EventHandler(this.ButGo0_Click);
             // 
             // ButGo50
             // 

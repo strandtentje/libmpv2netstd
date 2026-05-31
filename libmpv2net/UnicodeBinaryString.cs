@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace libmpv2net
 {
-    public class UnicodeBinaryString : IDisposable
+    public struct UnicodeBinaryString : IDisposable
     {
-        private readonly IntPtr HGlobal;
+        public readonly IntPtr HGlobal;
         public UnicodeBinaryString(IntPtr hglobal)
         {
             this.HGlobal = hglobal; 
@@ -24,13 +24,10 @@ namespace libmpv2net
 
             return new UnicodeBinaryString(ptr);
         }
+
         public void Dispose()
         {
             Marshal.FreeHGlobal(this.HGlobal);
-        }
-        public static implicit operator IntPtr(UnicodeBinaryString s)
-        {
-            return s.HGlobal;
         }
         public override string ToString()
         {
@@ -43,6 +40,13 @@ namespace libmpv2net
         public static UnicodeBinaryString ToMemory(this string txt)
         {
             return UnicodeBinaryString.From(txt);
+        }
+
+        public static UnicodeBinaryString Overwrite(this UnicodeBinaryString ubs, string text, int pos)
+        {
+            var data = Encoding.UTF8.GetBytes(text);
+            Marshal.Copy(data, 0, ubs.HGlobal + pos, data.Length);
+            return ubs;
         }
     }
 }

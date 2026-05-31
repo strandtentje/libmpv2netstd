@@ -6,6 +6,11 @@ using System.Runtime.InteropServices;
 
 namespace libmpv2net.Functions
 {
+    public class mpv_command_string
+    {
+        public readonly IntPtr memory; 
+    }
+
     public static class mpv_commands
     {
         /// <summary>
@@ -18,26 +23,17 @@ namespace libmpv2net.Functions
         public static extern mpv_command_result mpv_command(
             mpv_handle ctx, IntPtr args_str_arr);
 
-        public static void mpv_command(mpv_handle ctx, params object[] argObjs)
-        {
-            var args = argObjs.OfType<object>().Select(x => x.ToString()).ToArray();
-            IntPtr stringArrayPtr = Marshal.AllocHGlobal(IntPtr.Size * (args.Length + 1));
-            IntPtr[] stringPtrArray = new IntPtr[args.Length];
-            for (int i = 0; i < args.Length; i++)
-            {
-                stringPtrArray[i] = args[i].ToMemory();
-                Marshal.WriteIntPtr(stringArrayPtr, IntPtr.Size * i, 
-                    stringPtrArray[i]);
-            }
-            Marshal.WriteIntPtr(stringArrayPtr, IntPtr.Size * args.Length, IntPtr.Zero);
+        public static mpv_command_result mpv_command(mpv_handle ctx, params IntPtr[] strPtrs)
+        {         
+            IntPtr stringArrayPtr = Marshal.AllocHGlobal(IntPtr.Size * (strPtrs.Length + 1));
+            Marshal.Copy(strPtrs, 0, stringArrayPtr, strPtrs.Length);
+            Marshal.WriteIntPtr(stringArrayPtr, IntPtr.Size * strPtrs.Length, IntPtr.Zero);
             try
             {
-                mpv_command(ctx, stringArrayPtr).Assert(args);
+                return mpv_command(ctx, stringArrayPtr);
             }
             finally
-            {
-                foreach (var item in stringPtrArray)
-                    Marshal.FreeHGlobal(item);
+            {                
                 Marshal.FreeHGlobal(stringArrayPtr);
             }
         }

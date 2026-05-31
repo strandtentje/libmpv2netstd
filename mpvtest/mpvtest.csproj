@@ -117,10 +117,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\libmpv2net\libmpv2net.csproj">
-      <Project>{c0dea6d8-c05d-40b9-8f48-cf1f63c1734a}</Project>
-      <Name>libmpv2net</Name>
-    </ProjectReference>
     <ProjectReference Include="..\LibMpvWrapper\LibMpvWrapper.csproj">
       <Project>{530f126b-8e31-47d8-aa8a-c4a76764ed83}</Project>
       <Name>LibMpvWrapper</Name>
