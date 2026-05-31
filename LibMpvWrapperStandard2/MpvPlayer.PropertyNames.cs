@@ -24,7 +24,10 @@ namespace LibMpvWrapper
             LOOP_PLAYLIST_PROPERTY_RW = "loop-playlist",
             PERCENT_POS_PROPERTY_RW = "percent-pos",
             TIME_POS_PROPERTY_RW = "time-pos",
-            MUTE_RW = "mute";
+            MUTE_RW = "mute",
+            KEEPASPECT_WINDOW_RW = "keepaspect-window",
+            FULLSCREEN_RW = "fullscreen",
+            FS_MONITOR_RW = "fs-screen";
 
         private readonly UnicodeBinaryString
             STR_FILENAME_PROPERTY_RO = UnicodeBinaryString.From(FILENAME_PROPERTY_RO),
@@ -41,7 +44,10 @@ namespace LibMpvWrapper
             STR_LOOP_PLAYLIST_PROPERTY_RW = UnicodeBinaryString.From(LOOP_PLAYLIST_PROPERTY_RW),
             STR_PERCENT_POS_PROPERTY_RW = UnicodeBinaryString.From(PERCENT_POS_PROPERTY_RW),
             STR_TIME_POS_PROPERTY_RW = UnicodeBinaryString.From(TIME_POS_PROPERTY_RW),
-            STR_MUTE_RW = UnicodeBinaryString.From(MUTE_RW);
+            STR_MUTE_RW = UnicodeBinaryString.From(MUTE_RW),
+            STR_KEEPASPECT_WINDOW_RW = UnicodeBinaryString.From(KEEPASPECT_WINDOW_RW),
+            STR_FULLSCREEN_RW = UnicodeBinaryString.From(FULLSCREEN_RW),
+            STR_FS_MONITOR_RW = UnicodeBinaryString.From(FS_MONITOR_RW);
 
         private readonly UnicodeBinaryString
             STR_YES = UnicodeBinaryString.From("yes"),
@@ -65,6 +71,9 @@ namespace LibMpvWrapper
             STR_PERCENT_POS_PROPERTY_RW.Dispose();
             STR_TIME_POS_PROPERTY_RW.Dispose();
             STR_MUTE_RW.Dispose();
+            STR_KEEPASPECT_WINDOW_RW.Dispose();
+            STR_FULLSCREEN_RW.Dispose();
+            STR_FS_MONITOR_RW.Dispose();
             STR_YES.Dispose();
             STR_NO.Dispose();
             STR_INF.Dispose();

@@ -12,7 +12,6 @@ namespace LibMpvWrapper
 {
     public partial class MpvPlayer
     {
-
         public string CurrentFileName
         {
             get
@@ -45,7 +44,7 @@ namespace LibMpvWrapper
             get
             {
                 if (mpv_properties.mpv_get_property(
-                    this, STR_DURATION_PROPERTY_RO, mpv_format.Double) is double dbl)
+                        this, STR_DURATION_PROPERTY_RO, mpv_format.Double) is double dbl)
                     return dbl;
                 Debug.WriteLine("Duration Property was null");
                 return 0;
@@ -57,7 +56,7 @@ namespace LibMpvWrapper
             get
             {
                 if (mpv_properties.mpv_get_property(
-                    this, STR_IDLE_ACTIVE_PROPERTY_RO, mpv_format.BoolFlag)
+                        this, STR_IDLE_ACTIVE_PROPERTY_RO, mpv_format.BoolFlag)
                     is bool bln)
                     return bln;
                 Debug.WriteLine("Idle Property was null");
@@ -70,7 +69,7 @@ namespace LibMpvWrapper
             get
             {
                 if (mpv_properties.mpv_get_property(
-                    this, STR_EOF_REACHED_PROPERTY_RO, mpv_format.BoolFlag)
+                        this, STR_EOF_REACHED_PROPERTY_RO, mpv_format.BoolFlag)
                     is bool bln)
                     return bln;
                 Debug.WriteLine("IsEOF Property was null");
@@ -83,7 +82,7 @@ namespace LibMpvWrapper
             get
             {
                 if (mpv_properties.mpv_get_property(
-                    this, STR_PLAYLIST_PLAYING_POS_PROPERTY_RO, mpv_format.Long)
+                        this, STR_PLAYLIST_PLAYING_POS_PROPERTY_RO, mpv_format.Long)
                     is long lng)
                     return lng;
                 Debug.WriteLine("Playlist playing pos property was null");
@@ -96,7 +95,7 @@ namespace LibMpvWrapper
             get
             {
                 if (mpv_properties.mpv_get_property(
-                    this, STR_PLAYLIST_COUNT_PROPERTY_RO, mpv_format.Long)
+                        this, STR_PLAYLIST_COUNT_PROPERTY_RO, mpv_format.Long)
                     is long lng)
                     return lng;
                 Debug.WriteLine("Playlist Count property was null");
@@ -117,9 +116,11 @@ namespace LibMpvWrapper
                         Debug.WriteLine(qry.ToString());
                         files[i] = mpv_properties.mpv_get_property_string(this, qry);
                     }
+
                 return files;
             }
         }
+
         public string[] PlaylistTitles
         {
             get
@@ -128,10 +129,12 @@ namespace LibMpvWrapper
                 var ph = new string('0', titles.Length.ToString(CultureInfo.InvariantCulture).Length);
                 using (var sptr = UnicodeBinaryString.From(string.Format("playlist/{0}/filename", ph)))
                     for (int i = 0; i < titles.Length; i++)
-                        titles[i] = mpv_properties.mpv_get_property_string(this, sptr.Overwrite(i.ToString(ph), "playlist/".Length));
+                        titles[i] = mpv_properties.mpv_get_property_string(this,
+                            sptr.Overwrite(i.ToString(ph), "playlist/".Length));
                 return titles;
             }
         }
+
         public string[] PlaylistSources
         {
             get
@@ -140,10 +143,12 @@ namespace LibMpvWrapper
                 var ph = new string('0', sources.Length.ToString(CultureInfo.InvariantCulture).Length);
                 using (var sptr = UnicodeBinaryString.From(string.Format("playlist/{0}/playlist-path", ph)))
                     for (int i = 0; i < sources.Length; i++)
-                        sources[i] = mpv_properties.mpv_get_property_string(this, sptr.Overwrite(i.ToString(ph), "playlist/".Length));
+                        sources[i] = mpv_properties.mpv_get_property_string(this,
+                            sptr.Overwrite(i.ToString(ph), "playlist/".Length));
                 return sources;
             }
         }
+
         public string[] PlaylistPlaying
         {
             get
@@ -152,7 +157,8 @@ namespace LibMpvWrapper
                 var ph = new string('0', playings.Length.ToString(CultureInfo.InvariantCulture).Length);
                 using (var sptr = UnicodeBinaryString.From(string.Format("playlist/{0}/playing", ph)))
                     for (int i = 0; i < playings.Length; i++)
-                        playings[i] = mpv_properties.mpv_get_property_string(this, sptr.Overwrite(i.ToString(ph), "playlist/".Length));
+                        playings[i] = mpv_properties.mpv_get_property_string(this,
+                            sptr.Overwrite(i.ToString(ph), "playlist/".Length));
 
                 return playings;
             }
@@ -174,6 +180,7 @@ namespace LibMpvWrapper
                 {
                     members[i] = new PlaylistMember(i, files[i], titles[i], sources[i], playings[i]);
                 }
+
                 return members;
             }
         }
@@ -190,8 +197,46 @@ namespace LibMpvWrapper
             set
             {
                 var choice = value ? STR_YES : STR_NO;
-                mpv_properties.mpv_set_property_string(this, STR_PAUSE_PROPERTY_RW.HGlobal, choice.HGlobal).
-                    Assert(STR_PAUSE_PROPERTY_RW, choice);
+                mpv_properties.mpv_set_property_string(this,
+                    STR_PAUSE_PROPERTY_RW.HGlobal, choice.HGlobal).Assert(STR_PAUSE_PROPERTY_RW, choice);
+            }
+        }
+
+        public bool IsFullscreen
+        {
+            get
+            {
+                if (mpv_properties.mpv_get_property(this, STR_FULLSCREEN_RW,
+                        mpv_format.BoolFlag) is bool bln)
+                    return bln;
+                Debug.WriteLine("Fullscreen property was null");
+                return false;
+            }
+            set
+            {
+                var choice = value ? STR_YES : STR_NO;
+                mpv_properties.mpv_set_property_string(this,
+                    STR_FULLSCREEN_RW.HGlobal, choice.HGlobal).Assert(
+                    STR_FULLSCREEN_RW, choice);
+            }
+        }
+
+        public bool IsAspectLocked
+        {
+            get
+            {
+                if (mpv_properties.mpv_get_property(this, STR_KEEPASPECT_WINDOW_RW,
+                        mpv_format.BoolFlag) is bool bln)
+                    return bln;
+                Debug.WriteLine("keepaspect property was null");
+                return false;
+            }
+            set
+            {
+                var choice = value ? STR_YES : STR_NO;
+                mpv_properties.mpv_set_property_string(this,
+                    STR_KEEPASPECT_WINDOW_RW.HGlobal, choice.HGlobal).Assert(
+                    STR_KEEPASPECT_WINDOW_RW, choice);
             }
         }
 
@@ -207,23 +252,40 @@ namespace LibMpvWrapper
             set
             {
                 var choice = value ? STR_YES : STR_NO;
-                mpv_properties.mpv_set_property_string(this, STR_MUTE_RW.HGlobal, choice.HGlobal).Assert(STR_MUTE_RW, choice);
+                mpv_properties.mpv_set_property_string(this, STR_MUTE_RW.HGlobal, choice.HGlobal)
+                    .Assert(STR_MUTE_RW, choice);
             }
-
         }
+
         public long PlaylistIndex
         {
             get
             {
                 if (mpv_properties.mpv_get_property(this,
-                    STR_PERCENT_POS_PROPERTY_RW, mpv_format.Long) is long lng)
+                        STR_PERCENT_POS_PROPERTY_RW, mpv_format.Long) is long lng)
+                    return lng;
+                Debug.WriteLine("playlist index property was null");
+                return 0L;
+            }
+            set { mpv_properties.mpv_set_property(this, STR_PERCENT_POS_PROPERTY_RW, value); }
+        }
+
+        public long FullscreenMonitor
+        {
+            get
+            {
+                if (mpv_properties.mpv_get_property(this,
+                        STR_FS_MONITOR_RW, mpv_format.Long) is long lng)
                     return lng;
                 Debug.WriteLine("playlist index property was null");
                 return 0L;
             }
             set
             {
-                mpv_properties.mpv_set_property(this, STR_PERCENT_POS_PROPERTY_RW, value);
+                using (var monString = UnicodeBinaryString.From(value.ToString()))
+                    mpv_properties.mpv_set_property_string(this,
+                        STR_FS_MONITOR_RW.HGlobal, monString.HGlobal).Assert(
+                        STR_FS_MONITOR_RW, monString);
             }
         }
 
@@ -232,16 +294,12 @@ namespace LibMpvWrapper
         /// </summary>
         public bool RepeatFile
         {
-            get
-            {
-                return mpv_properties.mpv_get_property_string(this, STR_LOOP_FILE_PROPERTY_RW) != "no";
-            }
+            get { return mpv_properties.mpv_get_property_string(this, STR_LOOP_FILE_PROPERTY_RW) != "no"; }
             set
             {
                 var choice = value ? STR_INF : STR_NO;
-                mpv_properties.
-                    mpv_set_property_string(this, STR_LOOP_FILE_PROPERTY_RW.HGlobal, choice.HGlobal).
-                    Assert(STR_LOOP_FILE_PROPERTY_RW, choice);
+                mpv_properties.mpv_set_property_string(this, STR_LOOP_FILE_PROPERTY_RW.HGlobal, choice.HGlobal)
+                    .Assert(STR_LOOP_FILE_PROPERTY_RW, choice);
             }
         }
 
@@ -252,10 +310,7 @@ namespace LibMpvWrapper
         {
             get
             {
-                var v = mpv_properties.
-                    mpv_get_property_string(this, STR_LOOP_PLAYLIST_PROPERTY_RW).
-                    ToLower().
-                    Trim();
+                var v = mpv_properties.mpv_get_property_string(this, STR_LOOP_PLAYLIST_PROPERTY_RW).ToLower().Trim();
                 switch (v)
                 {
                     case "inf":
@@ -289,10 +344,7 @@ namespace LibMpvWrapper
                 Debug.WriteLine("current % pos was null");
                 return 0.0;
             }
-            set
-            {
-                mpv_properties.mpv_set_property(this, STR_PERCENT_POS_PROPERTY_RW, value);
-            }
+            set { mpv_properties.mpv_set_property(this, STR_PERCENT_POS_PROPERTY_RW, value); }
         }
 
         /// <summary>
@@ -309,10 +361,7 @@ namespace LibMpvWrapper
                 Debug.WriteLine("time pos property was null");
                 return 0;
             }
-            set
-            {
-                mpv_properties.mpv_set_property(this, STR_TIME_POS_PROPERTY_RW, value);
-            }
+            set { mpv_properties.mpv_set_property(this, STR_TIME_POS_PROPERTY_RW, value); }
         }
     }
 }

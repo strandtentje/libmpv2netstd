@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "libmpv2netstd", "libmpv2net
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibMpvWrapperStandard2", "LibMpvWrapperStandard2\LibMpvWrapperStandard2.csproj", "{ADB33713-F813-4B65-8EB1-B5D6077BD8AF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mpvtestnet10console", "mpvtestnet10console\mpvtestnet10console.csproj", "{15EBCEAD-D1B5-4E4A-A0C7-2E3C446F7633}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{ADB33713-F813-4B65-8EB1-B5D6077BD8AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ADB33713-F813-4B65-8EB1-B5D6077BD8AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ADB33713-F813-4B65-8EB1-B5D6077BD8AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15EBCEAD-D1B5-4E4A-A0C7-2E3C446F7633}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15EBCEAD-D1B5-4E4A-A0C7-2E3C446F7633}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15EBCEAD-D1B5-4E4A-A0C7-2E3C446F7633}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15EBCEAD-D1B5-4E4A-A0C7-2E3C446F7633}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

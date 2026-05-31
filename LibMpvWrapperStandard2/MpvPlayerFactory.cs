@@ -55,16 +55,19 @@ namespace LibMpvWrapper
             mpv_options.mpv_set_option_string(
                 this.Handle, "idle", "yes");
 
-            IntPtr pointer_to_parent = Marshal.AllocHGlobal(IntPtr.Size);
-            Marshal.WriteIntPtr(pointer_to_parent, parent);
+            if (parent != IntPtr.Zero)
+            {
+                IntPtr pointer_to_parent = Marshal.AllocHGlobal(IntPtr.Size);
+                Marshal.WriteIntPtr(pointer_to_parent, parent);
 
-            try
-            {
-                mpv_options.mpv_set_option(this.Handle, "wid", pointer_to_parent);
-            }
-            finally
-            {
-                Marshal.FreeHGlobal(pointer_to_parent);
+                try
+                {
+                    mpv_options.mpv_set_option(this.Handle, "wid", pointer_to_parent);
+                }
+                finally
+                {
+                    Marshal.FreeHGlobal(pointer_to_parent);
+                }
             }
 
             mpv_initial.mpv_initialize(this.Handle).Assert();
