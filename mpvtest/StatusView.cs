@@ -40,6 +40,85 @@ namespace mpvtest
             player.PlaylistIndexChanged += Player_PlaylistIndexChanged;
             player.PlaybackIndexChanged += Player_PlaybackIndexChanged;
             player.PlaylistCountChanged += Player_PlaylistCountChanged;
+
+            player.NonPropertyEvent += this.Player_NonPropertyEvent;
+            player.EndOfFile += Player_EndOfFile;
+            player.Stopped += Player_Stopped;
+            player.Quit += Player_Quit;
+            player.FileError += Player_FileError;
+            player.Redirect += Player_Redirect;
+        }
+
+        private void Player_Redirect(object sender, EndFileEventArgs e)
+        {
+            this.Invoke(new Action<object>(_ =>
+            {
+                LstEvents.Items.Add("ENDFILE:REDIRECT");
+                if (!LstEvents.Focused && LstEvents.SelectedItems.Count == 0)
+                {
+                    LstEvents.TopIndex = LstEvents.Items.Count - 1;                     
+                }
+            }), new object[] { null });
+        }
+
+        private void Player_FileError(object sender, EndFileEventArgs e)
+        {
+            this.Invoke(new Action<object>(_ =>
+            {
+                LstEvents.Items.Add("ENDFILE:FILEERROR");
+                if (!LstEvents.Focused && LstEvents.SelectedItems.Count == 0)
+                {
+                    LstEvents.TopIndex = LstEvents.Items.Count - 1;
+                }
+            }), new object[] { null });
+        }
+
+        private void Player_Quit(object sender, EndFileEventArgs e)
+        {
+            this.Invoke(new Action<object>(_ =>
+            {
+                LstEvents.Items.Add("ENDFILE:QUIT");
+                if (!LstEvents.Focused && LstEvents.SelectedItems.Count == 0)
+                {
+                    LstEvents.TopIndex = LstEvents.Items.Count - 1;
+                }
+            }), new object[] { null });
+        }
+
+        private void Player_Stopped(object sender, EndFileEventArgs e)
+        {
+            this.Invoke(new Action<object>(_ =>
+            {
+                LstEvents.Items.Add("ENDFILE:STOPPED");
+                if (!LstEvents.Focused && LstEvents.SelectedItems.Count == 0)
+                {
+                    LstEvents.TopIndex = LstEvents.Items.Count - 1;
+                }
+            }), new object[] { null });
+        }
+
+        private void Player_EndOfFile(object sender, EndFileEventArgs e)
+        {
+            this.Invoke(new Action<object>(_ =>
+            {
+                LstEvents.Items.Add("ENDFILE:EOF");
+                if (!LstEvents.Focused && LstEvents.SelectedItems.Count == 0)
+                {
+                    LstEvents.TopIndex = LstEvents.Items.Count - 1;
+                }
+            }), new object[] { null });
+        }
+
+        private void Player_NonPropertyEvent(object sender, libmpv2net.mpv_event e)
+        {
+            if (e.event_id == libmpv2net.mpv_event_id.AudioReconfig || e.event_id == libmpv2net.mpv_event_id.VideoReconfig)
+                return;
+            this.Invoke(new Action<object>(_ =>
+            {
+                LstEvents.Items.Add(e.event_id);
+                if (!LstEvents.Focused && LstEvents.SelectedItems.Count == 0)
+                    LstEvents.TopIndex = LstEvents.Items.Count - 1;
+            }), new object[] { null });
         }
 
         private void Player_MuteChanged(object sender, bool e)
@@ -78,7 +157,7 @@ namespace mpvtest
         {
             this.Invoke(new Action(() =>
             {
-                TxtTimePos.Text = e.ToString();
+                TxtTimePos.Text = e.ToString("0.00");
             }));
         }
 
@@ -86,7 +165,7 @@ namespace mpvtest
         {
             this.Invoke(new Action(() =>
             {
-                TxtPercPos.Text = e.ToString();
+                TxtPercPos.Text = e.ToString("0.00");
             }));
         }
 
@@ -160,6 +239,14 @@ namespace mpvtest
             {
                 TxtCurrentFile.Text = e;
             }));
+        }
+
+        private void LstEvents_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                LstEvents.SelectedItem = null;
+            }
         }
     }
 }

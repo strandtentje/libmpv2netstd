@@ -13,8 +13,7 @@ namespace mpvtest
         /// </summary>
         [STAThread]
         static void Main()
-        {
-            Application.EnableVisualStyles();
+        {            
             Application.SetCompatibleTextRenderingDefault(false);
             using (var wnd = new VideoWindow())
             {

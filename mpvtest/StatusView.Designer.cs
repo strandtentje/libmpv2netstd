@@ -38,6 +38,7 @@
             this.LabCurrentFile = new System.Windows.Forms.Label();
             this.TxtCurrentFile = new System.Windows.Forms.TextBox();
             this.GrpTransport = new System.Windows.Forms.GroupBox();
+            this.ChkMuted = new System.Windows.Forms.CheckBox();
             this.LabTimePos = new System.Windows.Forms.Label();
             this.TxtTimePos = new System.Windows.Forms.TextBox();
             this.LabPercPos = new System.Windows.Forms.Label();
@@ -54,7 +55,7 @@
             this.TxtPlaylistCount = new System.Windows.Forms.TextBox();
             this.LabPlsIndex = new System.Windows.Forms.Label();
             this.TxtPlsIndex = new System.Windows.Forms.TextBox();
-            this.ChkMuted = new System.Windows.Forms.CheckBox();
+            this.LstEvents = new System.Windows.Forms.ListBox();
             this.GrpCurrentlyPlaying.SuspendLayout();
             this.GrpTransport.SuspendLayout();
             this.GrpPlsStatus.SuspendLayout();
@@ -74,7 +75,7 @@
             this.GrpCurrentlyPlaying.Controls.Add(this.TxtCurrentFile);
             this.GrpCurrentlyPlaying.Location = new System.Drawing.Point(12, 12);
             this.GrpCurrentlyPlaying.Name = "GrpCurrentlyPlaying";
-            this.GrpCurrentlyPlaying.Size = new System.Drawing.Size(273, 126);
+            this.GrpCurrentlyPlaying.Size = new System.Drawing.Size(303, 126);
             this.GrpCurrentlyPlaying.TabIndex = 0;
             this.GrpCurrentlyPlaying.TabStop = false;
             this.GrpCurrentlyPlaying.Text = "Currently Playing";
@@ -95,7 +96,7 @@
             this.TxtCurrentDuration.Location = new System.Drawing.Point(103, 97);
             this.TxtCurrentDuration.Name = "TxtCurrentDuration";
             this.TxtCurrentDuration.ReadOnly = true;
-            this.TxtCurrentDuration.Size = new System.Drawing.Size(164, 20);
+            this.TxtCurrentDuration.Size = new System.Drawing.Size(194, 20);
             this.TxtCurrentDuration.TabIndex = 7;
             // 
             // LabCurrentTitle
@@ -114,7 +115,7 @@
             this.TxtCurrentTitle.Location = new System.Drawing.Point(103, 71);
             this.TxtCurrentTitle.Name = "TxtCurrentTitle";
             this.TxtCurrentTitle.ReadOnly = true;
-            this.TxtCurrentTitle.Size = new System.Drawing.Size(164, 20);
+            this.TxtCurrentTitle.Size = new System.Drawing.Size(194, 20);
             this.TxtCurrentTitle.TabIndex = 5;
             // 
             // LabCurrentPath
@@ -133,7 +134,7 @@
             this.TxtCurrentPath.Location = new System.Drawing.Point(103, 45);
             this.TxtCurrentPath.Name = "TxtCurrentPath";
             this.TxtCurrentPath.ReadOnly = true;
-            this.TxtCurrentPath.Size = new System.Drawing.Size(164, 20);
+            this.TxtCurrentPath.Size = new System.Drawing.Size(194, 20);
             this.TxtCurrentPath.TabIndex = 3;
             // 
             // LabCurrentFile
@@ -152,7 +153,7 @@
             this.TxtCurrentFile.Location = new System.Drawing.Point(103, 19);
             this.TxtCurrentFile.Name = "TxtCurrentFile";
             this.TxtCurrentFile.ReadOnly = true;
-            this.TxtCurrentFile.Size = new System.Drawing.Size(164, 20);
+            this.TxtCurrentFile.Size = new System.Drawing.Size(194, 20);
             this.TxtCurrentFile.TabIndex = 1;
             // 
             // GrpTransport
@@ -171,10 +172,21 @@
             this.GrpTransport.Controls.Add(this.ChkIdle);
             this.GrpTransport.Location = new System.Drawing.Point(12, 144);
             this.GrpTransport.Name = "GrpTransport";
-            this.GrpTransport.Size = new System.Drawing.Size(273, 120);
+            this.GrpTransport.Size = new System.Drawing.Size(303, 120);
             this.GrpTransport.TabIndex = 1;
             this.GrpTransport.TabStop = false;
             this.GrpTransport.Text = "Transport Status:";
+            // 
+            // ChkMuted
+            // 
+            this.ChkMuted.AutoSize = true;
+            this.ChkMuted.Enabled = false;
+            this.ChkMuted.Location = new System.Drawing.Point(174, 42);
+            this.ChkMuted.Name = "ChkMuted";
+            this.ChkMuted.Size = new System.Drawing.Size(56, 17);
+            this.ChkMuted.TabIndex = 9;
+            this.ChkMuted.Text = "Muted";
+            this.ChkMuted.UseVisualStyleBackColor = true;
             // 
             // LabTimePos
             // 
@@ -192,7 +204,7 @@
             this.TxtTimePos.Location = new System.Drawing.Point(103, 91);
             this.TxtTimePos.Name = "TxtTimePos";
             this.TxtTimePos.ReadOnly = true;
-            this.TxtTimePos.Size = new System.Drawing.Size(164, 20);
+            this.TxtTimePos.Size = new System.Drawing.Size(194, 20);
             this.TxtTimePos.TabIndex = 8;
             // 
             // LabPercPos
@@ -211,7 +223,7 @@
             this.TxtPercPos.Location = new System.Drawing.Point(103, 65);
             this.TxtPercPos.Name = "TxtPercPos";
             this.TxtPercPos.ReadOnly = true;
-            this.TxtPercPos.Size = new System.Drawing.Size(164, 20);
+            this.TxtPercPos.Size = new System.Drawing.Size(194, 20);
             this.TxtPercPos.TabIndex = 6;
             // 
             // ChkRepeatPls
@@ -281,7 +293,7 @@
             this.GrpPlsStatus.Controls.Add(this.TxtPlsIndex);
             this.GrpPlsStatus.Location = new System.Drawing.Point(12, 270);
             this.GrpPlsStatus.Name = "GrpPlsStatus";
-            this.GrpPlsStatus.Size = new System.Drawing.Size(273, 99);
+            this.GrpPlsStatus.Size = new System.Drawing.Size(303, 99);
             this.GrpPlsStatus.TabIndex = 2;
             this.GrpPlsStatus.TabStop = false;
             this.GrpPlsStatus.Text = "Playlist Status";
@@ -302,7 +314,7 @@
             this.TxtPlbIndex.Location = new System.Drawing.Point(103, 45);
             this.TxtPlbIndex.Name = "TxtPlbIndex";
             this.TxtPlbIndex.ReadOnly = true;
-            this.TxtPlbIndex.Size = new System.Drawing.Size(164, 20);
+            this.TxtPlbIndex.Size = new System.Drawing.Size(194, 20);
             this.TxtPlbIndex.TabIndex = 3;
             // 
             // LabTotalItems
@@ -321,7 +333,7 @@
             this.TxtPlaylistCount.Location = new System.Drawing.Point(103, 71);
             this.TxtPlaylistCount.Name = "TxtPlaylistCount";
             this.TxtPlaylistCount.ReadOnly = true;
-            this.TxtPlaylistCount.Size = new System.Drawing.Size(164, 20);
+            this.TxtPlaylistCount.Size = new System.Drawing.Size(194, 20);
             this.TxtPlaylistCount.TabIndex = 5;
             // 
             // LabPlsIndex
@@ -340,33 +352,35 @@
             this.TxtPlsIndex.Location = new System.Drawing.Point(103, 19);
             this.TxtPlsIndex.Name = "TxtPlsIndex";
             this.TxtPlsIndex.ReadOnly = true;
-            this.TxtPlsIndex.Size = new System.Drawing.Size(164, 20);
+            this.TxtPlsIndex.Size = new System.Drawing.Size(194, 20);
             this.TxtPlsIndex.TabIndex = 1;
             // 
-            // ChkMuted
+            // LstEvents
             // 
-            this.ChkMuted.AutoSize = true;
-            this.ChkMuted.Enabled = false;
-            this.ChkMuted.Location = new System.Drawing.Point(174, 42);
-            this.ChkMuted.Name = "ChkMuted";
-            this.ChkMuted.Size = new System.Drawing.Size(56, 17);
-            this.ChkMuted.TabIndex = 9;
-            this.ChkMuted.Text = "Muted";
-            this.ChkMuted.UseVisualStyleBackColor = true;
+            this.LstEvents.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.LstEvents.FormattingEnabled = true;
+            this.LstEvents.Location = new System.Drawing.Point(12, 375);
+            this.LstEvents.Name = "LstEvents";
+            this.LstEvents.Size = new System.Drawing.Size(303, 108);
+            this.LstEvents.TabIndex = 3;
+            this.LstEvents.KeyUp += new System.Windows.Forms.KeyEventHandler(this.LstEvents_KeyUp);
             // 
             // StatusView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(311, 380);
+            this.ClientSize = new System.Drawing.Size(327, 499);
             this.ControlBox = false;
+            this.Controls.Add(this.LstEvents);
             this.Controls.Add(this.GrpPlsStatus);
             this.Controls.Add(this.GrpTransport);
             this.Controls.Add(this.GrpCurrentlyPlaying);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(20000, 419);
-            this.MinimumSize = new System.Drawing.Size(313, 419);
+            this.MaximumSize = new System.Drawing.Size(20000, 20000);
+            this.MinimumSize = new System.Drawing.Size(324, 510);
             this.Name = "StatusView";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
@@ -410,5 +424,6 @@
         private System.Windows.Forms.Label LabPercPos;
         private System.Windows.Forms.TextBox TxtPercPos;
         private System.Windows.Forms.CheckBox ChkMuted;
+        private System.Windows.Forms.ListBox LstEvents;
     }
 }

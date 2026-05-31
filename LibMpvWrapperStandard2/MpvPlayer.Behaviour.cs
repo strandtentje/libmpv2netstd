@@ -19,6 +19,8 @@ namespace LibMpvWrapper
         public MpvPlayer(mpv_handle handle, bool watchProperties = true)
         {
             this.Handle = handle;
+            this.PropertyPoller = new System.Threading.Timer(
+                new System.Threading.TimerCallback(PollPropertiesLoop), null, 100, 100);
             StartPollingEvents();
             if (!watchProperties) return;
             this.WatchPropertyNone(

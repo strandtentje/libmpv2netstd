@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace LibMpvWrapper
@@ -37,12 +38,12 @@ namespace LibMpvWrapper
 					DurationChanged?.Invoke(this, this.CurrentDuration);
 					break;
 
-				case PERCENT_POS_PROPERTY_RW:
-					PercentageChanged?.Invoke(this, this.CurrentPercentagePosition);
+				case PERCENT_POS_PROPERTY_RW:					
+					Interlocked.Increment(ref PercentageSignals);
 					break;
 
-				case TIME_POS_PROPERTY_RW:
-					TimeChanged?.Invoke(this, this.CurrentTimePosition);
+				case TIME_POS_PROPERTY_RW:					
+					Interlocked.Increment(ref TimeSignals);
 					break;
 
 				case IDLE_ACTIVE_PROPERTY_RO:

@@ -30,10 +30,17 @@ namespace LibMpvWrapper
         }
 
         public event ErrorEventHandler Error;
+        public event EventHandler<mpv_event> NonPropertyEvent;
         private void DiscriminateEvent(mpv_event evt)
         {
             if (EventWasError(evt))
                 return;
+
+            if (evt.event_id != mpv_event_id.None && NonPropertyEvent != null && evt.event_id != mpv_event_id.PropertyChange)
+            {
+                ThreadPool.QueueUserWorkItem(HandleNonPropertyEvent, evt);
+            }
+
             switch (evt.event_id)
             {
                 case mpv_event_id.None:
@@ -86,6 +93,12 @@ namespace LibMpvWrapper
                 default:
                     break;
             }
+        }
+
+        private void HandleNonPropertyEvent(object state)
+        {
+            mpv_event evt = (mpv_event)state;
+            NonPropertyEvent.Invoke(this, evt);
         }
 
         private bool EventWasError(mpv_event evt)

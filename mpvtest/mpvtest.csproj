@@ -117,6 +117,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\libmpv2netstd\libmpv2netstd.csproj">
+      <Project>{3be67522-e8c4-4111-bf90-4491bb23e0cb}</Project>
+      <Name>libmpv2netstd</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LibMpvWrapperStandard2\LibMpvWrapperStandard2.csproj">
       <Project>{adb33713-f813-4b65-8eb1-b5d6077bd8af}</Project>
       <Name>LibMpvWrapperStandard2</Name>

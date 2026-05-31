@@ -83,7 +83,7 @@ namespace mpvtest
         {
             this.Invoke(new Action(() =>
             {
-                TxtTime.Text = TimeSpan.FromSeconds(e).ToString();
+                TxtTime.Text = TimeSpan.FromSeconds(e).ToString(@"hh\:mm\:ss");
             }));
         }
 

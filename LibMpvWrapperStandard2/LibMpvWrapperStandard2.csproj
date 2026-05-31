@@ -2,15 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>LibMpvWrapper</RootNamespace>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Remove="MpvPlayer.PollingEvents.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="MpvPlayer.PollingEvents.cs" />
-  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\libmpv2netstd\libmpv2netstd.csproj" />
