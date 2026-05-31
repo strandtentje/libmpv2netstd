@@ -25,7 +25,8 @@ namespace LibMpvWrapper
             LOOP_FILE_PROPERTY_RW = "loop-file",
             LOOP_PLAYLIST_PROPERTY_RW = "loop-playlist",
             PERCENT_POS_PROPERTY_RW = "percent-pos",
-            TIME_POS_PROPERTY_RW = "time-pos";
+            TIME_POS_PROPERTY_RW = "time-pos",
+            MUTE_RW = "mute";
 
         public string CurrentFileName
         {
@@ -218,6 +219,23 @@ namespace LibMpvWrapper
             }
         }
 
+        public bool Mute
+        {
+            get
+            {
+                if (mpv_properties.mpv_get_property(this, MUTE_RW, mpv_format.BoolFlag) is bool bln)
+                    return bln;
+                Debug.WriteLine("mute property was null");
+                return false;
+            }
+            set
+            {
+                using (var n = MUTE_RW.ToMemory())
+                    mpv_properties.mpv_set_property_string(
+                        this, n, value ? YesStringPtr : NoStringPtr).Assert(MUTE_RW, value);
+            }
+
+        }
         public long PlaylistIndex
         {
             get

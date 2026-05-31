@@ -20,7 +20,7 @@ namespace libmpv2net.Functions
 
         public static void mpv_command(mpv_handle ctx, params object[] argObjs)
         {
-            var args = argObjs.OfType<string>().ToArray();
+            var args = argObjs.OfType<object>().Select(x => x.ToString()).ToArray();
             IntPtr stringArrayPtr = Marshal.AllocHGlobal(IntPtr.Size * (args.Length + 1));
             IntPtr[] stringPtrArray = new IntPtr[args.Length];
             for (int i = 0; i < args.Length; i++)

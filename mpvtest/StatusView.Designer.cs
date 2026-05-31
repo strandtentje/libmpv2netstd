@@ -29,31 +29,32 @@
         private void InitializeComponent()
         {
             this.GrpCurrentlyPlaying = new System.Windows.Forms.GroupBox();
-            this.TxtCurrentFile = new System.Windows.Forms.TextBox();
-            this.LabCurrentFile = new System.Windows.Forms.Label();
-            this.LabCurrentPath = new System.Windows.Forms.Label();
-            this.TxtCurrentPath = new System.Windows.Forms.TextBox();
-            this.LabCurrentTitle = new System.Windows.Forms.Label();
-            this.TxtCurrentTitle = new System.Windows.Forms.TextBox();
             this.LabCurrentDuration = new System.Windows.Forms.Label();
             this.TxtCurrentDuration = new System.Windows.Forms.TextBox();
+            this.LabCurrentTitle = new System.Windows.Forms.Label();
+            this.TxtCurrentTitle = new System.Windows.Forms.TextBox();
+            this.LabCurrentPath = new System.Windows.Forms.Label();
+            this.TxtCurrentPath = new System.Windows.Forms.TextBox();
+            this.LabCurrentFile = new System.Windows.Forms.Label();
+            this.TxtCurrentFile = new System.Windows.Forms.TextBox();
             this.GrpTransport = new System.Windows.Forms.GroupBox();
-            this.ChkIdle = new System.Windows.Forms.CheckBox();
-            this.ChkEof = new System.Windows.Forms.CheckBox();
-            this.GrpPlsStatus = new System.Windows.Forms.GroupBox();
-            this.LabTotalItems = new System.Windows.Forms.Label();
-            this.TxtPlaylistCount = new System.Windows.Forms.TextBox();
-            this.LabPlsIndex = new System.Windows.Forms.Label();
-            this.TxtPlsIndex = new System.Windows.Forms.TextBox();
-            this.LabPlbIndex = new System.Windows.Forms.Label();
-            this.TxtPlbIndex = new System.Windows.Forms.TextBox();
-            this.ChkPause = new System.Windows.Forms.CheckBox();
-            this.ChkRepeat = new System.Windows.Forms.CheckBox();
-            this.ChkRepeatPls = new System.Windows.Forms.CheckBox();
             this.LabTimePos = new System.Windows.Forms.Label();
             this.TxtTimePos = new System.Windows.Forms.TextBox();
             this.LabPercPos = new System.Windows.Forms.Label();
             this.TxtPercPos = new System.Windows.Forms.TextBox();
+            this.ChkRepeatPls = new System.Windows.Forms.CheckBox();
+            this.ChkRepeat = new System.Windows.Forms.CheckBox();
+            this.ChkPause = new System.Windows.Forms.CheckBox();
+            this.ChkEof = new System.Windows.Forms.CheckBox();
+            this.ChkIdle = new System.Windows.Forms.CheckBox();
+            this.GrpPlsStatus = new System.Windows.Forms.GroupBox();
+            this.LabPlbIndex = new System.Windows.Forms.Label();
+            this.TxtPlbIndex = new System.Windows.Forms.TextBox();
+            this.LabTotalItems = new System.Windows.Forms.Label();
+            this.TxtPlaylistCount = new System.Windows.Forms.TextBox();
+            this.LabPlsIndex = new System.Windows.Forms.Label();
+            this.TxtPlsIndex = new System.Windows.Forms.TextBox();
+            this.ChkMuted = new System.Windows.Forms.CheckBox();
             this.GrpCurrentlyPlaying.SuspendLayout();
             this.GrpTransport.SuspendLayout();
             this.GrpPlsStatus.SuspendLayout();
@@ -78,43 +79,24 @@
             this.GrpCurrentlyPlaying.TabStop = false;
             this.GrpCurrentlyPlaying.Text = "Currently Playing";
             // 
-            // TxtCurrentFile
+            // LabCurrentDuration
             // 
-            this.TxtCurrentFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.LabCurrentDuration.AutoSize = true;
+            this.LabCurrentDuration.Location = new System.Drawing.Point(6, 100);
+            this.LabCurrentDuration.Name = "LabCurrentDuration";
+            this.LabCurrentDuration.Size = new System.Drawing.Size(87, 13);
+            this.LabCurrentDuration.TabIndex = 6;
+            this.LabCurrentDuration.Text = "Current Duration:";
+            // 
+            // TxtCurrentDuration
+            // 
+            this.TxtCurrentDuration.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.TxtCurrentFile.Location = new System.Drawing.Point(103, 19);
-            this.TxtCurrentFile.Name = "TxtCurrentFile";
-            this.TxtCurrentFile.ReadOnly = true;
-            this.TxtCurrentFile.Size = new System.Drawing.Size(164, 20);
-            this.TxtCurrentFile.TabIndex = 1;
-            // 
-            // LabCurrentFile
-            // 
-            this.LabCurrentFile.AutoSize = true;
-            this.LabCurrentFile.Location = new System.Drawing.Point(6, 22);
-            this.LabCurrentFile.Name = "LabCurrentFile";
-            this.LabCurrentFile.Size = new System.Drawing.Size(63, 13);
-            this.LabCurrentFile.TabIndex = 0;
-            this.LabCurrentFile.Text = "Current File:";
-            // 
-            // LabCurrentPath
-            // 
-            this.LabCurrentPath.AutoSize = true;
-            this.LabCurrentPath.Location = new System.Drawing.Point(6, 48);
-            this.LabCurrentPath.Name = "LabCurrentPath";
-            this.LabCurrentPath.Size = new System.Drawing.Size(69, 13);
-            this.LabCurrentPath.TabIndex = 2;
-            this.LabCurrentPath.Text = "Current Path:";
-            // 
-            // TxtCurrentPath
-            // 
-            this.TxtCurrentPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.TxtCurrentPath.Location = new System.Drawing.Point(103, 45);
-            this.TxtCurrentPath.Name = "TxtCurrentPath";
-            this.TxtCurrentPath.ReadOnly = true;
-            this.TxtCurrentPath.Size = new System.Drawing.Size(164, 20);
-            this.TxtCurrentPath.TabIndex = 3;
+            this.TxtCurrentDuration.Location = new System.Drawing.Point(103, 97);
+            this.TxtCurrentDuration.Name = "TxtCurrentDuration";
+            this.TxtCurrentDuration.ReadOnly = true;
+            this.TxtCurrentDuration.Size = new System.Drawing.Size(164, 20);
+            this.TxtCurrentDuration.TabIndex = 7;
             // 
             // LabCurrentTitle
             // 
@@ -135,29 +117,49 @@
             this.TxtCurrentTitle.Size = new System.Drawing.Size(164, 20);
             this.TxtCurrentTitle.TabIndex = 5;
             // 
-            // LabCurrentDuration
+            // LabCurrentPath
             // 
-            this.LabCurrentDuration.AutoSize = true;
-            this.LabCurrentDuration.Location = new System.Drawing.Point(6, 100);
-            this.LabCurrentDuration.Name = "LabCurrentDuration";
-            this.LabCurrentDuration.Size = new System.Drawing.Size(87, 13);
-            this.LabCurrentDuration.TabIndex = 6;
-            this.LabCurrentDuration.Text = "Current Duration:";
+            this.LabCurrentPath.AutoSize = true;
+            this.LabCurrentPath.Location = new System.Drawing.Point(6, 48);
+            this.LabCurrentPath.Name = "LabCurrentPath";
+            this.LabCurrentPath.Size = new System.Drawing.Size(69, 13);
+            this.LabCurrentPath.TabIndex = 2;
+            this.LabCurrentPath.Text = "Current Path:";
             // 
-            // TxtCurrentDuration
+            // TxtCurrentPath
             // 
-            this.TxtCurrentDuration.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.TxtCurrentPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.TxtCurrentDuration.Location = new System.Drawing.Point(103, 97);
-            this.TxtCurrentDuration.Name = "TxtCurrentDuration";
-            this.TxtCurrentDuration.ReadOnly = true;
-            this.TxtCurrentDuration.Size = new System.Drawing.Size(164, 20);
-            this.TxtCurrentDuration.TabIndex = 7;
+            this.TxtCurrentPath.Location = new System.Drawing.Point(103, 45);
+            this.TxtCurrentPath.Name = "TxtCurrentPath";
+            this.TxtCurrentPath.ReadOnly = true;
+            this.TxtCurrentPath.Size = new System.Drawing.Size(164, 20);
+            this.TxtCurrentPath.TabIndex = 3;
+            // 
+            // LabCurrentFile
+            // 
+            this.LabCurrentFile.AutoSize = true;
+            this.LabCurrentFile.Location = new System.Drawing.Point(6, 22);
+            this.LabCurrentFile.Name = "LabCurrentFile";
+            this.LabCurrentFile.Size = new System.Drawing.Size(63, 13);
+            this.LabCurrentFile.TabIndex = 0;
+            this.LabCurrentFile.Text = "Current File:";
+            // 
+            // TxtCurrentFile
+            // 
+            this.TxtCurrentFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.TxtCurrentFile.Location = new System.Drawing.Point(103, 19);
+            this.TxtCurrentFile.Name = "TxtCurrentFile";
+            this.TxtCurrentFile.ReadOnly = true;
+            this.TxtCurrentFile.Size = new System.Drawing.Size(164, 20);
+            this.TxtCurrentFile.TabIndex = 1;
             // 
             // GrpTransport
             // 
             this.GrpTransport.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.GrpTransport.Controls.Add(this.ChkMuted);
             this.GrpTransport.Controls.Add(this.LabTimePos);
             this.GrpTransport.Controls.Add(this.TxtTimePos);
             this.GrpTransport.Controls.Add(this.LabPercPos);
@@ -174,6 +176,88 @@
             this.GrpTransport.TabStop = false;
             this.GrpTransport.Text = "Transport Status:";
             // 
+            // LabTimePos
+            // 
+            this.LabTimePos.AutoSize = true;
+            this.LabTimePos.Location = new System.Drawing.Point(6, 94);
+            this.LabTimePos.Name = "LabTimePos";
+            this.LabTimePos.Size = new System.Drawing.Size(52, 13);
+            this.LabTimePos.TabIndex = 7;
+            this.LabTimePos.Text = "Seconds:";
+            // 
+            // TxtTimePos
+            // 
+            this.TxtTimePos.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.TxtTimePos.Location = new System.Drawing.Point(103, 91);
+            this.TxtTimePos.Name = "TxtTimePos";
+            this.TxtTimePos.ReadOnly = true;
+            this.TxtTimePos.Size = new System.Drawing.Size(164, 20);
+            this.TxtTimePos.TabIndex = 8;
+            // 
+            // LabPercPos
+            // 
+            this.LabPercPos.AutoSize = true;
+            this.LabPercPos.Location = new System.Drawing.Point(6, 68);
+            this.LabPercPos.Name = "LabPercPos";
+            this.LabPercPos.Size = new System.Drawing.Size(65, 13);
+            this.LabPercPos.TabIndex = 5;
+            this.LabPercPos.Text = "Percentage:";
+            // 
+            // TxtPercPos
+            // 
+            this.TxtPercPos.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.TxtPercPos.Location = new System.Drawing.Point(103, 65);
+            this.TxtPercPos.Name = "TxtPercPos";
+            this.TxtPercPos.ReadOnly = true;
+            this.TxtPercPos.Size = new System.Drawing.Size(164, 20);
+            this.TxtPercPos.TabIndex = 6;
+            // 
+            // ChkRepeatPls
+            // 
+            this.ChkRepeatPls.AutoSize = true;
+            this.ChkRepeatPls.Enabled = false;
+            this.ChkRepeatPls.Location = new System.Drawing.Point(150, 19);
+            this.ChkRepeatPls.Name = "ChkRepeatPls";
+            this.ChkRepeatPls.Size = new System.Drawing.Size(110, 17);
+            this.ChkRepeatPls.TabIndex = 4;
+            this.ChkRepeatPls.Text = "Repeating Playlist";
+            this.ChkRepeatPls.UseVisualStyleBackColor = true;
+            // 
+            // ChkRepeat
+            // 
+            this.ChkRepeat.AutoSize = true;
+            this.ChkRepeat.Enabled = false;
+            this.ChkRepeat.Location = new System.Drawing.Point(6, 42);
+            this.ChkRepeat.Name = "ChkRepeat";
+            this.ChkRepeat.Size = new System.Drawing.Size(94, 17);
+            this.ChkRepeat.TabIndex = 3;
+            this.ChkRepeat.Text = "Repeating File";
+            this.ChkRepeat.UseVisualStyleBackColor = true;
+            // 
+            // ChkPause
+            // 
+            this.ChkPause.AutoSize = true;
+            this.ChkPause.Enabled = false;
+            this.ChkPause.Location = new System.Drawing.Point(106, 42);
+            this.ChkPause.Name = "ChkPause";
+            this.ChkPause.Size = new System.Drawing.Size(62, 17);
+            this.ChkPause.TabIndex = 2;
+            this.ChkPause.Text = "Paused";
+            this.ChkPause.UseVisualStyleBackColor = true;
+            // 
+            // ChkEof
+            // 
+            this.ChkEof.AutoSize = true;
+            this.ChkEof.Enabled = false;
+            this.ChkEof.Location = new System.Drawing.Point(55, 19);
+            this.ChkEof.Name = "ChkEof";
+            this.ChkEof.Size = new System.Drawing.Size(89, 17);
+            this.ChkEof.TabIndex = 1;
+            this.ChkEof.Text = "At End of File";
+            this.ChkEof.UseVisualStyleBackColor = true;
+            // 
             // ChkIdle
             // 
             this.ChkIdle.AutoSize = true;
@@ -184,17 +268,6 @@
             this.ChkIdle.TabIndex = 0;
             this.ChkIdle.Text = "Idle";
             this.ChkIdle.UseVisualStyleBackColor = true;
-            // 
-            // ChkEof
-            // 
-            this.ChkEof.AutoSize = true;
-            this.ChkEof.Enabled = false;
-            this.ChkEof.Location = new System.Drawing.Point(106, 19);
-            this.ChkEof.Name = "ChkEof";
-            this.ChkEof.Size = new System.Drawing.Size(89, 17);
-            this.ChkEof.TabIndex = 1;
-            this.ChkEof.Text = "At End of File";
-            this.ChkEof.UseVisualStyleBackColor = true;
             // 
             // GrpPlsStatus
             // 
@@ -212,6 +285,25 @@
             this.GrpPlsStatus.TabIndex = 2;
             this.GrpPlsStatus.TabStop = false;
             this.GrpPlsStatus.Text = "Playlist Status";
+            // 
+            // LabPlbIndex
+            // 
+            this.LabPlbIndex.AutoSize = true;
+            this.LabPlbIndex.Location = new System.Drawing.Point(6, 48);
+            this.LabPlbIndex.Name = "LabPlbIndex";
+            this.LabPlbIndex.Size = new System.Drawing.Size(83, 13);
+            this.LabPlbIndex.TabIndex = 2;
+            this.LabPlbIndex.Text = "Playback Index:";
+            // 
+            // TxtPlbIndex
+            // 
+            this.TxtPlbIndex.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.TxtPlbIndex.Location = new System.Drawing.Point(103, 45);
+            this.TxtPlbIndex.Name = "TxtPlbIndex";
+            this.TxtPlbIndex.ReadOnly = true;
+            this.TxtPlbIndex.Size = new System.Drawing.Size(164, 20);
+            this.TxtPlbIndex.TabIndex = 3;
             // 
             // LabTotalItems
             // 
@@ -251,101 +343,22 @@
             this.TxtPlsIndex.Size = new System.Drawing.Size(164, 20);
             this.TxtPlsIndex.TabIndex = 1;
             // 
-            // LabPlbIndex
+            // ChkMuted
             // 
-            this.LabPlbIndex.AutoSize = true;
-            this.LabPlbIndex.Location = new System.Drawing.Point(6, 48);
-            this.LabPlbIndex.Name = "LabPlbIndex";
-            this.LabPlbIndex.Size = new System.Drawing.Size(83, 13);
-            this.LabPlbIndex.TabIndex = 2;
-            this.LabPlbIndex.Text = "Playback Index:";
-            // 
-            // TxtPlbIndex
-            // 
-            this.TxtPlbIndex.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.TxtPlbIndex.Location = new System.Drawing.Point(103, 45);
-            this.TxtPlbIndex.Name = "TxtPlbIndex";
-            this.TxtPlbIndex.ReadOnly = true;
-            this.TxtPlbIndex.Size = new System.Drawing.Size(164, 20);
-            this.TxtPlbIndex.TabIndex = 3;
-            // 
-            // ChkPause
-            // 
-            this.ChkPause.AutoSize = true;
-            this.ChkPause.Enabled = false;
-            this.ChkPause.Location = new System.Drawing.Point(201, 19);
-            this.ChkPause.Name = "ChkPause";
-            this.ChkPause.Size = new System.Drawing.Size(62, 17);
-            this.ChkPause.TabIndex = 2;
-            this.ChkPause.Text = "Paused";
-            this.ChkPause.UseVisualStyleBackColor = true;
-            // 
-            // ChkRepeat
-            // 
-            this.ChkRepeat.AutoSize = true;
-            this.ChkRepeat.Enabled = false;
-            this.ChkRepeat.Location = new System.Drawing.Point(6, 42);
-            this.ChkRepeat.Name = "ChkRepeat";
-            this.ChkRepeat.Size = new System.Drawing.Size(94, 17);
-            this.ChkRepeat.TabIndex = 3;
-            this.ChkRepeat.Text = "Repeating File";
-            this.ChkRepeat.UseVisualStyleBackColor = true;
-            // 
-            // ChkRepeatPls
-            // 
-            this.ChkRepeatPls.AutoSize = true;
-            this.ChkRepeatPls.Enabled = false;
-            this.ChkRepeatPls.Location = new System.Drawing.Point(106, 42);
-            this.ChkRepeatPls.Name = "ChkRepeatPls";
-            this.ChkRepeatPls.Size = new System.Drawing.Size(110, 17);
-            this.ChkRepeatPls.TabIndex = 4;
-            this.ChkRepeatPls.Text = "Repeating Playlist";
-            this.ChkRepeatPls.UseVisualStyleBackColor = true;
-            // 
-            // LabTimePos
-            // 
-            this.LabTimePos.AutoSize = true;
-            this.LabTimePos.Location = new System.Drawing.Point(6, 94);
-            this.LabTimePos.Name = "LabTimePos";
-            this.LabTimePos.Size = new System.Drawing.Size(52, 13);
-            this.LabTimePos.TabIndex = 7;
-            this.LabTimePos.Text = "Seconds:";
-            // 
-            // TxtTimePos
-            // 
-            this.TxtTimePos.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.TxtTimePos.Location = new System.Drawing.Point(103, 91);
-            this.TxtTimePos.Name = "TxtTimePos";
-            this.TxtTimePos.ReadOnly = true;
-            this.TxtTimePos.Size = new System.Drawing.Size(164, 20);
-            this.TxtTimePos.TabIndex = 8;            
-            // 
-            // LabPercPos
-            // 
-            this.LabPercPos.AutoSize = true;
-            this.LabPercPos.Location = new System.Drawing.Point(6, 68);
-            this.LabPercPos.Name = "LabPercPos";
-            this.LabPercPos.Size = new System.Drawing.Size(65, 13);
-            this.LabPercPos.TabIndex = 5;
-            this.LabPercPos.Text = "Percentage:";
-            // 
-            // TxtPercPos
-            // 
-            this.TxtPercPos.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.TxtPercPos.Location = new System.Drawing.Point(103, 65);
-            this.TxtPercPos.Name = "TxtPercPos";
-            this.TxtPercPos.ReadOnly = true;
-            this.TxtPercPos.Size = new System.Drawing.Size(164, 20);
-            this.TxtPercPos.TabIndex = 6;
+            this.ChkMuted.AutoSize = true;
+            this.ChkMuted.Enabled = false;
+            this.ChkMuted.Location = new System.Drawing.Point(174, 42);
+            this.ChkMuted.Name = "ChkMuted";
+            this.ChkMuted.Size = new System.Drawing.Size(56, 17);
+            this.ChkMuted.TabIndex = 9;
+            this.ChkMuted.Text = "Muted";
+            this.ChkMuted.UseVisualStyleBackColor = true;
             // 
             // StatusView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(297, 380);
+            this.ClientSize = new System.Drawing.Size(311, 380);
             this.ControlBox = false;
             this.Controls.Add(this.GrpPlsStatus);
             this.Controls.Add(this.GrpTransport);
@@ -396,5 +409,6 @@
         private System.Windows.Forms.TextBox TxtTimePos;
         private System.Windows.Forms.Label LabPercPos;
         private System.Windows.Forms.TextBox TxtPercPos;
+        private System.Windows.Forms.CheckBox ChkMuted;
     }
 }

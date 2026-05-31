@@ -39,7 +39,7 @@ namespace LibMpvWrapper
             if (!watchProperties) return;
             this.WatchPropertyNone(
                 "filename", "path", "media-title", "duration", "percent-pos", "time-pos", "playlist-playing-pos", 
-                "playlist-count", "playlist-pos", "idle-active", "eof-reached", "pause", "loop-file", "loop-playlist");            
+                "playlist-count", "playlist-pos", "idle-active", "eof-reached", "pause", "loop-file", "loop-playlist", "mute");            
         }
 
         /// <summary>

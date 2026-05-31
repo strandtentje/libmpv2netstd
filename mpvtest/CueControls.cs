@@ -34,8 +34,15 @@ namespace mpvtest
         {
             this.Invoke(new Action(() =>
             {
-                if (ChkRepeatPls.Checked != e)
-                    ChkRepeatPls.Checked = e;
+                this.ChkRepeatPls.CheckedChanged -= ChkRepeatPls_CheckedChanged;
+                try
+                {
+                    this.ChkRepeatPls.Checked = e;
+                }
+                finally
+                {
+                    this.ChkRepeatPls.CheckedChanged += ChkRepeatPls_CheckedChanged;
+                }
             }));
         }
 
@@ -43,8 +50,15 @@ namespace mpvtest
         {
             this.Invoke(new Action(() =>
             {
-                if (ChkPauseFile.Checked != e)
-                    ChkPauseFile.Checked = e;
+                this.ChkRepeatFile.CheckedChanged -= ChkRepeatFile_CheckedChanged;
+                try
+                {
+                    this.ChkRepeatFile.Checked = e;
+                }
+                finally
+                {
+                    this.ChkRepeatFile.CheckedChanged += ChkRepeatFile_CheckedChanged;
+                }
             }));
         }
 
@@ -52,25 +66,53 @@ namespace mpvtest
         {
             this.Invoke(new Action(() =>
             {
-                if (ChkPauseFile.Checked != e)
-                    ChkPauseFile.Checked = e;
+                this.ChkPauseFile.CheckedChanged -= ChkPauseFile_CheckedChanged;
+                try
+                {
+                    this.ChkPauseFile.Checked = e;
+                }
+                finally
+                {
+                    this.ChkPauseFile.CheckedChanged += ChkPauseFile_CheckedChanged;
+                }
             }));
         }
 
         private void ChkPauseFile_CheckedChanged(object sender, EventArgs e)
         {
-            if (ChkPauseFile.Checked != Player.IsPause)
-                Player.IsPause = ChkPauseFile.Checked;
+            this.Player.PauseChanged -= Player_PauseChanged;
+            try
+            {
+                this.Player.IsPause = ChkPauseFile.Checked;
+            }
+            finally
+            {
+                this.Player.PauseChanged += Player_PauseChanged;
+            }
         }
         private void ChkRepeatFile_CheckedChanged(object sender, EventArgs e)
         {
-            if (ChkRepeatFile.Checked != Player.RepeatFile)
-                Player.RepeatFile = ChkRepeatFile.Checked;
+            this.Player.FileRepeatChanged -= Player_FileRepeatChanged;
+            try
+            {
+                this.Player.RepeatFile = ChkRepeatFile.Checked;
+            }
+            finally
+            {
+                this.Player.FileRepeatChanged += Player_FileRepeatChanged;
+            }   
         }
         private void ChkRepeatPls_CheckedChanged(object sender, EventArgs e)
         {
-            if (ChkRepeatPls.Checked != Player.RepeatPlaylist)
-                Player.RepeatPlaylist = ChkRepeatPls.Checked;
+            this.Player.PlaylistRepeatChanged -= Player_PlaylistRepeatChanged;
+            try
+            {
+                this.Player.RepeatPlaylist = ChkRepeatPls.Checked;
+            }
+            finally
+            {
+                this.Player.PlaylistRepeatChanged += Player_PlaylistRepeatChanged;
+            }
         }
 
         private void ButPrevPls_Click(object sender, EventArgs e)

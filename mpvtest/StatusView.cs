@@ -31,6 +31,7 @@ namespace mpvtest
             player.IdleChanged += Player_IdleChanged;
             player.EofChanged += Player_EofChanged;
             player.PauseChanged += Player_PauseChanged;
+            player.MuteChanged += Player_MuteChanged;
             player.FileRepeatChanged += Player_FileRepeatChanged;
             player.PlaylistRepeatChanged += Player_PlaylistRepeatChanged;
 
@@ -39,6 +40,14 @@ namespace mpvtest
             player.PlaylistIndexChanged += Player_PlaylistIndexChanged;
             player.PlaybackIndexChanged += Player_PlaybackIndexChanged;
             player.PlaylistCountChanged += Player_PlaylistCountChanged;
+        }
+
+        private void Player_MuteChanged(object sender, bool e)
+        {
+            this.Invoke(new Action(() =>
+            {
+                ChkMuted.Checked = e;
+            }));
         }
 
         private void Player_PlaylistCountChanged(object sender, long e)

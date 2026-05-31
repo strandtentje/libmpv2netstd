@@ -10,10 +10,11 @@ namespace LibMpvWrapper
     {
 		public event EventHandler<string> FileNameChanged, PathChanged, MediaTitleChanged;
 		public event EventHandler<double> DurationChanged, PercentageChanged, TimeChanged;
-		public event EventHandler<bool> IdleChanged, EofChanged, PauseChanged, FileRepeatChanged, PlaylistRepeatChanged;
+		public event EventHandler<bool> IdleChanged, EofChanged, PauseChanged, FileRepeatChanged, PlaylistRepeatChanged, MuteChanged;
 		public event EventHandler 
 			BecameIdle, ResumedWork, EofReached, InFile, Paused, Unpaused, 
-			FileRepeatEnabled, PlaylistLoopEnabled, FileLoopDisabled, PlaylistLoopDisabled;
+			FileRepeatEnabled, PlaylistLoopEnabled, FileLoopDisabled, PlaylistLoopDisabled, 
+			Muted, Unmuted;
 		public event EventHandler<long> PlaylistIndexChanged, PlaybackIndexChanged, PlaylistCountChanged;
 		private void HandlePropertyChange(PropertyChangeEventArgs e)
 		{
@@ -54,6 +55,19 @@ namespace LibMpvWrapper
 					{
                         IdleChanged?.Invoke(this, false);
                         ResumedWork?.Invoke(this, EventArgs.Empty);
+					}
+					break;
+
+				case MUTE_RW:
+					if (this.Mute)
+					{
+						MuteChanged?.Invoke(this, true);
+						Muted?.Invoke(this, EventArgs.Empty);
+					}
+					else
+					{
+						MuteChanged?.Invoke(this, false);
+						Unmuted?.Invoke(this, EventArgs.Empty);
 					}
 					break;
 

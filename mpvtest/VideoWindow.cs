@@ -31,6 +31,8 @@ namespace mpvtest
             var factory = new MpvPlayerFactory();
             this.Player = factory.CreatePlayer(this.Handle, PlaylistLifecycle.PauseAfterEnd);
 
+            this.Player.Mute = true;
+
             _cueControls.Show(this);
             _plsControls.Show(this);
             _statusView.Show(this);

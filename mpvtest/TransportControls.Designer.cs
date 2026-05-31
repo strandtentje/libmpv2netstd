@@ -48,6 +48,7 @@
             this.ChkRepeatFile = new System.Windows.Forms.CheckBox();
             this.ChkStopClear = new System.Windows.Forms.CheckBox();
             this.ChkPauseFile = new System.Windows.Forms.CheckBox();
+            this.ChkMuted = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.TrackProgress)).BeginInit();
             this.SuspendLayout();
             // 
@@ -57,7 +58,7 @@
             this.ButSeekRelBack10.AutoSize = true;
             this.ButSeekRelBack10.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ButSeekRelBack10.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ButSeekRelBack10.Location = new System.Drawing.Point(12, 50);
+            this.ButSeekRelBack10.Location = new System.Drawing.Point(12, 57);
             this.ButSeekRelBack10.Name = "ButSeekRelBack10";
             this.ButSeekRelBack10.Size = new System.Drawing.Size(96, 35);
             this.ButSeekRelBack10.TabIndex = 7;
@@ -72,7 +73,7 @@
             this.ButSeekRelFwd10.AutoSize = true;
             this.ButSeekRelFwd10.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ButSeekRelFwd10.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ButSeekRelFwd10.Location = new System.Drawing.Point(114, 50);
+            this.ButSeekRelFwd10.Location = new System.Drawing.Point(114, 57);
             this.ButSeekRelFwd10.Name = "ButSeekRelFwd10";
             this.ButSeekRelFwd10.Size = new System.Drawing.Size(101, 35);
             this.ButSeekRelFwd10.TabIndex = 8;
@@ -87,7 +88,7 @@
             this.ButSeekPercFwd10.AutoSize = true;
             this.ButSeekPercFwd10.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ButSeekPercFwd10.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ButSeekPercFwd10.Location = new System.Drawing.Point(567, 50);
+            this.ButSeekPercFwd10.Location = new System.Drawing.Point(564, 57);
             this.ButSeekPercFwd10.Name = "ButSeekPercFwd10";
             this.ButSeekPercFwd10.Size = new System.Drawing.Size(109, 35);
             this.ButSeekPercFwd10.TabIndex = 12;
@@ -102,7 +103,7 @@
             this.ButSeekPercBack10.AutoSize = true;
             this.ButSeekPercBack10.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ButSeekPercBack10.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ButSeekPercBack10.Location = new System.Drawing.Point(386, 50);
+            this.ButSeekPercBack10.Location = new System.Drawing.Point(383, 57);
             this.ButSeekPercBack10.Name = "ButSeekPercBack10";
             this.ButSeekPercBack10.Size = new System.Drawing.Size(104, 35);
             this.ButSeekPercBack10.TabIndex = 10;
@@ -117,7 +118,7 @@
             this.ButNextFrame.AutoSize = true;
             this.ButNextFrame.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ButNextFrame.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ButNextFrame.Location = new System.Drawing.Point(890, 50);
+            this.ButNextFrame.Location = new System.Drawing.Point(883, 57);
             this.ButNextFrame.Name = "ButNextFrame";
             this.ButNextFrame.Size = new System.Drawing.Size(100, 35);
             this.ButNextFrame.TabIndex = 14;
@@ -132,7 +133,7 @@
             this.ButPrevFrame.AutoSize = true;
             this.ButPrevFrame.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ButPrevFrame.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ButPrevFrame.Location = new System.Drawing.Point(789, 50);
+            this.ButPrevFrame.Location = new System.Drawing.Point(782, 57);
             this.ButPrevFrame.Name = "ButPrevFrame";
             this.ButPrevFrame.Size = new System.Drawing.Size(95, 35);
             this.ButPrevFrame.TabIndex = 13;
@@ -147,7 +148,7 @@
             this.ButFullStop.AutoSize = true;
             this.ButFullStop.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ButFullStop.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ButFullStop.Location = new System.Drawing.Point(632, 92);
+            this.ButFullStop.Location = new System.Drawing.Point(629, 99);
             this.ButFullStop.Name = "ButFullStop";
             this.ButFullStop.Size = new System.Drawing.Size(44, 35);
             this.ButFullStop.TabIndex = 1;
@@ -162,7 +163,7 @@
             this.ChkMuteDuringFrameSeek.Appearance = System.Windows.Forms.Appearance.Button;
             this.ChkMuteDuringFrameSeek.AutoSize = true;
             this.ChkMuteDuringFrameSeek.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ChkMuteDuringFrameSeek.Location = new System.Drawing.Point(902, 91);
+            this.ChkMuteDuringFrameSeek.Location = new System.Drawing.Point(895, 98);
             this.ChkMuteDuringFrameSeek.Name = "ChkMuteDuringFrameSeek";
             this.ChkMuteDuringFrameSeek.Size = new System.Drawing.Size(88, 35);
             this.ChkMuteDuringFrameSeek.TabIndex = 3;
@@ -177,7 +178,7 @@
             this.ChkSeekToKeyframe.Appearance = System.Windows.Forms.Appearance.Button;
             this.ChkSeekToKeyframe.AutoSize = true;
             this.ChkSeekToKeyframe.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ChkSeekToKeyframe.Location = new System.Drawing.Point(12, 91);
+            this.ChkSeekToKeyframe.Location = new System.Drawing.Point(12, 98);
             this.ChkSeekToKeyframe.Name = "ChkSeekToKeyframe";
             this.ChkSeekToKeyframe.Size = new System.Drawing.Size(66, 35);
             this.ChkSeekToKeyframe.TabIndex = 15;
@@ -192,7 +193,7 @@
             this.ChkPlayAfterFrameSeek.Appearance = System.Windows.Forms.Appearance.Button;
             this.ChkPlayAfterFrameSeek.AutoSize = true;
             this.ChkPlayAfterFrameSeek.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ChkPlayAfterFrameSeek.Location = new System.Drawing.Point(84, 91);
+            this.ChkPlayAfterFrameSeek.Location = new System.Drawing.Point(84, 98);
             this.ChkPlayAfterFrameSeek.Name = "ChkPlayAfterFrameSeek";
             this.ChkPlayAfterFrameSeek.Size = new System.Drawing.Size(59, 35);
             this.ChkPlayAfterFrameSeek.TabIndex = 16;
@@ -207,7 +208,7 @@
             this.ButGo0.AutoSize = true;
             this.ButGo0.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ButGo0.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ButGo0.Location = new System.Drawing.Point(327, 50);
+            this.ButGo0.Location = new System.Drawing.Point(324, 57);
             this.ButGo0.Name = "ButGo0";
             this.ButGo0.Size = new System.Drawing.Size(53, 35);
             this.ButGo0.TabIndex = 9;
@@ -221,7 +222,7 @@
             this.ButGo50.AutoSize = true;
             this.ButGo50.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ButGo50.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ButGo50.Location = new System.Drawing.Point(496, 50);
+            this.ButGo50.Location = new System.Drawing.Point(493, 57);
             this.ButGo50.Name = "ButGo50";
             this.ButGo50.Size = new System.Drawing.Size(65, 35);
             this.ButGo50.TabIndex = 11;
@@ -233,10 +234,10 @@
             // TrackProgress
             // 
             this.TrackProgress.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.TrackProgress.Location = new System.Drawing.Point(114, 0);
+            this.TrackProgress.Location = new System.Drawing.Point(114, 7);
             this.TrackProgress.Maximum = 100;
             this.TrackProgress.Name = "TrackProgress";
-            this.TrackProgress.Size = new System.Drawing.Size(720, 45);
+            this.TrackProgress.Size = new System.Drawing.Size(713, 45);
             this.TrackProgress.TabIndex = 5;
             this.TrackProgress.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
             this.HoverHelp.SetToolTip(this.TrackProgress, "Playback Percentage");
@@ -249,7 +250,7 @@
             // 
             this.TxtTime.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.TxtTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtTime.Location = new System.Drawing.Point(840, 5);
+            this.TxtTime.Location = new System.Drawing.Point(833, 12);
             this.TxtTime.Name = "TxtTime";
             this.TxtTime.Size = new System.Drawing.Size(150, 31);
             this.TxtTime.TabIndex = 6;
@@ -264,7 +265,7 @@
             // 
             this.TxtPercentage.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.TxtPercentage.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtPercentage.Location = new System.Drawing.Point(12, 5);
+            this.TxtPercentage.Location = new System.Drawing.Point(12, 12);
             this.TxtPercentage.Name = "TxtPercentage";
             this.TxtPercentage.Size = new System.Drawing.Size(96, 31);
             this.TxtPercentage.TabIndex = 4;
@@ -281,7 +282,7 @@
             this.ChkRepeatFile.Appearance = System.Windows.Forms.Appearance.Button;
             this.ChkRepeatFile.AutoSize = true;
             this.ChkRepeatFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ChkRepeatFile.Location = new System.Drawing.Point(149, 91);
+            this.ChkRepeatFile.Location = new System.Drawing.Point(149, 98);
             this.ChkRepeatFile.Name = "ChkRepeatFile";
             this.ChkRepeatFile.Size = new System.Drawing.Size(56, 35);
             this.ChkRepeatFile.TabIndex = 17;
@@ -296,7 +297,7 @@
             this.ChkStopClear.Appearance = System.Windows.Forms.Appearance.Button;
             this.ChkStopClear.AutoSize = true;
             this.ChkStopClear.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ChkStopClear.Location = new System.Drawing.Point(830, 92);
+            this.ChkStopClear.Location = new System.Drawing.Point(823, 99);
             this.ChkStopClear.Name = "ChkStopClear";
             this.ChkStopClear.Size = new System.Drawing.Size(66, 35);
             this.ChkStopClear.TabIndex = 2;
@@ -310,9 +311,9 @@
             this.ChkPauseFile.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.ChkPauseFile.Appearance = System.Windows.Forms.Appearance.Button;
             this.ChkPauseFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ChkPauseFile.Location = new System.Drawing.Point(327, 92);
+            this.ChkPauseFile.Location = new System.Drawing.Point(374, 99);
             this.ChkPauseFile.Name = "ChkPauseFile";
-            this.ChkPauseFile.Size = new System.Drawing.Size(299, 35);
+            this.ChkPauseFile.Size = new System.Drawing.Size(249, 35);
             this.ChkPauseFile.TabIndex = 0;
             this.ChkPauseFile.Text = "⏸️";
             this.ChkPauseFile.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -320,12 +321,28 @@
             this.ChkPauseFile.UseVisualStyleBackColor = true;
             this.ChkPauseFile.CheckedChanged += new System.EventHandler(this.ChkPauseFile_CheckedChanged);
             // 
+            // ChkMuted
+            // 
+            this.ChkMuted.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.ChkMuted.Appearance = System.Windows.Forms.Appearance.Button;
+            this.ChkMuted.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ChkMuted.Location = new System.Drawing.Point(324, 98);
+            this.ChkMuted.Name = "ChkMuted";
+            this.ChkMuted.Size = new System.Drawing.Size(44, 35);
+            this.ChkMuted.TabIndex = 18;
+            this.ChkMuted.Text = "🔇";
+            this.ChkMuted.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.HoverHelp.SetToolTip(this.ChkMuted, "Mute");
+            this.ChkMuted.UseVisualStyleBackColor = true;
+            this.ChkMuted.CheckedChanged += new System.EventHandler(this.ChkMuted_CheckedChanged);
+            // 
             // TransportControls
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1005, 151);
+            this.ClientSize = new System.Drawing.Size(998, 151);
             this.ControlBox = false;
+            this.Controls.Add(this.ChkMuted);
             this.Controls.Add(this.ChkPauseFile);
             this.Controls.Add(this.ChkStopClear);
             this.Controls.Add(this.ChkRepeatFile);
@@ -375,5 +392,6 @@
         private System.Windows.Forms.CheckBox ChkRepeatFile;
         private System.Windows.Forms.CheckBox ChkStopClear;
         private System.Windows.Forms.CheckBox ChkPauseFile;
+        private System.Windows.Forms.CheckBox ChkMuted;
     }
 }

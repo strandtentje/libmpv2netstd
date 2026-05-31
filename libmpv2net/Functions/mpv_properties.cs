@@ -141,7 +141,9 @@ namespace libmpv2net.Functions
                 if (valuePtr == IntPtr.Zero)
                     return null;
 
-                var valueString = Marshal.PtrToStringUni(valuePtr);
+                var str = new UnicodeBinaryString(valuePtr);
+                var valueString = str.ToString();
+
                 mpv_memory.mpv_free(valuePtr);
                 return valueString;
             }

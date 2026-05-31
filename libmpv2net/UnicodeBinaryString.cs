@@ -32,6 +32,10 @@ namespace libmpv2net
         {
             return s.HGlobal;
         }
+        public override string ToString()
+        {
+            return (string)HGlobal.ToObject(mpv_format.String);
+        }
     }
 
     public static class UnicodeBinaryStringExtensions

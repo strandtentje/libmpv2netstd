@@ -27,15 +27,37 @@ namespace mpvtest
             this.Player.PercentageChanged += Player_PercentageChanged;
             this.Player.TimeChanged += Player_TimeChanged;
             this.Player.PauseChanged += Player_PauseChanged;
-            this.Player.FileRepeatChanged += Player_FileRepeatChanged;            
+            this.Player.FileRepeatChanged += Player_FileRepeatChanged;
+        }
+        private void Player_MuteChanged(object sender, bool e)
+        {
+            this.Invoke(new Action(() =>
+            {
+                this.ChkMuted.CheckedChanged -= ChkMuted_CheckedChanged;
+                try
+                {
+                    this.ChkMuted.Checked = e;
+                }
+                finally
+                {
+                    this.ChkMuted.CheckedChanged += ChkMuted_CheckedChanged;
+                }
+            }));
         }
 
         private void Player_FileRepeatChanged(object sender, bool e)
         {
             this.Invoke(new Action(() =>
             {
-                if (e != ChkRepeatFile.Checked)
-                    ChkRepeatFile.Checked = e;
+                this.ChkRepeatFile.CheckedChanged -= ChkRepeatFile_CheckedChanged;
+                try
+                {
+                    this.ChkRepeatFile.Checked = e;
+                }
+                finally
+                {
+                    this.ChkRepeatFile.CheckedChanged += ChkRepeatFile_CheckedChanged;
+                }
             }));
         }
 
@@ -43,8 +65,15 @@ namespace mpvtest
         {
             this.Invoke(new Action(() =>
             {
-                if (ChkPauseFile.Checked != e)
-                    ChkPauseFile.Checked = e;
+                this.ChkPauseFile.CheckedChanged -= ChkPauseFile_CheckedChanged;
+                try
+                {
+                    this.ChkPauseFile.Checked = e;
+                }
+                finally
+                {
+                    this.ChkPauseFile.CheckedChanged += ChkPauseFile_CheckedChanged;
+                }
             }));
         }
 
@@ -202,14 +231,41 @@ namespace mpvtest
 
         private void ChkRepeatFile_CheckedChanged(object sender, EventArgs e)
         {
-            if (Player.RepeatFile != ChkRepeatFile.Checked)
-                Player.RepeatFile = ChkRepeatFile.Checked;
+            this.Player.FileRepeatChanged -= Player_FileRepeatChanged;
+            try
+            {
+                this.Player.RepeatFile = ChkRepeatFile.Checked;
+            }
+            finally
+            {
+                this.Player.FileRepeatChanged += Player_FileRepeatChanged;
+            }
         }
 
         private void ChkPauseFile_CheckedChanged(object sender, EventArgs e)
         {
-            if (Player.IsPause != ChkPauseFile.Checked)
-                Player.IsPause = ChkPauseFile.Checked;
+            this.Player.PauseChanged -= Player_PauseChanged;
+            try
+            {
+                this.Player.IsPause = ChkPauseFile.Checked;
+            }
+            finally
+            {
+                this.Player.PauseChanged += Player_PauseChanged;
+            }
+        }
+
+        private void ChkMuted_CheckedChanged(object sender, EventArgs e)
+        {
+            this.Player.MuteChanged -= Player_MuteChanged;
+            try
+            {
+                this.Player.Mute = ChkMuted.Checked;
+            }
+            finally
+            {
+                this.Player.MuteChanged += Player_MuteChanged;
+            }
         }
 
         private void ButFullStop_Click(object sender, EventArgs e)
