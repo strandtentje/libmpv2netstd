@@ -7,17 +7,7 @@ using System.Runtime.InteropServices;
 namespace libmpv2net
 {
     public static class mpv_events
-    {
-        /// <summary>
-        /// For a textual representation of our mpv_event_id enum.
-        /// Shouldn't be too necessary in our managed code.
-        /// </summary>
-        /// <param name="event_id">Event ID</param>
-        /// <returns></returns>
-        [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string mpv_event_name(mpv_event_id event_id);
-        
+    {        
         /// <summary>
         /// Converts an mpv_event into an mpv_node_unknown.
         /// use this with mpv_free_node_contents after.

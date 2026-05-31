@@ -20,6 +20,6 @@ namespace libmpv2net
         /// Arbitrary arguments, depends on the origin.
         /// </summary>
         [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)]
-        public mpv_string[] args;
+        public IntPtr[] args;
     }
 }

@@ -49,6 +49,7 @@ namespace libmpv2net
                     }
                     return targetArray;
                 case mpv_format.NodeMap:
+                    /*
                     var nodeMap = (mpv_node_map)Marshal.PtrToStructure(
                         ptr, typeof(mpv_node_map));
                     var outMap = new Dictionary<string, object>();
@@ -58,7 +59,9 @@ namespace libmpv2net
                         var subNode = nodeMap.values[i];
                         outMap[key.value] = subNode.Data.ToObject(subNode.Format);
                     }
-                    return outMap;
+                    return outMap; 
+                    */
+                    throw new NotSupportedException();
                 case mpv_format.ByteArray:
                     var srcArr = (mpv_byte_array_64)Marshal.PtrToStructure(
                         ptr, typeof(mpv_byte_array_64));

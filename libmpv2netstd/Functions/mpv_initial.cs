@@ -47,15 +47,5 @@ namespace libmpv2net.Functions
         /// <param name="handle"></param>
         [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern void mpv_terminate_destroy(mpv_handle handle);
-
-        /// <summary>
-        /// Create a kind of sub-context. Check docs. Seems spooky.
-        /// </summary>
-        /// <param name="handle"></param>
-        /// <param name="name"></param>
-        /// <returns></returns>
-        [DllImport("libmpv-2.dll", CallingConvention = CallingConvention.Cdecl)]
-        public static extern mpv_handle mpv_create_client(mpv_handle handle, 
-            [MarshalAs(UnmanagedType.LPUTF8Str)] ref string name);
     }
 }

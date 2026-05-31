@@ -19,6 +19,6 @@ namespace libmpv2net
         [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)]
         public mpv_node_unknown[] values;
         [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)]
-        public mpv_string[] keys;
+        public IntPtr[] keys;
     }
 }
