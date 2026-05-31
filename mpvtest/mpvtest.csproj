@@ -117,9 +117,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\LibMpvWrapper\LibMpvWrapper.csproj">
-      <Project>{530f126b-8e31-47d8-aa8a-c4a76764ed83}</Project>
-      <Name>LibMpvWrapper</Name>
+    <ProjectReference Include="..\LibMpvWrapperStandard2\LibMpvWrapperStandard2.csproj">
+      <Project>{adb33713-f813-4b65-8eb1-b5d6077bd8af}</Project>
+      <Name>LibMpvWrapperStandard2</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
