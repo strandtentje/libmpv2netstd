@@ -11,12 +11,22 @@ namespace libmpv2netstd
     {
         public static void Accomodate()
         {
-            if (File.Exists("libmpv-2.so"))
+            var assemblyDirectory = Path.GetDirectoryName(typeof(mpv_platform).Assembly.Location);
+            if (assemblyDirectory == null)
+            {
+                Console.Error.WriteLine("Cannot locate assembly working directory");
+                Environment.Exit(-1);
+            }
+
+            var targetFile = Path.Combine(assemblyDirectory, "libmpv-2.so");
+
+            if (File.Exists(targetFile))
                 return;
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
-                if (File.Exists("libmpv-2.dll"))
-                    File.Copy("libmpv-2.dll", "libmpv-2.so");
+                var sourceFile = Path.Combine(assemblyDirectory, "libmpv-2.dll");
+                if (File.Exists(sourceFile))
+                    File.Copy(sourceFile, targetFile);
                 else
                 {
                     Console.Error.WriteLine("Ensure libmpv-2.dll is next to the executable.");
@@ -34,14 +44,7 @@ namespace libmpv2netstd
                 var libMpvs = new List<FileInfo>();
                 (new DirectoryInfo("/usr/lib")).RecursiveFind("libmpv*", libMpvs);
                 var latestLibMpv = libMpvs.OrderBy(x => x.CreationTime).Last();
-                var assemblyDirectory = Path.GetDirectoryName(typeof(mpv_platform).Assembly.Location);
-                if (assemblyDirectory == null)
-                {
-                    Console.Error.WriteLine("Cannot locate assembly working directory");
-                    Environment.Exit(-1);
-                }
-
-                var targetFile = Path.Combine(assemblyDirectory, "libmpv-2.so");
+                
                 latestLibMpv.CopyTo(targetFile);
             }
             else
