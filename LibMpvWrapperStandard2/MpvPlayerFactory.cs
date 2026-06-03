@@ -37,7 +37,8 @@ namespace LibMpvWrapper
 
         public MpvPlayer CreatePlayer(
             IntPtr parent,
-            PlaylistLifecycle lifeCycle)
+            PlaylistLifecycle lifeCycle,
+            bool watchProperties = true)
         {
             lock (CreateLock)
             {
@@ -72,7 +73,7 @@ namespace LibMpvWrapper
 
             mpv_initial.mpv_initialize(this.Handle).Assert();
 
-            return new MpvPlayer(this.Handle);
+            return new MpvPlayer(this.Handle, watchProperties);
         }
     }
 }

@@ -9,31 +9,11 @@ namespace libmpv2netstd
 {
     public static class mpv_platform
     {
+        private static readonly object AccomodateLock = new object();
         public static void Accomodate()
         {
-            if (File.Exists("libmpv-2.so"))
-                return;
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            lock (AccomodateLock)
             {
-                if (File.Exists("libmpv-2.dll"))
-                    File.Copy("libmpv-2.dll", "libmpv-2.so");
-                else
-                {
-                    Console.Error.WriteLine("Ensure libmpv-2.dll is next to the executable.");
-                    Environment.Exit(-1);
-                }
-            }
-            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-            {
-                if (!Directory.Exists("/usr/lib"))
-                {
-                    Console.Error.WriteLine("Missing /usr/lib");
-                    Environment.Exit(-1);
-                }
-
-                var libMpvs = new List<FileInfo>();
-                (new DirectoryInfo("/usr/lib")).RecursiveFind("libmpv*", libMpvs);
-                var latestLibMpv = libMpvs.OrderBy(x => x.CreationTime).Last();
                 var assemblyDirectory = Path.GetDirectoryName(typeof(mpv_platform).Assembly.Location);
                 if (assemblyDirectory == null)
                 {
@@ -42,12 +22,38 @@ namespace libmpv2netstd
                 }
 
                 var targetFile = Path.Combine(assemblyDirectory, "libmpv-2.so");
-                latestLibMpv.CopyTo(targetFile);
-            }
-            else
-            {
-                Console.Error.WriteLine("This OS doesn't seem to be supported");
-                Environment.Exit(-1);
+
+                if (File.Exists(targetFile))
+                    return;
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                {
+                    if (File.Exists("libmpv-2.dll"))
+                        File.Copy("libmpv-2.dll", targetFile);
+                    else
+                    {
+                        Console.Error.WriteLine("Ensure libmpv-2.dll is next to the executable.");
+                        Environment.Exit(-1);
+                    }
+                }
+                else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+                {
+                    if (!Directory.Exists("/usr/lib"))
+                    {
+                        Console.Error.WriteLine("Missing /usr/lib");
+                        Environment.Exit(-1);
+                    }
+
+                    var libMpvs = new List<FileInfo>();
+                    (new DirectoryInfo("/usr/lib")).RecursiveFind("libmpv*", libMpvs);
+                    var latestLibMpv = libMpvs.OrderBy(x => x.CreationTime).Last();
+
+                    latestLibMpv.CopyTo(targetFile);
+                }
+                else
+                {
+                    Console.Error.WriteLine("This OS doesn't seem to be supported");
+                    Environment.Exit(-1);
+                }
             }
         }
     }

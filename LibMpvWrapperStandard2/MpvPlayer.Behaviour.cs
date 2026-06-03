@@ -24,10 +24,21 @@ namespace LibMpvWrapper
             StartPollingEvents();
             if (!watchProperties) return;
             this.WatchPropertyNone(
-                STR_FILENAME_PROPERTY_RO, STR_PATH_PROPERTY_RO, STR_MEDIA_TITLE_PROPERTY_RO, STR_DURATION_PROPERTY_RO,
-                STR_PERCENT_POS_PROPERTY_RW, STR_TIME_POS_PROPERTY_RW, STR_PLAYLIST_PLAYING_POS_PROPERTY_RO,
-                STR_PLAYLIST_COUNT_PROPERTY_RO, STR_PLAYLIST_POS_PROPERTY_RW, STR_IDLE_ACTIVE_PROPERTY_RO, STR_EOF_REACHED_PROPERTY_RO,
-                STR_PAUSE_PROPERTY_RW, STR_LOOP_FILE_PROPERTY_RW, STR_LOOP_PLAYLIST_PROPERTY_RW, STR_MUTE_RW);
+                STR_FILENAME_PROPERTY_RO, 
+                STR_PATH_PROPERTY_RO, 
+                STR_MEDIA_TITLE_PROPERTY_RO, 
+                STR_DURATION_PROPERTY_RO,
+                STR_PERCENT_POS_PROPERTY_RW, 
+                STR_TIME_POS_PROPERTY_RW, 
+                STR_PLAYLIST_PLAYING_POS_PROPERTY_RO,
+                STR_PLAYLIST_COUNT_PROPERTY_RO, 
+                STR_PLAYLIST_POS_PROPERTY_RW, 
+                STR_IDLE_ACTIVE_PROPERTY_RO,
+                STR_EOF_REACHED_PROPERTY_RO,
+                STR_PAUSE_PROPERTY_RW, 
+                STR_LOOP_FILE_PROPERTY_RW, 
+                STR_LOOP_PLAYLIST_PROPERTY_RW,
+                STR_MUTE_RW);
         }
 
         /// <summary>
