@@ -27,8 +27,9 @@ namespace libmpv2netstd
                     return;
                 if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                 {
-                    if (File.Exists("libmpv-2.dll"))
-                        File.Copy("libmpv-2.dll", targetFile);
+                    var sourceFile = Path.Combine(assemblyDirectory, "libmpv-2.dll");
+                    if (File.Exists(sourceFile))
+                        File.Copy(sourceFile, targetFile);
                     else
                     {
                         Console.Error.WriteLine("Ensure libmpv-2.dll is next to the executable.");
@@ -46,7 +47,7 @@ namespace libmpv2netstd
                     var libMpvs = new List<FileInfo>();
                     (new DirectoryInfo("/usr/lib")).RecursiveFind("libmpv*", libMpvs);
                     var latestLibMpv = libMpvs.OrderBy(x => x.CreationTime).Last();
-
+                    
                     latestLibMpv.CopyTo(targetFile);
                 }
                 else
