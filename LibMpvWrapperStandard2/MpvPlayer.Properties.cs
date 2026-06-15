@@ -103,37 +103,96 @@ namespace LibMpvWrapper
             }
         }
 
-        public string[] PlaylistFiles
-        {
-            get
-            {
-                string[] files = new string[PlaylistCount];
-                var ph = new string('0', files.Length.ToString(CultureInfo.InvariantCulture).Length);
-                using (var sptr = UnicodeBinaryString.From(string.Format("playlist/{0}/filename", ph)))
-                    for (int i = 0; i < files.Length; i++)
-                    {
-                        var qry = sptr.Overwrite(i.ToString(ph), "playlist/".Length);
-                        Debug.WriteLine(qry.ToString());
-                        files[i] = mpv_properties.mpv_get_property_string(this, qry);
-                    }
+        public string[] PlaylistFiles => GetPlaylistQueueFiles(0);
 
-                return files;
-            }
+        public string[] GetPlaylistQueueFiles(int startAt, int cap = -1)
+        {
+            var pc = PlaylistCount;
+            var size = pc - startAt;
+
+            if (cap != -1)
+                size = Math.Min(size, cap);
+
+            if (size < 1) return new string[] { };
+
+            string[] files = new string[size];
+            var ph = new string('0', pc.ToString(CultureInfo.InvariantCulture).Length);
+            using (var sptr = UnicodeBinaryString.From(string.Format("playlist/{0}/filename", ph)))
+                for (int i = startAt; i < startAt + files.Length; i++)
+                {
+                    var qry = sptr.Overwrite(i.ToString(ph), "playlist/".Length);
+                    Debug.WriteLine(qry.ToString());
+                    files[i - startAt] = mpv_properties.mpv_get_property_string(this, qry);
+                }
+
+            return files;
         }
 
-        public string[] PlaylistTitles
+        public string[] GetPlaylistHistoricFiles(int startAt, int cap = -1)
         {
-            get
-            {
-                string[] titles = new string[PlaylistCount];
-                var ph = new string('0', titles.Length.ToString(CultureInfo.InvariantCulture).Length);
-                using (var sptr = UnicodeBinaryString.From(string.Format("playlist/{0}/filename", ph)))
-                    for (int i = 0; i < titles.Length; i++)
-                        titles[i] = mpv_properties.mpv_get_property_string(this,
-                            sptr.Overwrite(i.ToString(ph), "playlist/".Length));
-                return titles;
-            }
+            var size = startAt;
+            if (cap != -1)
+                size = Math.Min(size, cap);
+            
+            string[] files = new string[size];
+            var ph = new string('0', startAt.ToString(CultureInfo.InvariantCulture).Length);
+            using (var sptr = UnicodeBinaryString.From(string.Format("playlist/{0}/filename", ph)))
+                for (int i = 0; i < size; i++)
+                {
+                    var qry = sptr.Overwrite(i.ToString(ph), "playlist/".Length);
+                    files[startAt - i] = mpv_properties.mpv_get_property_string(this, qry);
+                }
+
+            return files;
         }
+
+        public string[] PlaylistTitles => GetPlaylistQueueTitles(0);
+
+        public string[] GetPlaylistQueueTitles(int startAt, int cap = -1)
+        {
+            var pc = PlaylistCount;
+            var size = pc - startAt;
+
+            if (cap != -1)
+                size = Math.Min(size, cap);
+
+            if (size < 1) return new string[] { };
+
+            string[] titles = new string[size];
+            var ph = new string('0', pc.ToString(CultureInfo.InvariantCulture).Length);
+            using (var sptr = UnicodeBinaryString.From(string.Format("playlist/{0}/title", ph)))
+                for (int i = startAt; i < startAt + titles.Length; i++)
+                    titles[i - startAt] = mpv_properties.mpv_get_property_string(this,
+                        sptr.Overwrite(i.ToString(ph), "playlist/".Length));
+            return titles;
+        }
+
+        public string[] GetPlaylistHistoricTitles(int startAt, int cap = -1)
+        {
+            var size = startAt;
+            if (cap != -1)
+                size = Math.Min(size, cap);
+            
+            string[] files = new string[size];
+            var ph = new string('0', startAt.ToString(CultureInfo.InvariantCulture).Length);
+            using (var sptr = UnicodeBinaryString.From(string.Format("playlist/{0}/title", ph)))
+                for (int i = 0; i < size; i++)
+                {
+                    var qry = sptr.Overwrite(i.ToString(ph), "playlist/".Length);
+                    files[startAt - i] = mpv_properties.mpv_get_property_string(this, qry);
+                }
+
+            return files;
+        }
+        public (string file, string title)[] GetHistoryFileTitles(int startAt, int cap) =>
+            GetPlaylistHistoricFiles(startAt, cap).
+                Zip(GetPlaylistHistoricTitles(startAt, cap),
+                    (s, s1) => (s, s1)).ToArray();
+        
+        public (string file, string title)[] GetQueueFileTitles(int startAt, int cap) =>
+            GetPlaylistQueueFiles(startAt, cap).
+                Zip(GetPlaylistQueueTitles(startAt, cap),
+                    (s, s1) => (s, s1)).ToArray();
 
         public string[] PlaylistSources
         {

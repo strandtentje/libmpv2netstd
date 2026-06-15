@@ -50,8 +50,8 @@ namespace LibMpvWrapper
 
             var keepOpen = lifeCycle.AsKeepOpenArg();
 
-            // mpv_options.mpv_set_option_string(
-            //   this.Handle, "keep-open", keepOpen);
+            mpv_options.mpv_set_option_string(
+               this.Handle, "keep-open", keepOpen);
 
             mpv_options.mpv_set_option_string(
                 this.Handle, "idle", "yes");
