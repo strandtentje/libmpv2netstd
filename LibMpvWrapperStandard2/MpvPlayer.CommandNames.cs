@@ -43,7 +43,7 @@ namespace LibMpvWrapper
             STR_PLAYLIST_NEXT.Dispose();
             STR_PLAYLIST_PREV.Dispose();
             STR_PLAYLIST_NEXT_PLAYLIST.Dispose();
-            STR_PLAYLIST_NEXT_PLAYLIST.Dispose();
+            STR_PLAYLIST_PREV_PLAYLIST.Dispose();
             STR_PLAYLIST_PLAY_INDEX.Dispose();
             STR_NONE.Dispose();
             STR_CURRENT.Dispose();

@@ -37,7 +37,8 @@ namespace LibMpvWrapper
 
         public MpvPlayer CreatePlayer(
             IntPtr parent,
-            PlaylistLifecycle lifeCycle)
+            PlaylistLifecycle lifeCycle,
+            int updateInterval = 100)
         {
             lock (CreateLock)
             {
@@ -49,8 +50,8 @@ namespace LibMpvWrapper
 
             var keepOpen = lifeCycle.AsKeepOpenArg();
 
-            // mpv_options.mpv_set_option_string(
-            //   this.Handle, "keep-open", keepOpen);
+            mpv_options.mpv_set_option_string(
+                this.Handle, "keep-open", keepOpen);
 
             mpv_options.mpv_set_option_string(
                 this.Handle, "idle", "yes");
@@ -72,7 +73,7 @@ namespace LibMpvWrapper
 
             mpv_initial.mpv_initialize(this.Handle).Assert();
 
-            return new MpvPlayer(this.Handle);
+            return new MpvPlayer(this.Handle, updateInterval: updateInterval);
         }
     }
 }

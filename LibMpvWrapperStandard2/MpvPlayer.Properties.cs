@@ -21,6 +21,21 @@ namespace LibMpvWrapper
             }
         }
 
+        public double Speed
+        {
+            get
+            {
+                return double.TryParse(
+                    mpv_properties.mpv_get_property_string(this, STR_SPEED_RW),
+                    NumberStyles.Any, CultureInfo.InvariantCulture, out double spd) ? spd : 1;
+            }
+            set
+            {
+                using (var ubs = UnicodeBinaryString.From(value.ToString(CultureInfo.InvariantCulture)))
+                    mpv_properties.mpv_set_property_string(this, STR_SPEED_RW.HGlobal, ubs.HGlobal);
+            }
+        }
+
         public string CurrentFilePath
         {
             get
@@ -337,12 +352,19 @@ namespace LibMpvWrapper
         {
             get
             {
-                var v = mpv_properties.mpv_get_property(
-                    this, STR_PERCENT_POS_PROPERTY_RW, mpv_format.Double);
-                if (v is double dbl)
-                    return dbl;
-                Debug.WriteLine("current % pos was null");
-                return 0.0;
+                try
+                {
+                    var v = mpv_properties.mpv_get_property(
+                        this, STR_PERCENT_POS_PROPERTY_RW, mpv_format.Double);
+                    if (v is double dbl)
+                        return dbl;
+                    Debug.WriteLine("current % pos was null");
+                    return 0.0;
+                }
+                catch (Exception ex)
+                {
+                    return 0;
+                }
             }
             set { mpv_properties.mpv_set_property(this, STR_PERCENT_POS_PROPERTY_RW, value); }
         }
@@ -354,12 +376,19 @@ namespace LibMpvWrapper
         {
             get
             {
-                var v = mpv_properties.mpv_get_property(this, STR_TIME_POS_PROPERTY_RW, mpv_format.Double);
-                if (v is double dbl)
-                    return dbl;
+                try
+                {
+                    var v = mpv_properties.mpv_get_property(this, STR_TIME_POS_PROPERTY_RW, mpv_format.Double);
+                    if (v is double dbl)
+                        return dbl;
 
-                Debug.WriteLine("time pos property was null");
-                return 0;
+                    Debug.WriteLine("time pos property was null");
+                    return 0;
+                }
+                catch (Exception ex)
+                {
+                    return 0;
+                }
             }
             set { mpv_properties.mpv_set_property(this, STR_TIME_POS_PROPERTY_RW, value); }
         }

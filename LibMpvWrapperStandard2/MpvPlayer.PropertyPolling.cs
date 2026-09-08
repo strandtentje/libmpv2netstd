@@ -13,10 +13,10 @@ namespace LibMpvWrapper
 
         private void PollPropertiesLoop(object state)
         {
-            if (Interlocked.Exchange(ref TimeSignals, 0L) > 0L)
-                TimeChanged?.Invoke(this, this.CurrentTimePosition);
-            if (Interlocked.Exchange(ref PercentageSignals, 0L) > 0L)
-                PercentageChanged?.Invoke(this, this.CurrentPercentagePosition);
+                if (Interlocked.Exchange(ref TimeSignals, 0L) > 0L)
+                    TimeChanged?.Invoke(this, this.CurrentTimePosition);
+                if (Interlocked.Exchange(ref PercentageSignals, 0L) > 0L)
+                    PercentageChanged?.Invoke(this, this.CurrentPercentagePosition);
         }
     }
 }

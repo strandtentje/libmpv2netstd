@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using libmpv2net;
 using libmpv2net.Functions;
@@ -16,11 +17,11 @@ namespace LibMpvWrapper
         /// Is under transport controls as radio btns
         /// </summary>
 
-        public MpvPlayer(mpv_handle handle, bool watchProperties = true)
+        public MpvPlayer(mpv_handle handle, bool watchProperties = true, int updateInterval = 100)
         {
             this.Handle = handle;
             this.PropertyPoller = new System.Threading.Timer(
-                new System.Threading.TimerCallback(PollPropertiesLoop), null, 100, 100);
+                new System.Threading.TimerCallback(PollPropertiesLoop), null, updateInterval, updateInterval);
             StartPollingEvents();
             if (!watchProperties) return;
             this.WatchPropertyNone(
@@ -58,6 +59,7 @@ namespace LibMpvWrapper
 
         public static implicit operator mpv_handle(MpvPlayer player)
         {
+            if (player.IsDisposed) throw new ObjectDisposedException(nameof(MpvPlayer));
             return player.Handle;
         }
 
@@ -67,6 +69,7 @@ namespace LibMpvWrapper
 
         public void Dispose()
         {
+            mpv_handle handle = this;
             lock (DisposeLock)
             {
                 if (this.IsDisposed) return;
@@ -74,8 +77,8 @@ namespace LibMpvWrapper
             }
             try
             {
-                mpv_events.mpv_wakeup(this);
-                mpv_initial.mpv_terminate_destroy(this);
+                mpv_events.mpv_wakeup(handle);
+                mpv_initial.mpv_terminate_destroy(handle);
             }
             finally
             {

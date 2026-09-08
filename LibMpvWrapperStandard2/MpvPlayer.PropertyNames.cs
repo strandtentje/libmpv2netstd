@@ -27,7 +27,8 @@ namespace LibMpvWrapper
             MUTE_RW = "mute",
             KEEPASPECT_WINDOW_RW = "keepaspect-window",
             FULLSCREEN_RW = "fullscreen",
-            FS_MONITOR_RW = "fs-screen";
+            FS_MONITOR_RW = "fs-screen",
+            SPEED_RW = "speed";
 
         private readonly UnicodeBinaryString
             STR_FILENAME_PROPERTY_RO = UnicodeBinaryString.From(FILENAME_PROPERTY_RO),
@@ -47,7 +48,8 @@ namespace LibMpvWrapper
             STR_MUTE_RW = UnicodeBinaryString.From(MUTE_RW),
             STR_KEEPASPECT_WINDOW_RW = UnicodeBinaryString.From(KEEPASPECT_WINDOW_RW),
             STR_FULLSCREEN_RW = UnicodeBinaryString.From(FULLSCREEN_RW),
-            STR_FS_MONITOR_RW = UnicodeBinaryString.From(FS_MONITOR_RW);
+            STR_FS_MONITOR_RW = UnicodeBinaryString.From(FS_MONITOR_RW),
+            STR_SPEED_RW = UnicodeBinaryString.From(SPEED_RW);
 
         private readonly UnicodeBinaryString
             STR_YES = UnicodeBinaryString.From("yes"),
@@ -56,6 +58,7 @@ namespace LibMpvWrapper
 
         private void DisposePropertyNames()
         {
+            STR_SPEED_RW.Dispose();
             STR_FILENAME_PROPERTY_RO.Dispose();
             STR_PATH_PROPERTY_RO.Dispose();
             STR_MEDIA_TITLE_PROPERTY_RO.Dispose();

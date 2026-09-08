@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\libmpv2netstd\libmpv2netstd.csproj" />
+    <ProjectReference Include="..\..\Define.Content.AutomationKioskShell\libmpv2netstd\libmpv2netstd\libmpv2netstd.csproj" />
   </ItemGroup>
 
 </Project>

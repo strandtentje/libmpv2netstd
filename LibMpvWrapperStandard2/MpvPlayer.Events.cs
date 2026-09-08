@@ -41,6 +41,9 @@ namespace LibMpvWrapper
                 ThreadPool.QueueUserWorkItem(HandleNonPropertyEvent, evt);
             }
 
+            if (evt.event_id == mpv_event_id.None)
+                return;
+
             switch (evt.event_id)
             {
                 case mpv_event_id.None:
@@ -80,7 +83,7 @@ namespace LibMpvWrapper
                     break;
                 case mpv_event_id.AudioReconfig:
                     // this shouldn't really happen
-                    Console.Error.WriteLine("Audio Reconfig for some reason.");
+                    // Console.Error.WriteLine("Audio Reconfig for some reason.");
                     break;
                 case mpv_event_id.Hook:
                 case mpv_event_id.Tick:
