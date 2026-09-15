@@ -13,10 +13,10 @@ namespace LibMpvWrapper
     {
         public bool IsDisposed { get; private set; }
         public readonly mpv_handle Handle;
+
         /// <summary>
         /// Is under transport controls as radio btns
         /// </summary>
-
         public MpvPlayer(mpv_handle handle, bool watchProperties = true, int updateInterval = 100)
         {
             this.Handle = handle;
@@ -25,19 +25,19 @@ namespace LibMpvWrapper
             StartPollingEvents();
             if (!watchProperties) return;
             this.WatchPropertyNone(
-                STR_FILENAME_PROPERTY_RO, 
-                STR_PATH_PROPERTY_RO, 
-                STR_MEDIA_TITLE_PROPERTY_RO, 
+                STR_FILENAME_PROPERTY_RO,
+                STR_PATH_PROPERTY_RO,
+                STR_MEDIA_TITLE_PROPERTY_RO,
                 STR_DURATION_PROPERTY_RO,
-                STR_PERCENT_POS_PROPERTY_RW, 
-                STR_TIME_POS_PROPERTY_RW, 
+                STR_PERCENT_POS_PROPERTY_RW,
+                STR_TIME_POS_PROPERTY_RW,
                 STR_PLAYLIST_PLAYING_POS_PROPERTY_RO,
-                STR_PLAYLIST_COUNT_PROPERTY_RO, 
-                STR_PLAYLIST_POS_PROPERTY_RW, 
+                STR_PLAYLIST_COUNT_PROPERTY_RO,
+                STR_PLAYLIST_POS_PROPERTY_RW,
                 STR_IDLE_ACTIVE_PROPERTY_RO,
                 STR_EOF_REACHED_PROPERTY_RO,
-                STR_PAUSE_PROPERTY_RW, 
-                STR_LOOP_FILE_PROPERTY_RW, 
+                STR_PAUSE_PROPERTY_RW,
+                STR_LOOP_FILE_PROPERTY_RW,
                 STR_LOOP_PLAYLIST_PROPERTY_RW,
                 STR_MUTE_RW);
         }
@@ -74,9 +74,27 @@ namespace LibMpvWrapper
             return player.Handle;
         }
 
+        private Overlay BackingOverlay = null;
+        public Overlay Overlay => BackingOverlay ?? (BackingOverlay = new Overlay(this));
+
         #region IDisposable Members
 
         private readonly object DisposeLock = new object();
+
+        public string this[string propertyName]
+        {
+            get
+            {
+                using (var str = UnicodeBinaryString.From(propertyName))
+                    return mpv_properties.mpv_get_property_string(this, str);
+            }
+            set
+            {
+                using (var key = UnicodeBinaryString.From(propertyName))
+                using (var val = UnicodeBinaryString.From(value))
+                    mpv_properties.mpv_set_property_string(this, key.HGlobal, val.HGlobal);
+            }
+        }
 
         public void Dispose()
         {
@@ -86,15 +104,23 @@ namespace LibMpvWrapper
                 if (this.IsDisposed) return;
                 this.IsDisposed = true;
             }
+
             try
             {
-                mpv_events.mpv_wakeup(handle);
-                mpv_initial.mpv_terminate_destroy(handle);
+                BackingOverlay?.Dispose();
             }
             finally
             {
-                DisposeCommandNames();
-                DisposePropertyNames();
+                try
+                {
+                    mpv_events.mpv_wakeup(handle);
+                    mpv_initial.mpv_terminate_destroy(handle);
+                }
+                finally
+                {
+                    DisposeCommandNames();
+                    DisposePropertyNames();
+                }
             }
         }
 

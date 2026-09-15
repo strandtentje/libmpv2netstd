@@ -28,7 +28,9 @@ namespace LibMpvWrapper
             KEEPASPECT_WINDOW_RW = "keepaspect-window",
             FULLSCREEN_RW = "fullscreen",
             FS_MONITOR_RW = "fs-screen",
-            SPEED_RW = "speed";
+            SPEED_RW = "speed",
+            DISPLAY_WIDTH_RO = "display-width",
+            DISPLAY_HEIGHT_RO = "display-height";
 
         private readonly UnicodeBinaryString
             STR_FILENAME_PROPERTY_RO = UnicodeBinaryString.From(FILENAME_PROPERTY_RO),
@@ -49,7 +51,9 @@ namespace LibMpvWrapper
             STR_KEEPASPECT_WINDOW_RW = UnicodeBinaryString.From(KEEPASPECT_WINDOW_RW),
             STR_FULLSCREEN_RW = UnicodeBinaryString.From(FULLSCREEN_RW),
             STR_FS_MONITOR_RW = UnicodeBinaryString.From(FS_MONITOR_RW),
-            STR_SPEED_RW = UnicodeBinaryString.From(SPEED_RW);
+            STR_SPEED_RW = UnicodeBinaryString.From(SPEED_RW),
+            STR_DISPLAY_WIDTH_RO = UnicodeBinaryString.From(DISPLAY_WIDTH_RO),
+            STR_DISPLAY_HEIGHT_RO = UnicodeBinaryString.From(DISPLAY_HEIGHT_RO);
 
         private readonly UnicodeBinaryString
             STR_YES = UnicodeBinaryString.From("yes"),
@@ -80,6 +84,8 @@ namespace LibMpvWrapper
             STR_YES.Dispose();
             STR_NO.Dispose();
             STR_INF.Dispose();
+            STR_DISPLAY_WIDTH_RO.Dispose();
+            STR_DISPLAY_HEIGHT_RO.Dispose();
         }
     }
 }

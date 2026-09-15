@@ -36,7 +36,9 @@ namespace LibMpvWrapper
             STR_KEYFRAMES = UnicodeBinaryString.From("keyframes"),
             STR_MUTE = UnicodeBinaryString.From("mute"),
             STR_PLAY = UnicodeBinaryString.From("play"),
-            STR_KEEP_PLAYLIST = UnicodeBinaryString.From("keep-playlist");
+            STR_KEEP_PLAYLIST = UnicodeBinaryString.From("keep-playlist"),
+            STR_OVERLAY_ADD = UnicodeBinaryString.From("overlay-add"),
+            STR_OVERLAY_REMOVE = UnicodeBinaryString.From("overlay-remove");
 
         private void DisposeCommandNames()
         {

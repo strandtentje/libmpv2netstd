@@ -10,7 +10,38 @@ namespace LibMpvWrapper
 {
     public static class PlaylistExtensions
     {
-        public static void SendCommand(this MpvPlayer player, params UnicodeBinaryString[] command)
+        public static void SendCommand(this MpvPlayer player, IEnumerable<string> command)
+        {
+            var ubs = command.Select(UnicodeBinaryString.From).ToArray();
+            try
+            {
+                player.SendCommand(ubs);
+            }
+            finally
+            {
+                foreach (var unicodeBinaryString in ubs)
+                    unicodeBinaryString.Dispose();
+            }
+        }
+
+        public static void SendCommand(this MpvPlayer player, UnicodeBinaryString command, params object[] args)
+        {
+            var argPointers = args.Select(x => UnicodeBinaryString.From(x.ToString())).ToArray();
+            try
+            {
+                SendCommand(player, argPointers.Prepend(command));
+            }
+            finally
+            {
+                foreach (var unicodeBinaryString in argPointers)
+                    unicodeBinaryString.Dispose();
+            }
+        }
+
+        public static void SendCommand(this MpvPlayer player, params UnicodeBinaryString[] command) =>
+            player.SendCommand(command.AsEnumerable());
+
+        public static void SendCommand(this MpvPlayer player, IEnumerable<UnicodeBinaryString> command)
         {
             try
             {
@@ -51,7 +82,7 @@ namespace LibMpvWrapper
                 }
             }
         }
-        
+
         /// <summary>
         /// Is next button under cue controls
         /// </summary>
